@@ -99,10 +99,10 @@
     const w = st.windows[st.active] || st.windows[0];
     const wf = WW.toFeet(w.w, w.unit), hf = WW.toFeet(w.h, w.unit);
     if (wf > 0 && hf > 0) {
-      d.innerHTML = WW.drawWindow(wf, hf, st.cat, { glass: '#6f9be0' });
+      d.innerHTML = WW.drawWindow(wf, hf, st.cat, { glass: '#5b76ad' });
       $('#win-read').textContent = `${w.room || 'This window'}: ${+wf.toFixed(1)} ft wide, ${+hf.toFixed(1)} ft tall`;
     } else {
-      d.innerHTML = WW.drawWindow(4, 5, st.cat, { glass: '#6f9be0' });
+      d.innerHTML = WW.drawWindow(4, 5, st.cat, { glass: '#5b76ad' });
       $('#win-read').textContent = 'Type a size and it appears here to scale';
     }
   }

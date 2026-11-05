@@ -90,7 +90,7 @@
 
   /* The window drawn to scale, with the chosen blind or curtain on it. */
   function drawWindow(wFt, hFt, cat, opts) {
-    const o = Object.assign({ frame: '#ffffff', glass: '#8fb2e6', cloth: '#ffffff', w: 420, h: 340 }, opts);
+    const o = Object.assign({ frame: '#ffffff', glass: '#8fa6cf', cloth: '#ffffff', w: 420, h: 340 }, opts);
     const scale = Math.min((o.w - 24) / Math.max(wFt, 12), (o.h - 24) / Math.max(hFt, 10));
     const W = Math.max(wFt * scale, 14), H = Math.max(hFt * scale, 14);
     const x = (o.w - W) / 2, y = (o.h - H) / 2;

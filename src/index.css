@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+
+:root { --ease: cubic-bezier(.22, 1, .36, 1); }
+html { scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+body { background: #FBF9F5; color: #081C45; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; overflow-x: clip; -webkit-font-smoothing: antialiased; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }
+:focus-visible { outline: 2px solid #9E7B32; outline-offset: 3px; }
+::selection { background: #F2D888; color: #081C45; }
+.split-parent { max-width: 100%; }
+
+/* Buttons take the slanted end of the slats in the Window Works logo. Gold rolls down like a blind. */
+.slat-btn {
+  position: relative; isolation: isolate; display: inline-flex; align-items: center; justify-content: center; gap: .75rem;
+  padding: 1rem 2.25rem 1rem 1.5rem; background: #081C45; color: #fff; font-weight: 600; font-size: .9375rem; line-height: 1.25;
+  text-decoration: none; border: 0; cursor: pointer; overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+  transition: color .25s var(--ease), transform .16s var(--ease);
+}
+.slat-btn::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; background: #D4AF37;
+  transform: scaleY(0); transform-origin: top; transition: transform .38s var(--ease);
+}
+.slat-btn:active { transform: scale(.98); }
+.slat-btn:focus-visible { outline: 2px solid #fff; outline-offset: -5px; }
+.slat-btn-gold { background: #D4AF37; color: #081C45; }
+.slat-btn-gold::before { background: #fff; }
+.slat-btn-light { background: #fff; color: #081C45; }
+.slat-btn-light::before { background: #D4AF37; }
+.slat-btn-light:focus-visible, .slat-btn-gold:focus-visible { outline-color: #081C45; }
+@media (hover: hover) {
+  .slat-btn:hover { color: #081C45; }
+  .slat-btn:hover::before { transform: scaleY(1); }
+}
+
+/* Text link with a rule that draws in from the left. */
+.line-link { position: relative; text-decoration: none; display: inline-block; padding: .25rem 0; }
+.line-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: #D4AF37; transform: scaleX(0); transform-origin: left; transition: transform .28s var(--ease); }
+@media (hover: hover) { .line-link:hover::after { transform: scaleX(1); } }
+
+/* Form fields are a single line, like a tape laid along a sill. */
+.line-field { display: block; width: 100%; min-width: 0; height: 3rem; padding: 0 .125rem; background: transparent; color: inherit; font-size: 1rem; border: 0; border-bottom: 2px solid #081C45; border-radius: 0; appearance: none; -webkit-appearance: none; transition: border-color .2s; }
+select.line-field { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23081C45' stroke-width='2'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .25rem center; padding-right: 1.5rem; }
+.line-field:focus { outline: none; border-color: #C59B63; }
+.line-field-light { border-bottom-color: #fff; }
+.line-field-light::placeholder { color: #DCE3F0; opacity: 1; }
+.line-field-light:focus { border-color: #D4AF37; }
+
+/* Room for the tails of g and y inside the line reveal. */
+.hero-line-mask { padding-bottom: .2em; margin-bottom: -.2em; }
+
+/* The hero is a real arched window. */
+.arch { border-radius: 50% 50% 0 0 / 33% 33% 0 0; }
+.curtain { position: absolute; top: 0; bottom: 0; width: 50%; background: #0B2559; z-index: 2; }
+.curtain::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 14px, rgba(0,0,0,.14) 14px 28px); }
+.curtain-l { left: 0; } .curtain-r { right: 0; }
+
+/* The cut corner from the Haute Atelier design, on the estimator panels only. */
+.cut-corner { clip-path: polygon(0 0, calc(100% - 44px) 0, 100% 44px, 100% 100%, 0 100%); }
+
+.panes { display: grid; gap: 3px; background: #081C45; border: 3px solid #081C45; }
+.pane { position: relative; background: #fff; display: flex; flex-direction: column; }
+.pane-photo { overflow: hidden; }
+.pane-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
+@media (hover: hover) { .pane:hover .pane-photo img, a:hover > .pane-photo img { transform: scale(1.04); } }
+
+.tag { display: inline-block; background: #081C45; color: #fff; font-size: .8125rem; font-weight: 600; padding: .3rem 1.1rem .3rem .65rem; clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%); }
+.tag-gold { background: #D4AF37; color: #081C45; }
+
+.rail { border-top: 3px solid #081C45; }
+.gallery-track { display: flex; gap: 1rem; }
+
+.toast-note { font-size: .9375rem; }
+@media (max-width: 1023px) {
+  .gallery-track { overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: .75rem; }
+  .gallery-track > * { scroll-snap-align: start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  .curtain { display: none; }
+}
+
+@tailwind utilities;

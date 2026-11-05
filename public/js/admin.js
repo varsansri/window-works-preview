@@ -33,7 +33,7 @@
     if (!l) return `<aside class="detail"><p class="empty">Choose an enquiry to see its windows.</p></aside>`;
     const wins = l.windows.map((w) => {
       const f = WW.toFeet(w.w, w.unit), h = WW.toFeet(w.h, w.unit);
-      return `<div class="win">${WW.drawWindow(f, h, l.cat, { frame: '#0b2a61', glass: '#b9cdee', cloth: '#134aa2', w: 140, h: 120 })}<p>${esc(w.room)}<small>${esc(w.w)} × ${esc(w.h)} ${esc(w.unit)}${w.qty > 1 ? ', ' + esc(w.qty) + ' of these' : ''}</small></p></div>`;
+      return `<div class="win">${WW.drawWindow(f, h, l.cat, { frame: '#081C45', glass: '#D9D2C2', cloth: '#081C45', w: 140, h: 120 })}<p>${esc(w.room)}<small>${esc(w.w)} × ${esc(w.h)} ${esc(w.unit)}${w.qty > 1 ? ', ' + esc(w.qty) + ' of these' : ''}</small></p></div>`;
     }).join('');
     return `<aside class="detail" aria-label="Enquiry details"><h2>${esc(l.name)}</h2><p class="sub">${esc(l.area)} · ${esc(l.mobile)}</p>
       <p class="price">${rupees(l.low)} to ${rupees(l.high)}</p><p class="sub">${esc(l.product)}, shown to the customer before GST</p>
