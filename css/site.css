@@ -1,0 +1,26 @@
+:root {
+  --blue: #081C45; --deep: #05112B; --mid: #123473; --pale: #E5DCCE; --mist: #F5F1E9; --gold: #D4AF37;
+  --ground: #FBF9F5; --ink: #081C45; --muted: #4F5F78;
+  --m: clamp(16px, 3vw, 40px);
+  --small: .875rem; --body: 1.0625rem; --lead: clamp(1.25rem, 1.1rem + .7vw, 1.625rem);
+  --slat: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--body)/1.5 'Plus Jakarta Sans', system-ui, sans-serif; overflow-x: clip; -webkit-font-smoothing: antialiased; }
+img, svg { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; letter-spacing: -.02em; line-height: 1.08; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid #9E7B32; outline-offset: 3px; }
+.preview-note { background: var(--deep); color: #fff; font-size: var(--small); padding: 8px var(--m); }
+.bar { display: flex; align-items: stretch; gap: 20px; padding: 0 var(--m); height: 68px; border-bottom: 3px solid var(--blue); margin-bottom: 28px; }
+.logo { background: #134AA2; padding: 0 12px; display: flex; align-items: center; flex: none; }
+.logo img { height: 54px; width: auto; }
+.bar > a:not(.logo) { align-self: center; }
+.btn { position: relative; isolation: isolate; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; background: var(--blue); color: #fff; font-family: inherit; font-weight: 600; font-size: .9375rem; line-height: 1.25; text-decoration: none; padding: 1rem 2.25rem 1rem 1.5rem; border: 0; cursor: pointer; clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%); transition: color .25s var(--ease), transform .16s var(--ease); }
+.btn::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--gold); transform: scaleY(0); transform-origin: top; transition: transform .38s var(--ease); }
+.btn:active { transform: scale(.98); }
+.btn:focus-visible { outline: 2px solid #fff; outline-offset: -5px; }
+@media (hover: hover) { .btn:hover { color: var(--blue); } .btn:hover::before { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; } }
