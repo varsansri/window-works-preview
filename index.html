@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Window Works | Curtains and blinds in Coimbatore</title>
+<meta name="description" content="Preview of the new Window Works site: made-to-measure curtains and blinds in Coimbatore, with a rough price for your window.">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<p class="preview-note">Preview only. Prices are real starting rates, but nothing you enter reaches Window Works.</p>
+
+<header class="bar">
+  <a class="logo" href="index.html"><img src="img/logo-white.png" width="520" height="324" alt="Window Works"></a>
+  <nav aria-label="Main">
+    <a href="#products">Products</a>
+    <a href="#prices">Prices</a>
+    <a href="#how">How it works</a>
+    <a href="#works">Our works</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="bar-call" href="tel:+919159030465">Call us</a>
+  <a class="btn btn-small" href="estimate.html">Rough price</a>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <h1>Your window,<br>your price</h1>
+    <p class="lead">Slide in your window's size and get a rough price for made-to-measure curtains or blinds in Coimbatore.</p>
+    <a class="btn" id="hero-go" href="estimate.html">Get my rough price</a>
+  </div>
+  <div class="hero-shape">
+    <div class="sizer" data-ui>
+      <div class="sizer-kind" role="group" aria-label="What do you want on this window?">
+        <button type="button" class="kind on" data-kind="blinds" aria-pressed="true">Blinds</button>
+        <button type="button" class="kind" data-kind="curtains" aria-pressed="false">Curtains</button>
+      </div>
+      <div class="sizer-draw" id="sizer-draw"></div>
+      <p class="sizer-read" id="sizer-read" aria-live="polite">6 ft wide, 7 ft tall</p>
+      <label class="slide">Width <input id="sizer-w" type="range" min="2" max="12" step="0.5" value="6"></label>
+      <label class="slide">Height <input id="sizer-h" type="range" min="2" max="10" step="0.5" value="7"></label>
+    </div>
+  </div>
+</section>
+
+<section class="showcase" id="products">
+  <div class="show-list">
+    <h2>What we make</h2>
+    <div role="group" aria-label="Choose a product">
+      <button type="button" class="show-name on" data-show="0" aria-pressed="true">Blinds</button>
+      <button type="button" class="show-name" data-show="1" aria-pressed="false">Curtains</button>
+      <button type="button" class="show-name" data-show="2" aria-pressed="false">Skylights</button>
+      <button type="button" class="show-name" data-show="3" aria-pressed="false">Insect screens</button>
+    </div>
+  </div>
+  <div class="show-stage">
+    <div class="show-visual"><div class="show-slat" id="show-slat"></div><div class="show-photo shutter" id="show-photo"><img id="show-img" src="img/roller.webp" width="600" height="600" alt="Patterned roller blinds on a window in a study"></div></div>
+    <p class="show-fact" id="show-fact">Eleven kinds, from ₹55 per sq ft plus GST.</p>
+  </div>
+</section>
+
+<section class="prices" id="prices">
+  <h2 class="prices-title">Starting prices</h2>
+  <p class="prices-note">Pick anything below and we'll work out a rough price for your own windows. All prices are before GST.</p>
+  <nav class="price-jump" aria-label="Jump to a price list">
+    <a href="#list-blinds">Blinds</a><a href="#list-curtains">Curtains</a><a href="#list-skylights">Skylights</a><a href="#list-screens">Insect screens</a>
+  </nav>
+  <div id="price-lists"></div>
+</section>
+
+<section class="how" id="how">
+  <div class="how-intro">
+    <h2>From tape to fitted</h2>
+    <p>The price on this site is a rough guide. We fix the final price at your home, once we've measured your windows and you've chosen the fabric.</p>
+  </div>
+  <div class="accordion" id="accordion">
+    <div class="stage open s1"><button type="button" aria-expanded="true"><span>Measure</span></button><div class="stage-body"><h3>Measure</h3><p>Run a tape across the window, then top to bottom. Feet, inches, cm or metres all work, and it doesn't have to be exact.</p></div></div>
+    <div class="stage s2"><button type="button" aria-expanded="false"><span>Choose</span></button><div class="stage-body"><h3>Choose</h3><p>Pick curtains or blinds, then the style you like. Add every window in the house, room by room.</p></div></div>
+    <div class="stage s3"><button type="button" aria-expanded="false"><span>See a price</span></button><div class="stage-body"><h3>See a price</h3><p>Confirm your mobile number and the rough range appears straight away. Keep a copy, and our team will call you.</p></div></div>
+    <div class="stage s4"><button type="button" aria-expanded="false"><span>We visit</span></button><div class="stage-body"><h3>We visit</h3><p>We bring the catalogues to your home so you can see them against your walls, and we measure in front of you.</p></div></div>
+    <div class="stage s5"><button type="button" aria-expanded="false"><span>We fit</span></button><div class="stage-body"><h3>We fit</h3><p>Our own tailors stitch your order, our factory checks it before it leaves, and we inspect the site after installation.</p></div></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-left">
+    <h2>No outlet.<br>We come to you.</h2>
+    <div class="about-photo"><img src="img/room-2.webp" width="600" height="600" loading="lazy" alt="A wide window with sheer curtains under a lit ceiling cove"></div>
+  </div>
+  <div class="about-right">
+    <div>
+      <h3>Why that costs you less</h3>
+      <p>We don't carry the cost of running an outlet, and that benefits you. Everything is brought to your place, so you can see it against your wall colours before you order.</p>
+    </div>
+    <div>
+      <h3>In-house from start to finish</h3>
+      <p>Since 2015 our own team has handled the site visit, measuring, processing and installation for homes, offices, architects and builders.</p>
+    </div>
+    <a class="btn btn-light" href="estimate.html">Get my rough price</a>
+  </div>
+</section>
+
+<section class="works" id="works">
+  <h2>Our<br>works</h2>
+  <a class="tile t1" href="https://www.youtube.com/watch?v=AIU1LYDOvPY" target="_blank" rel="noopener"><img src="img/yt-AIU1LYDOvPY.jpg" loading="lazy" width="480" height="360" alt="Video still of jumbo Roman blinds"><span>Jumbo Roman blinds</span></a>
+  <a class="tile t2" href="https://www.youtube.com/watch?v=L4cqZRJlWSI" target="_blank" rel="noopener"><img src="img/yt-L4cqZRJlWSI.jpg" loading="lazy" width="480" height="360" alt="Video still of motorised patio blinds"><span>Motorised patio blinds</span></a>
+  <a class="tile t3" href="https://www.youtube.com/watch?v=N9EtkCqD3KQ" target="_blank" rel="noopener"><img src="img/yt-N9EtkCqD3KQ.jpg" loading="lazy" width="480" height="360" alt="Video still of weatherproof zipper blinds"><span>Weatherproof zipper blinds</span></a>
+  <a class="tile t4" href="https://www.youtube.com/watch?v=n2h3RbdLkhE" target="_blank" rel="noopener"><img src="img/yt-n2h3RbdLkhE.jpg" loading="lazy" width="480" height="360" alt="Video still of terrace skylight blinds"><span>Terrace skylight blinds</span></a>
+  <a class="tile t5" href="https://www.youtube.com/watch?v=F3_9vdSg7_s" target="_blank" rel="noopener"><img src="img/yt-F3_9vdSg7_s.jpg" loading="lazy" width="480" height="360" alt="Video still of a quality check in the Window Works factory"><span>Quality check at our factory</span></a>
+  <a class="tile t6" href="https://www.youtube.com/watch?v=Ruzhotl_yUw" target="_blank" rel="noopener"><img src="img/yt-Ruzhotl_yUw.jpg" loading="lazy" width="480" height="360" alt="Video still of honeycomb blinds"><span>Honeycomb blinds</span></a>
+</section>
+
+<section class="contact" id="contact">
+  <div class="coupon">
+    <div class="coupon-left">
+      <h2>Rather just ask?</h2>
+      <p>Skylights and insect screens are priced after a visit. Leave your number, or call <a href="tel:+919159030465">+91 91590 30465</a>.</p>
+    </div>
+    <form class="coupon-form" id="contact-form">
+      <label class="vh" for="c-name">Your name</label><input id="c-name" placeholder="Your name" required autocomplete="name">
+      <label class="vh" for="c-mobile">Mobile number</label><input id="c-mobile" type="tel" inputmode="numeric" placeholder="Mobile number" pattern="[0-9 +]{10,15}" required autocomplete="tel">
+      <label class="vh" for="c-area">Area or PIN code</label><input id="c-area" placeholder="Area or PIN code">
+      <label class="vh" for="c-msg">What do you need?</label><input id="c-msg" placeholder="What do you need?">
+      <button type="submit">Ask us to call</button>
+      <p class="form-done" id="contact-done" role="status" hidden>Thanks. In the live site this goes straight to the team. In this preview, nothing was sent.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot-mark">
+    <svg viewBox="0 0 140 190" aria-hidden="true"><path d="M2 2 132 49l-5 27-100-24 13 12L5 44z"/><path d="M7 77l91 10 12-5 12 10-2 24H12l13 8-19-10z"/><path d="M20 139l77-10 13-2-5 32-88 27z"/></svg>
+    <p class="foot-name">Window Works</p>
+  </div>
+  <div class="foot-grid">
+    <div><a href="#products">Products</a><a href="#prices">Prices</a><a href="#how">How it works</a></div>
+    <div><a href="#works">Our works</a><a href="#contact">Contact</a><a href="estimate.html">Rough price</a></div>
+    <div><a href="https://www.instagram.com/windowworksindia/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/Window-Works-109946690354712/" target="_blank" rel="noopener">Facebook</a><a href="admin.html">Team view (demo)</a></div>
+    <address>19, G.R.D Layout, A.A. Scheme Road<br>RS Puram, Coimbatore 641002<br><a href="tel:+919159030465">+91 91590 30465</a><br><a href="mailto:admin@windowworks.in">admin@windowworks.in</a></address>
+  </div>
+  <p class="foot-last">Copyright 2026 Window Works. Preview by Mi Media Labs.</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
