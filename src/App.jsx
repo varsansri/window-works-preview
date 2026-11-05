@@ -1,11 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SplitText from './bits/SplitText';
 import CountUp from './bits/CountUp';
 import { useSiteMotion, useSmoothScroll } from './useSiteMotion';
+import { RATES } from './data';
 
-const WW = window.WW;
+// Design preview: only the interface works. Nothing is calculated, saved or sent.
 const PHONE = '+91 91590 30465';
-const TEL = 'tel:+919159030465';
+const TEL = '#';
 const inr = (n) => n.toLocaleString('en-IN');
 
 const VIDEOS = [
@@ -23,13 +24,6 @@ const GALLERY = [
   ['p-bedroom', 'Zebra and wooden blinds in a bedroom', 'Zebra and wooden blinds in one room'],
   ['p-living', 'Sheer curtains in a bright living room', 'Sheers for a bright living room'],
 ];
-const PRESETS = {
-  small: { label: 'One small window, 4 × 5 ft', windows: [{ w: 4, h: 5, qty: 1 }] },
-  bedroom: { label: 'Bedroom, 2 windows, 5 × 6 ft', windows: [{ w: 5, h: 6, qty: 2 }] },
-  living: { label: 'Living room, 2 windows, 8 × 7 ft', windows: [{ w: 8, h: 7, qty: 2 }] },
-  home: { label: 'Whole home, 6 windows, 5 × 6 ft', windows: [{ w: 5, h: 6, qty: 6 }] },
-};
-
 function Heading({ text, className = '', align = 'left' }) {
   return <SplitText tag="h2" text={text} splitType="words" textAlign={align} delay={45} duration={0.9} rootMargin="-40px" className={`font-serif font-medium tracking-tight leading-[1.08] text-[2.25rem] sm:text-[2.75rem] lg:text-[3.5rem] ${className}`} />;
 }
@@ -98,31 +92,23 @@ function ArchWindow() {
 }
 
 function QuickEstimate({ rates }) {
-  const [cat, setCat] = useState('blinds');
-  const [p, setP] = useState('roller');
-  const [w, setW] = useState('5');
-  const [h, setH] = useState('6');
-  const list = rates[cat];
-  const change = (c) => { setCat(c); setP(rates[c][0].id); };
-  const unit = cat === 'blinds' ? 'sq ft' : 'metre';
-  const href = `estimate.html?cat=${cat}&p=${p}&w=${encodeURIComponent(w)}&h=${encodeURIComponent(h)}`;
   return (
     <div className="hero-rise relative z-20 bg-soft cut-corner p-6 lg:p-9">
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-2 mb-6">
         <h2 className="font-serif text-[1.75rem] leading-tight font-medium">Get a rough price for your window</h2>
         <p className="text-[.9375rem] text-muted lg:pr-10">Starting rates, before GST. We fix the final price after measuring at your home.</p>
       </div>
-      <form className="grid grid-cols-2 lg:grid-cols-[1fr_1.5fr_.7fr_.7fr_auto] gap-x-5 gap-y-5 items-end" onSubmit={(e) => { e.preventDefault(); window.location.href = href; }}>
+      <div className="grid grid-cols-2 lg:grid-cols-[1fr_1.5fr_.7fr_.7fr_auto] gap-x-5 gap-y-5 items-end">
         <label className="text-sm font-semibold col-span-2 lg:col-span-1">Product
-          <select className="line-field font-normal mt-1" value={cat} onChange={(e) => change(e.target.value)}><option value="blinds">Blinds</option><option value="curtains">Curtains</option></select>
+          <select className="line-field font-normal mt-1"><option>Blinds</option><option>Curtains</option></select>
         </label>
         <label className="text-sm font-semibold col-span-2 lg:col-span-1">Style
-          <select className="line-field font-normal mt-1" value={p} onChange={(e) => setP(e.target.value)}>{list.map((x) => <option key={x.id} value={x.id}>{x.name}, from ₹{inr(x.rate)} per {unit}</option>)}</select>
+          <select className="line-field font-normal mt-1" defaultValue="Roller blinds, from ₹80 per sq ft">{rates.blinds.map((x) => <option key={x.id}>{x.name}, from ₹{inr(x.rate)} per sq ft</option>)}</select>
         </label>
-        <label className="text-sm font-semibold">Width (feet)<input className="line-field font-normal mt-1" type="number" inputMode="decimal" min="0.5" max="60" step="any" required value={w} onChange={(e) => setW(e.target.value)} /></label>
-        <label className="text-sm font-semibold">Height (feet)<input className="line-field font-normal mt-1" type="number" inputMode="decimal" min="0.5" max="40" step="any" required value={h} onChange={(e) => setH(e.target.value)} /></label>
-        <button type="submit" className="slat-btn col-span-2 lg:col-span-1 w-full lg:w-auto"><span>See my rough price</span><span aria-hidden="true">→</span></button>
-      </form>
+        <label className="text-sm font-semibold">Width (feet)<input className="line-field font-normal mt-1" inputMode="decimal" defaultValue="5" /></label>
+        <label className="text-sm font-semibold">Height (feet)<input className="line-field font-normal mt-1" inputMode="decimal" defaultValue="6" /></label>
+        <a href="estimate.html" className="slat-btn col-span-2 lg:col-span-1 w-full lg:w-auto"><span>See my rough price</span><span aria-hidden="true">→</span></a>
+      </div>
     </div>
   );
 }
@@ -168,7 +154,7 @@ function PhotoCard({ item, img, alt, cat, dark, label, wide }) {
           <p className={`shrink-0 font-bold text-[.9375rem] tabular-nums ${dark ? 'text-gold-light' : ''}`}>₹{inr(item.rate)}<span className="font-medium"> / {unit}</span></p>
         </div>
         <p className={`text-[.9375rem] leading-relaxed flex-1 ${dark ? 'text-[#E8E3D6]' : 'text-muted'}`}>{item.desc}</p>
-        <a href={`estimate.html?cat=${cat}&p=${item.id}`} className={`line-link font-semibold text-[.9375rem] mt-5 self-start ${dark ? 'text-gold-light' : ''}`}>Price my window →</a>
+        <a href="estimate.html" className={`line-link font-semibold text-[.9375rem] mt-5 self-start ${dark ? 'text-gold-light' : ''}`}>Price my window →</a>
       </div>
     </article>
   );
@@ -215,11 +201,11 @@ function Prices({ rates }) {
         <div className="grid lg:grid-cols-12 gap-x-12 gap-y-14">
           <div className="lg:col-span-5">
             <h3 className="rail pt-3 font-serif text-2xl font-medium mb-2">Blinds, per sq ft</h3>
-            <ul>{rates.blinds.map((p) => <Row key={p.id} name={p.name} value={`₹${inr(p.rate)}`} href={`estimate.html?cat=blinds&p=${p.id}`} />)}</ul>
+            <ul>{rates.blinds.map((p) => <Row key={p.id} name={p.name} value={`₹${inr(p.rate)}`} href="estimate.html" />)}</ul>
           </div>
           <div className="lg:col-span-4">
             <h3 className="rail pt-3 font-serif text-2xl font-medium mb-2">Curtains, per metre</h3>
-            <ul>{rates.curtains.map((p) => <Row key={p.id} name={p.name} value={p.motor ? `₹${inr(p.rate)} + motor` : `₹${inr(p.rate)}`} href={`estimate.html?cat=curtains&p=${p.id}`} />)}</ul>
+            <ul>{rates.curtains.map((p) => <Row key={p.id} name={p.name} value={p.motor ? `₹${inr(p.rate)} + motor` : `₹${inr(p.rate)}`} href="estimate.html" />)}</ul>
           </div>
           <div className="lg:col-span-3">
             <h3 className="rail pt-3 font-serif text-2xl font-medium mb-2">Priced after a visit</h3>
@@ -253,7 +239,7 @@ function FeatureDuo({ rates }) {
         <div className="p-7 lg:p-12 flex-1 flex flex-col">
           <h2 className="rise font-serif text-[2rem] lg:text-[2.5rem] font-medium leading-[1.1] mb-4">Curtains that open at a touch</h2>
           <p className="rise text-[1.0625rem] leading-relaxed text-[#E8E3D6] mb-7">Motors start from <strong className="text-gold-light">₹{inr(rates.settings.motorFrom)}</strong> plus GST. Open and close your curtains by remote.</p>
-          <a href="estimate.html?cat=curtains&p=motorised" className="rise slat-btn slat-btn-gold self-start mt-auto"><span>Price motorised curtains</span><span aria-hidden="true">→</span></a>
+          <a href="estimate.html" className="rise slat-btn slat-btn-gold self-start mt-auto"><span>Price motorised curtains</span><span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -280,37 +266,29 @@ function Gallery() {
   );
 }
 
-function LivePrice({ rates }) {
-  const [preset, setPreset] = useState('bedroom');
-  const [pid, setPid] = useState('zebra');
-  const all = [...rates.blinds.map((p) => ({ ...p, cat: 'blinds' })), ...rates.curtains.map((p) => ({ ...p, cat: 'curtains' }))];
-  const product = all.find((x) => x.id === pid);
-  const res = useMemo(() => WW.calc(product.cat, product, PRESETS[preset].windows.map((x) => ({ ...x, unit: 'ft', room: '' })), rates.settings), [preset, pid]);
-  const [prev, setPrev] = useState({ low: res.low, high: res.high });
-  const seen = useRef(res);
-  useEffect(() => { setPrev({ low: seen.current.low, high: seen.current.high }); seen.current = res; }, [res]);
+function SamplePrice({ rates }) {
   return (
     <div className="grid lg:grid-cols-12 mt-14 border-[3px] border-navy bg-white">
       <div className="lg:col-span-5 p-6 lg:p-10">
         <h3 className="font-serif text-[1.75rem] font-medium mb-1">Try it</h3>
         <p className="text-[.9375rem] text-muted mb-7">Pick a sample room and a style to see how the range moves.</p>
         <label className="block text-sm font-semibold mb-6">Sample room
-          <select className="line-field font-normal mt-1" value={preset} onChange={(e) => setPreset(e.target.value)}>{Object.entries(PRESETS).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}</select>
+          <select className="line-field font-normal mt-1" defaultValue="Bedroom, 2 windows, 5 × 6 ft"><option>One small window, 4 × 5 ft</option><option>Bedroom, 2 windows, 5 × 6 ft</option><option>Living room, 2 windows, 8 × 7 ft</option><option>Whole home, 6 windows, 5 × 6 ft</option></select>
         </label>
         <label className="block text-sm font-semibold">Style
-          <select className="line-field font-normal mt-1" value={pid} onChange={(e) => setPid(e.target.value)}>
-            <optgroup label="Blinds">{rates.blinds.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}</optgroup>
-            <optgroup label="Curtains">{rates.curtains.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}</optgroup>
+          <select className="line-field font-normal mt-1" defaultValue="Zebra blinds">
+            <optgroup label="Blinds">{rates.blinds.map((p) => <option key={p.id}>{p.name}</option>)}</optgroup>
+            <optgroup label="Curtains">{rates.curtains.map((p) => <option key={p.id}>{p.name}</option>)}</optgroup>
           </select>
         </label>
       </div>
-      <div className="lg:col-span-7 bg-navy text-white cut-corner p-6 lg:p-10 flex flex-col justify-center" aria-live="polite">
+      <div className="lg:col-span-7 bg-navy text-white cut-corner p-6 lg:p-10 flex flex-col justify-center">
         <p className="text-[1.0625rem] mb-1">Rough price</p>
         <p data-price className="font-serif font-medium tracking-tight leading-[1.05] text-[2.5rem] sm:text-[3.5rem] xl:text-[4.5rem] tabular-nums mb-4">
-          <CountUp key={`l${res.low}`} from={prev.low} to={res.low} prefix="₹" separator="," duration={0.7} trigger="load" /> <span className="text-brass">to</span> <CountUp key={`h${res.high}`} from={prev.high} to={res.high} prefix="₹" separator="," duration={0.7} trigger="load" />
+          <CountUp from={0} to={7200} prefix="₹" separator="," duration={1.1} trigger="view" /> <span className="text-brass">to</span> <CountUp from={0} to={9400} prefix="₹" separator="," duration={1.1} trigger="view" />
         </p>
-        <p className="text-[.9375rem] text-[#E8E3D6] max-w-xl mb-7">Plus GST. A guide from starting rates{product.motor ? `, with the motor extra from ₹${inr(rates.settings.motorFrom)}` : ''}. The final price comes after we measure at your home.</p>
-        <a href={`estimate.html?cat=${product.cat}&p=${product.id}`} className="slat-btn slat-btn-gold self-start"><span>Price my own windows</span><span aria-hidden="true">→</span></a>
+        <p className="text-[.9375rem] text-[#E8E3D6] max-w-xl mb-7">Plus GST. A guide from starting rates. The final price comes after we measure at your home.</p>
+        <a href="estimate.html" className="slat-btn slat-btn-gold self-start"><span>Price my own windows</span><span aria-hidden="true">→</span></a>
       </div>
     </div>
   );
@@ -336,7 +314,7 @@ function How({ rates }) {
             </li>
           ))}
         </ol>
-        <LivePrice rates={rates} />
+        <SamplePrice rates={rates} />
       </div>
     </section>
   );
@@ -366,7 +344,7 @@ function Why() {
             <address className="not-italic text-[.9375rem] leading-relaxed text-[#E8E3D6] mb-6">19, G.R.D Layout, A.A. Scheme Road<br />RS Puram, Coimbatore 641002</address>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
               <a href={TEL} className="slat-btn slat-btn-gold"><span>Call {PHONE}</span></a>
-              <a href="mailto:admin@windowworks.in" className="line-link font-medium text-[.9375rem]">admin@windowworks.in</a>
+              <a href="#" className="line-link font-medium text-[.9375rem]">admin@windowworks.in</a>
             </div>
           </div>
         </aside>
@@ -402,11 +380,11 @@ function Works() {
       <div className="max-w-[1440px] mx-auto px-4 lg:px-10">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-10">
           <Heading text="Our works" />
-          <p className="rise text-muted">Real jobs and our factory, on YouTube.</p>
+          <p className="rise text-muted">Real jobs and our factory.</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-9">
           {VIDEOS.map(([id, title], i) => (
-            <a key={id} href={`https://www.youtube.com/watch?v=${id}`} target="_blank" rel="noopener" className={`group no-underline ${i % 3 === 1 ? 'lg:mt-14' : ''}`}>
+            <a key={id} href="#" className={`group no-underline ${i % 3 === 1 ? 'lg:mt-14' : ''}`}>
               <div className="pane-photo blind aspect-video bg-navy"><img src={`img/yt-${id}.jpg`} width="480" height="360" loading="lazy" alt={`Video: ${title}`} /></div>
               <p className="mt-3 font-medium text-[1.0625rem] group-hover:text-brand transition-colors">{title} <span aria-hidden="true" className="text-[#A87F3F]">↗</span></p>
             </a>
@@ -419,7 +397,6 @@ function Works() {
 
 function Contact() {
   const ref = useRef(null);
-  const [sent, setSent] = useState(false);
   useEffect(() => {
     const desktop = window.matchMedia('(min-width: 1024px) and (pointer: fine)').matches;
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -449,15 +426,14 @@ function Contact() {
           <p className="rise text-[1.0625rem] leading-relaxed text-[#E8E3D6] max-w-xl mb-8">It takes a few minutes with a tape measure. There’s no charge for the estimate, and our team will call you to book a visit.</p>
           <a href="estimate.html" className="rise slat-btn slat-btn-gold"><span>Start my estimate</span><span aria-hidden="true">→</span></a>
         </div>
-        <form className="lg:col-span-5 grid gap-5 content-start" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+        <div className="lg:col-span-5 grid gap-5 content-start">
           <h3 className="font-serif text-[1.75rem] font-medium">Rather just ask?</h3>
-          <label className="text-sm font-semibold">Your name<input className="line-field line-field-light font-normal mt-1" required autoComplete="name" /></label>
-          <label className="text-sm font-semibold">Mobile number<input className="line-field line-field-light font-normal mt-1" type="tel" inputMode="numeric" pattern="[0-9 +]{10,15}" required autoComplete="tel" /></label>
+          <label className="text-sm font-semibold">Your name<input className="line-field line-field-light font-normal mt-1" autoComplete="off" /></label>
+          <label className="text-sm font-semibold">Mobile number<input className="line-field line-field-light font-normal mt-1" type="tel" inputMode="numeric" autoComplete="off" /></label>
           <label className="text-sm font-semibold">Area or PIN code<input className="line-field line-field-light font-normal mt-1" /></label>
           <label className="text-sm font-semibold">What do you need?<input className="line-field line-field-light font-normal mt-1" /></label>
-          <button type="submit" className="slat-btn slat-btn-light justify-self-start"><span>Ask us to call</span></button>
-          {sent && <p role="status" className="toast-note text-gold-light">Thanks. In the live site this goes straight to the team. In this preview, nothing was sent.</p>}
-        </form>
+          <button type="button" className="slat-btn slat-btn-light justify-self-start"><span>Ask us to call</span></button>
+        </div>
       </div>
     </section>
   );
@@ -473,10 +449,10 @@ function Footer() {
             <p className="max-w-sm leading-relaxed">Curtains, sheers, blinds, skylights and insect screens, made to measure in Coimbatore since 2015.</p>
           </div>
           <nav aria-label="Footer" className="lg:col-span-2 grid gap-1 content-start">{[['Products', '#collections'], ['Prices', '#prices'], ['Gallery', '#gallery'], ['Our works', '#works']].map(([t, h]) => <a key={h} href={h} className="line-link w-fit">{t}</a>)}</nav>
-          <div className="lg:col-span-2 grid gap-1 content-start"><a href="estimate.html" className="line-link w-fit">Rough price</a><a href="https://www.instagram.com/windowworksindia/" target="_blank" rel="noopener" className="line-link w-fit">Instagram</a><a href="https://www.facebook.com/Window-Works-109946690354712/" target="_blank" rel="noopener" className="line-link w-fit">Facebook</a><a href="admin.html" className="line-link w-fit">Team view (demo)</a></div>
-          <address className="lg:col-span-3 not-italic leading-relaxed">19, G.R.D Layout, A.A. Scheme Road<br />RS Puram, Coimbatore 641002<br /><a href={TEL} className="line-link">{PHONE}</a><br /><a href="mailto:admin@windowworks.in" className="line-link">admin@windowworks.in</a></address>
+          <div className="lg:col-span-2 grid gap-1 content-start"><a href="estimate.html" className="line-link w-fit">Rough price</a><a href="#" className="line-link w-fit">Instagram</a><a href="#" className="line-link w-fit">Facebook</a><a href="admin.html" className="line-link w-fit">Team view (demo)</a></div>
+          <address className="lg:col-span-3 not-italic leading-relaxed">19, G.R.D Layout, A.A. Scheme Road<br />RS Puram, Coimbatore 641002<br /><a href={TEL} className="line-link">{PHONE}</a><br /><a href="#" className="line-link">admin@windowworks.in</a></address>
         </div>
-        <p className="mt-12 text-sm">Copyright 2026 Window Works. Preview by Mi Media Labs. Nothing entered on this preview reaches Window Works.</p>
+        <p className="mt-12 text-sm">Copyright 2026 Window Works. Design preview by Mi Media Labs.</p>
       </div>
     </footer>
   );
@@ -484,12 +460,17 @@ function Footer() {
 
 export default function App() {
   const scope = useRef(null);
-  const rates = useMemo(() => WW.rates(), []);
+  const rates = RATES;
+  useEffect(() => {
+    const stop = (e) => { const a = e.target.closest('a[href="#"]'); if (a) e.preventDefault(); };
+    document.addEventListener('click', stop);
+    return () => document.removeEventListener('click', stop);
+  }, []);
   useSmoothScroll();
   useSiteMotion(scope);
   return (
     <div ref={scope}>
-      <p className="bg-midnight text-white text-sm px-4 lg:px-10 py-2">Preview only. Prices are real starting rates, but nothing you enter reaches Window Works.</p>
+      <p className="bg-midnight text-white text-sm px-4 lg:px-10 py-2">Design preview only. Forms and buttons are for show, and sample prices are examples.</p>
       <Header />
       <main>
         <Hero rates={rates} />
