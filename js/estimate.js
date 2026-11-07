@@ -8,7 +8,7 @@
 
   const st = {
     step: 0, cat: null, product: null, active: 0,
-    windows: [{ room: '', w: num('w'), h: num('h'), unit: 'ft', qty: 1 }],
+    windows: [{ room: '', w: num('w'), h: num('h'), unit: 'ft', qty: (() => { const n = Number(q.get('qty')); return Number.isInteger(n) && n >= 1 && n <= 200 ? n : 1; })() }],
     person: { name: '', mobile: '', area: '', email: '', visit: '', consent: false },
     otpSent: false, result: null, errors: {}
   };
