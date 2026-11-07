@@ -78,3 +78,22 @@ export function useSiteMotion(scope) {
     });
   }, { scope });
 }
+
+/* Inner pages: photos roll open like blinds and text rises, once. Content stays visible if this never runs. */
+export function usePageMotion(scope) {
+  useGSAP(() => {
+    if (reduced()) return;
+    const ease = 'power3.out';
+    gsap.utils.toArray('.blind').forEach((el) => {
+      const img = el.querySelector('img');
+      const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+      tl.fromTo(el, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.1, ease: 'power3.inOut', clearProps: 'clipPath' });
+      if (img) tl.fromTo(img, { scale: 1.12 }, { scale: 1, duration: 1.3, ease, clearProps: 'transform' }, 0);
+    });
+    gsap.set('.rise', { opacity: 0 });
+    ScrollTrigger.batch('.rise', {
+      start: 'top 92%', once: true,
+      onEnter: (els) => gsap.fromTo(els, { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, stagger: 0.07, ease, clearProps: 'transform,opacity' }),
+    });
+  }, { scope });
+}
