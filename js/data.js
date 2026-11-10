@@ -88,6 +88,45 @@
   }
   const addLead = (lead) => { const l = leads(); l.unshift(lead); store.set('ww-leads', l); };
 
+  /* Demo accounts: one per mobile number, kept in this browser only. The real build keeps them on the server. */
+  const digits = (m) => String(m || '').replace(/\D/g, '').replace(/^91(?=\d{10}$)/, '');
+  const validMobile = (m) => /^[6-9]\d{9}$/.test(digits(m));
+  const showMobile = (m) => { const d = digits(m); return d.length === 10 ? d.slice(0, 5) + ' ' + d.slice(5) : d; };
+  const users = () => store.get('ww-users', {});
+  const findUser = (mobile) => users()[digits(mobile)] || null;
+  function saveUser(u) {
+    const all = users(), key = digits(u.mobile);
+    all[key] = { ...(all[key] || { at: new Date().toISOString() }), ...u, mobile: key };
+    store.set('ww-users', all);
+    return all[key];
+  }
+  function me() { const m = store.get('ww-session', null); return m ? findUser(m) : null; }
+  const signIn = (mobile) => store.set('ww-session', digits(mobile));
+  const signOut = () => store.del('ww-session');
+  const myLeads = (mobile) => { const d = digits(mobile); return leads().filter((l) => digits(l.mobile) === d); };
+  /* What the customer sees for each team-view status. */
+  const CUSTOMER_STATUS = { New: 'Waiting for our call', Contacted: 'We have called you', 'Site visit booked': 'Visit booked', Closed: 'Closed' };
+  /* Only same-site pages may be the "next" page after logging in. */
+  const safeNext = (n) => (n && /^[a-z][a-z0-9-]*\.html(\?[^#]*)?$/i.test(n) ? n : 'account.html');
+
+  function findProduct(lead, r) {
+    const list = r[lead.cat] || [];
+    return list.find((p) => p.id === lead.pid) || list.find((p) => p.name === lead.product) || null;
+  }
+  /* The estimate as a WhatsApp message. */
+  function waText(lead) {
+    const r = rates(), product = findProduct(lead, r);
+    const lines = product ? calc(lead.cat, product, lead.windows, r.settings).lines : lead.windows;
+    return [
+      'Window Works rough estimate',
+      lead.product,
+      ...lines.map((l) => `${l.room || 'Window'}: ${l.w} × ${l.h} ${l.unit}${l.measure ? `, about ${l.measure}` : ''}${l.qty > 1 ? `, ${l.qty} of these` : ''}`),
+      `Rough price: ${rupees(lead.low)} to ${rupees(lead.high)} plus GST`,
+      ...(product && product.motor ? [`The motor is extra, starting from ${rupees(r.settings.motorFrom)} plus GST`] : []),
+      'The final price is confirmed after measuring at home.'
+    ].join('\n');
+  }
+
   /* The window drawn to scale, with the chosen blind or curtain on it. */
   function drawWindow(wFt, hFt, cat, opts) {
     const o = Object.assign({ frame: '#ffffff', glass: '#8fa6cf', cloth: '#ffffff', w: 420, h: 340 }, opts);
@@ -105,7 +144,19 @@
     return `<svg viewBox="0 0 ${o.w} ${o.h}" role="img" aria-label="Window ${+wFt.toFixed(1)} feet wide and ${+hFt.toFixed(1)} feet tall, drawn to scale"><rect x="${x}" y="${y}" width="${W}" height="${H}" fill="${o.glass}"/>${cloth}<rect x="${x}" y="${y}" width="${W}" height="${H}" fill="none" stroke="${o.frame}" stroke-width="5"/></svg>`;
   }
 
+  /* Once someone types in a field marked wrong, take the mark and its message away. */
+  function clearErrorOnInput(root) {
+    const off = (e) => {
+      const f = e.target; if (!f.matches || f.getAttribute('aria-invalid') !== 'true') return;
+      f.removeAttribute('aria-invalid');
+      const msg = f.getAttribute('aria-describedby') && document.getElementById(f.getAttribute('aria-describedby'));
+      if (msg && msg.classList.contains('field-err')) msg.hidden = true;
+    };
+    root.addEventListener('input', off); root.addEventListener('change', off);
+  }
+
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const api = { DEFAULTS, toFeet, calc, rates, rupees, leads, addLead, store, drawWindow, esc };
+  const api = { DEFAULTS, toFeet, calc, rates, rupees, leads, addLead, store, drawWindow, esc,
+    digits, validMobile, showMobile, findUser, saveUser, me, signIn, signOut, myLeads, CUSTOMER_STATUS, safeNext, findProduct, waText, clearErrorOnInput };
   if (typeof module !== 'undefined') module.exports = api; else root.WW = api;
 })(typeof window !== 'undefined' ? window : globalThis);

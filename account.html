@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<title>My account | Window Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/site.css">
+<link rel="stylesheet" href="./css/estimate.css">
+<link rel="stylesheet" href="./css/account.css">
+<script>document.documentElement.classList.add('js')</script>
+<script src="./js/data.js"></script>
+<script>if (!WW.me()) location.replace('login.html?next=account.html');</script>
+</head>
+<body class="est">
+<p class="preview-note">Preview only. Your account stays in this browser and nothing reaches Window Works.</p>
+<header class="bar">
+  <a class="logo" href="index.html"><img src="./img/logo-white.png" width="520" height="324" alt="Window Works"></a>
+  <a class="est-back-home" href="index.html">Back to the site</a>
+  <button type="button" class="linkish bar-out" data-out>Log out</button>
+</header>
+<main class="wizard acc" id="acc" tabindex="-1"></main>
+<p class="toast acc-toast" id="toast" role="status" hidden></p>
+<script src="./js/account.js"></script>
+</body>
+</html>
