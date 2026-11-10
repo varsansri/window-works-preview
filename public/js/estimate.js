@@ -65,9 +65,18 @@
     },
     function reveal() {
       if (st.result) return result();
-      const p = st.person, e = st.errors;
+      const p = st.person, e = st.errors, me = WW.me();
       const total = st.windows.reduce((t, w) => t + (Number(w.qty) || 1), 0);
-      return `<h1>Your price is ready</h1><p class="step-sub">Tell us who it's for. We'll text a code to confirm your mobile number.</p>
+      const summary = `<div class="blur-card"><p>${esc(st.product.name)}</p><p class="locked">${total} window${total > 1 ? 's' : ''} measured</p>
+      <ul>${st.windows.map((w) => `<li>${esc(w.room) || 'Window'}: ${esc(w.w)} × ${esc(w.h)} ${esc(w.unit)}${Number(w.qty) > 1 ? `, ${esc(w.qty)} of these` : ''}</li>`).join('')}</ul></div>`;
+      if (me) {
+        return `<h1>Your price is ready</h1><p class="step-sub">You're logged in as ${esc(me.name)}, ${esc(WW.showMobile(me.mobile))}. Not you? <button type="button" class="linkish inline-link" data-out>Log out</button></p>
+      <div class="reveal-layout"><form class="contact-form" id="who" data-me novalidate>
+        <label class="field">Best day for a visit (optional)<input name="visit" type="date" value="${esc(p.visit)}"></label>
+        <div class="step-nav"><button type="submit" class="btn">Show my price</button><button type="button" class="linkish" data-back>Back</button></div>
+      </form>${summary}</div>`;
+      }
+      return `<h1>Your price is ready</h1><p class="step-sub">Tell us who it's for. We'll text a code to confirm your mobile number. That also opens your account, so you can see this estimate again later.</p>
       <div class="reveal-layout"><form class="contact-form" id="who" novalidate>
         <label class="field">Your name<input name="name" value="${esc(p.name)}" autocomplete="name" ${e.name ? 'aria-invalid="true"' : ''}></label>${e.name ? `<p class="field-err" role="alert">${e.name}</p>` : ''}
         <label class="field">Mobile number<input name="mobile" type="tel" inputmode="numeric" maxlength="14" value="${esc(p.mobile)}" autocomplete="tel" ${e.mobile ? 'aria-invalid="true"' : ''} ${st.otpSent ? 'readonly' : ''}></label>${e.mobile ? `<p class="field-err" role="alert">${e.mobile}</p>` : ''}
@@ -78,8 +87,7 @@
         ${st.otpSent ? `<p class="demo-otp">Preview: no text was sent. The code is <strong>1234</strong>.</p>
         <label class="field">Code from the text message<input name="otp" inputmode="numeric" maxlength="4" autocomplete="one-time-code" ${e.otp ? 'aria-invalid="true"' : ''}></label>${e.otp ? `<p class="field-err" role="alert">${e.otp}</p>` : ''}` : ''}
         <div class="step-nav"><button type="submit" class="btn">${st.otpSent ? 'Show my price' : 'Text me the code'}</button><button type="button" class="linkish" data-back>Back</button></div>
-      </form><div class="blur-card"><p>${esc(st.product.name)}</p><p class="locked">${total} window${total > 1 ? 's' : ''} measured</p>
-      <ul>${st.windows.map((w) => `<li>${esc(w.room) || 'Window'}: ${esc(w.w)} × ${esc(w.h)} ${esc(w.unit)}${Number(w.qty) > 1 ? `, ${esc(w.qty)} of these` : ''}</li>`).join('')}</ul></div></div>`;
+      </form>${summary}</div>`;
     }
   ];
 
@@ -89,8 +97,8 @@
     ${motor ? `<p class="motor-note">The motor is extra, starting from ${rupees(R.settings.motorFrom)} plus GST.</p>` : ''}
     <table class="result-table"><thead><tr><th>Window</th><th class="hide-phone">Size</th><th>Billed</th><th class="n">How many</th></tr></thead><tbody>
     ${r.lines.map((l) => `<tr><td>${esc(l.room) || 'Window'}</td><td class="hide-phone">${esc(l.w)} × ${esc(l.h)} ${esc(l.unit)}</td><td>about ${esc(l.measure)}</td><td class="n">${l.qty}</td></tr>`).join('')}</tbody></table>
-    <p class="next-line">Thanks, ${esc(st.person.name)}. Our team will call ${esc(st.person.mobile)} to book a visit.</p>
-    <div class="step-nav"><button type="button" class="btn" data-print>Save as PDF</button><button type="button" class="linkish" data-wa>Send to WhatsApp</button><a class="linkish" href="estimate.html">Start another estimate</a><a class="linkish" href="admin.html">See it in the team view</a></div>
+    <p class="next-line">Thanks, ${esc(st.person.name)}. Our team will call ${esc(WW.showMobile(st.person.mobile))} to book a visit. This estimate is saved in <a href="account.html">My account</a>.</p>
+    <div class="step-nav"><button type="button" class="btn" data-print>Save as PDF</button><button type="button" class="linkish" data-wa>Send to WhatsApp</button><a class="linkish" href="account.html">My account</a><a class="linkish" href="estimate.html">Start another estimate</a><a class="linkish" href="admin.html">See it in the team view</a></div>
     <p class="toast" id="toast" role="status" hidden></p>`;
   }
 
@@ -107,7 +115,12 @@
     }
   }
 
-  function render() { bar(); $('#step').innerHTML = views[st.step](); paintDraw(); }
+  function accLink() {
+    const a = $('#acc-link'), me = WW.me(); if (!a) return;
+    a.textContent = me ? 'My account' : 'Log in';
+    a.href = me ? 'account.html' : 'login.html?next=estimate.html';
+  }
+  function render() { bar(); accLink(); $('#step').innerHTML = views[st.step](); paintDraw(); }
 
   function checkWindows() {
     st.errors = {};
@@ -154,21 +167,18 @@
     else if ('next' in t.dataset) { if (checkWindows()) go(3); else { render(); const bad = $('[aria-invalid=true]'); if (bad) bad.focus(); } }
     else if ('print' in t.dataset) window.print();
     else if ('wa' in t.dataset) {
-      const r = st.result;
-      const text = [
-        'Window Works rough estimate',
-        st.product.name,
-        ...r.lines.map((l) => `${l.room || 'Window'}: ${l.w} × ${l.h} ${l.unit}, about ${l.measure}${l.qty > 1 ? `, ${l.qty} of these` : ''}`),
-        `Rough price: ${rupees(r.low)} to ${rupees(r.high)} plus GST`,
-        ...(st.product.motor ? [`The motor is extra, starting from ${rupees(R.settings.motorFrom)} plus GST`] : []),
-        'The final price is confirmed after measuring at home.'
-      ].join('\n');
-      window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
+      window.open('https://wa.me/?text=' + encodeURIComponent(WW.waText(st.lead)), '_blank', 'noopener');
     }
+    else if ('out' in t.dataset) { WW.signOut(); render(); const f = $('input[name=name]'); if (f) f.focus(); }
   });
   main.addEventListener('submit', (e) => {
     e.preventDefault();
     const f = new FormData(e.target), p = st.person;
+    const me = 'me' in e.target.dataset ? WW.me() : null;
+    if (me) {
+      Object.assign(p, { name: me.name, mobile: me.mobile, area: me.area, email: me.email || '', visit: (f.get('visit') || '').toString(), consent: true });
+      return save(me.mobile);
+    }
     ['name', 'mobile', 'area', 'email', 'visit'].forEach((k) => { p[k] = (f.get(k) || '').toString().trim(); });
     p.consent = !!f.get('consent');
     const digits = p.mobile.replace(/\D/g, '').replace(/^91(?=\d{10}$)/, '');
@@ -181,12 +191,21 @@
     st.errors = err;
     if (Object.keys(err).length) { render(); const bad = $('[aria-invalid=true]'); if (bad) bad.focus(); return; }
     if (!st.otpSent) { st.otpSent = true; render(); $('input[name=otp]').focus(); return; }
+    /* The code proves the number, so this also opens (or reopens) their account. */
+    if (!WW.findUser(digits)) WW.saveUser({ mobile: digits, name: p.name, area: p.area, address: '', email: p.email, consent: true });
+    WW.signIn(digits);
+    save(digits);
+  });
+
+  function save(digits) {
+    const p = st.person;
     p.mobile = digits;
     const windows = st.windows.map((w) => ({ ...w, w: +w.w, h: +w.h, qty: +w.qty, room: w.room || 'Window' }));
     st.result = WW.calc(st.cat, st.product, windows, R.settings);
-    WW.addLead({ id: 'L' + Date.now(), name: p.name, mobile: digits, area: p.area, email: p.email, visit: p.visit, cat: st.cat, product: st.product.name, windows, low: st.result.low, high: st.result.high, status: 'New', at: new Date().toISOString(), note: '' });
+    st.lead = { id: 'L' + Date.now(), name: p.name, mobile: digits, area: p.area, email: p.email, visit: p.visit, cat: st.cat, pid: st.product.id, product: st.product.name, windows, low: st.result.low, high: st.result.high, status: 'New', at: new Date().toISOString(), note: '' };
+    WW.addLead(st.lead);
     render(); main.focus({ preventScroll: true }); window.scrollTo({ top: 0 });
-  });
+  }
 
   render();
 })();
