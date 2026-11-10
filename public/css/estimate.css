@@ -45,6 +45,7 @@
 .tip p { max-width: 40em; font-size: 1rem; }
 
 .step-nav { display: flex; align-items: center; gap: 22px; margin-top: 40px; flex-wrap: wrap; }
+.bar .est-back-home, .bar .bar-acc, .bar .bar-out { padding-top: 12px; padding-bottom: 12px; }
 .bar-acc { font-weight: 600; font-size: 1rem; text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .linkish.inline-link { padding: 0; font-size: inherit; }
 .linkish { background: none; border: 0; padding: 12px 0; font-family: inherit; font-weight: 500; font-size: 1rem; color: var(--ink); text-decoration: underline; cursor: pointer; }
