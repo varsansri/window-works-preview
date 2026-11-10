@@ -266,7 +266,10 @@ function Measure() {
           <ul className="list-none p-0 m-0 grid sm:grid-cols-3 gap-6">{steps.map(([t, d]) => <li key={t} className="rise rail pt-3"><h3 className="font-semibold text-lg mb-1">{t}</h3><p className="text-[1rem] leading-relaxed">{d}</p></li>)}</ul>
           <p className="rise text-[1.0625rem] leading-relaxed mt-8">Your figure is only for the rough price. We measure again at your home before the final price.</p>
         </div>
-        <div className="rise lg:col-span-5 bg-white border-[3px] border-navy p-6 lg:p-10"><MeasureDiagram /></div>
+        <div className="rise lg:col-span-5 relative pb-16 sm:pb-20">
+          <Pic id="measure" alt="A tape measure, pencil and notepad on a granite window sill under a linen Roman blind" sizes="(min-width: 1024px) 40vw, 100vw" full={1376} className="block w-full aspect-[4/3] object-cover" />
+          <div className="absolute left-0 bottom-0 w-[58%] sm:w-[48%] lg:w-[58%] bg-white border-[3px] border-navy p-3 sm:p-4"><MeasureDiagram /></div>
+        </div>
       </div>
     </section>
   );
@@ -338,7 +341,7 @@ function Visit() {
   ];
   return (
     <section id="visit" className="relative bg-navy text-white">
-      <div className="absolute inset-0 pane-photo"><Pic id="hero" alt="" sizes="100vw" full={1376} /></div>
+      <div className="absolute inset-0 pane-photo"><Pic id="evening" alt="" sizes="100vw" full={1376} /></div>
       <div className="absolute inset-0 bg-navy/80" />
       <div className="relative max-w-[1440px] mx-auto px-4 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-x-12 gap-y-12">
         <div className="lg:col-span-6">
