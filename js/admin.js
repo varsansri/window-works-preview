@@ -35,15 +35,19 @@
       const f = WW.toFeet(w.w, w.unit), h = WW.toFeet(w.h, w.unit);
       return `<div class="win">${WW.drawWindow(f, h, l.cat, { frame: '#081C45', glass: '#D9D2C2', cloth: '#081C45', w: 140, h: 120 })}<p>${esc(w.room)}<small>${esc(w.w)} × ${esc(w.h)} ${esc(w.unit)}${w.qty > 1 ? ', ' + esc(w.qty) + ' of these' : ''}</small></p></div>`;
     }).join('');
-    return `<aside class="detail" aria-label="Enquiry details"><h2>${esc(l.name)}</h2><p class="sub">${esc(l.area)} · ${esc(l.mobile)}</p>
+    const acc = WW.findUser(l.mobile);
+    const others = leads.filter((x) => x.id !== l.id && WW.digits(x.mobile) === WW.digits(l.mobile)).length;
+    const visitDay = l.visit ? new Date(l.visit + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' }) : '';
+    return `<aside class="detail" aria-label="Enquiry details"><h2>${esc(l.name)}</h2><p class="sub">${esc(l.area)} · ${esc(WW.showMobile(l.mobile))}</p>
+      ${acc && (acc.address || acc.email) ? `<p class="sub">${[acc.address, acc.email].filter(Boolean).map(esc).join(' · ')}</p>` : ''}
+      <p class="sub">${acc ? 'Has an account' : 'No account'}${others ? ` · ${others} other estimate${others > 1 ? 's' : ''} from this number` : ''}</p>
+      ${visitDay ? `<p class="visit-ask">Asked for a visit on <strong>${esc(visitDay)}</strong></p>` : ''}
       <p class="price">${rupees(l.low)} to ${rupees(l.high)}</p><p class="sub">${esc(l.product)}, shown to the customer before GST</p>
       <div class="row"><a class="btn btn-main" href="tel:${esc(l.mobile.replace(/\s/g, ''))}">Call</a><button type="button" class="btn" data-demo>WhatsApp</button></div>
       <p class="saved" id="demo-msg" role="status" hidden></p>
       <h3>Windows, to scale</h3><div class="wins">${wins}</div>
       <label class="f">Status<select data-status>${STATUSES.map((s) => `<option ${s === l.status ? 'selected' : ''}>${s}</option>`).join('')}</select></label>
-      <label class="f">Team note<textarea rows="3" data-note>${esc(l.note)}</textarea></label>
-      ${l.visit ? `<p class="sub" style="margin-top:10px">Asked for a visit on ${esc(l.visit)}</p>` : ''}
-    </aside>`;
+      <label class="f">Team note<textarea rows="3" data-note>${esc(l.note)}</textarea></label>    </aside>`;
   }
 
   function leadsView() {
@@ -88,8 +92,11 @@
       if (/^[=+\-@]/.test(s)) s = "'" + s; /* stops Excel treating a typed value as a formula */
       return '"' + s.replace(/"/g, '""') + '"';
     };
-    const rows = [['Name', 'Mobile', 'Area', 'Product', 'Windows', 'Low', 'High', 'Status', 'Received', 'Note']];
-    visible().forEach((l) => rows.push([l.name, l.mobile, l.area, l.product, l.windows.map((w) => `${w.room} ${w.w}x${w.h}${w.unit} x${w.qty}`).join('; '), l.low, l.high, l.status, l.at.slice(0, 10), l.note]));
+    const rows = [['Name', 'Mobile', 'Area', 'Product', 'Windows', 'Low', 'High', 'Status', 'Received', 'Visit day', 'Address', 'Email', 'Note']];
+    visible().forEach((l) => {
+      const acc = WW.findUser(l.mobile) || {};
+      rows.push([l.name, l.mobile, l.area, l.product, l.windows.map((w) => `${w.room} ${w.w}x${w.h}${w.unit} x${w.qty}`).join('; '), l.low, l.high, l.status, l.at.slice(0, 10), l.visit || '', acc.address || '', acc.email || l.email || '', l.note]);
+    });
     const blob = new Blob(['﻿' + rows.map((r) => r.map(cell).join(',')).join('\r\n')], { type: 'text/csv' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'window-works-enquiries.csv'; a.click(); URL.revokeObjectURL(a.href);
   }
