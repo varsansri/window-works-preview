@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 
 export const PHONE = '+91 91590 30465';
 export const TEL = 'tel:+919159030465';
-const HOME_LINKS = [['Products', '#collections'], ['Prices', '#prices'], ['Gallery', '#gallery'], ['Motorisation', '#motorisation'], ['Our works', '#works'], ['Contact', '#contact']];
-const FOOTER_LINKS = [['Blinds', 'blinds.html'], ['Products', '#collections'], ['Prices', '#prices'], ['Gallery', '#gallery'], ['Our works', '#works']];
+const HOME_LINKS = [['Blinds', 'blinds.html'], ['Curtains', 'curtains.html'], ['Motorisation', 'motorisation.html'], ['Skylights', 'skylights.html'], ['Prices', '#prices'], ['Our works', '#works'], ['Contact', '#contact']];
+const FOOTER_LINKS = [['Blinds', 'blinds.html'], ['Curtains', 'curtains.html'], ['Motorisation', 'motorisation.html'], ['Skylights', 'skylights.html'], ['Prices', '#prices'], ['Gallery', '#gallery']];
 
 /* "Log in" until someone logs in, then their first name. Read after mount, so the prerendered HTML always matches. */
 function useAccount() {

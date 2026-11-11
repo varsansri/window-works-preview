@@ -90,6 +90,15 @@ export function usePageMotion(scope) {
       tl.fromTo(el, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.1, ease: 'power3.inOut', clearProps: 'clipPath' });
       if (img) tl.fromTo(img, { scale: 1.12 }, { scale: 1, duration: 1.3, ease, clearProps: 'transform' }, 0);
     });
+    // Curtains page: photos part from the middle. Motorisation and Skylights: they slide open from the left, like a track.
+    [['.part', 'inset(0 50% 0 50%)'], ['.slide', 'inset(0 100% 0 0)']].forEach(([sel, from]) => {
+      gsap.utils.toArray(sel).forEach((el) => {
+        const img = el.querySelector('img');
+        const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+        tl.fromTo(el, { clipPath: from }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.1, ease: 'power3.inOut', clearProps: 'clipPath' });
+        if (img) tl.fromTo(img, { scale: 1.12 }, { scale: 1, duration: 1.3, ease, clearProps: 'transform' }, 0);
+      });
+    });
     gsap.set('.rise', { opacity: 0 });
     ScrollTrigger.batch('.rise', {
       start: 'top 92%', once: true,

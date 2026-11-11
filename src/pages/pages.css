@@ -1,0 +1,20 @@
+/* Curtains, Motorisation and Skylights. Each page opens its pictures its own way:
+   curtains part from the middle, motorised tracks and skylight roofs slide across. */
+.hero-part { animation: hero-part-open 1.2s var(--ease) both; }
+.hero-part img, .hero-slide img { animation: hero-roll-in 1.2s var(--ease) both; }
+@keyframes hero-part-open { from { clip-path: inset(0 50% 0 50%); } to { clip-path: inset(0 0 0 0); } }
+.hero-slide { animation: hero-slide-open 1.2s var(--ease) both; }
+@keyframes hero-slide-open { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+/* Curtain panels in the drawing slide in from each side when the type changes. */
+.draw-part .part-l { animation: part-l .5s var(--ease) both; }
+.draw-part .part-r { animation: part-r .5s var(--ease) both; }
+@keyframes part-l { from { transform: translateX(-40px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes part-r { from { transform: translateX(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.draw-fade { animation: draw-fade .4s var(--ease) both; }
+@keyframes draw-fade { from { opacity: 0; transform: scale(1.03); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-part, .hero-slide, .hero-part img, .hero-slide img, .draw-part .part-l, .draw-part .part-r, .draw-fade { animation: none; }
+}

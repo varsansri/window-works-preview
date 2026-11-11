@@ -6,8 +6,8 @@ const ww = () => globalThis.WW;
 const inr = (n) => n.toLocaleString('en-IN');
 const UNITS = [['ft', 'feet'], ['in', 'inches'], ['cm', 'cm'], ['m', 'metres']];
 const UNIT_SHORT = { ft: 'ft', in: 'in', cm: 'cm', m: 'm' };
-const LINKS = [['Blinds', 'blinds.html'], ['Curtains', './#collections'], ['Prices', './#prices'], ['Gallery', './#gallery'], ['Motorisation', './#motorisation'], ['Our works', '#works'], ['Contact', '#visit']];
-const FOOT = [['Blinds', 'blinds.html'], ['Curtains', './#collections'], ['Prices', './#prices'], ['Gallery', './#gallery'], ['Our works', '#works']];
+const LINKS = [['Blinds', 'blinds.html'], ['Curtains', 'curtains.html'], ['Motorisation', 'motorisation.html'], ['Skylights', 'skylights.html'], ['Prices', './#prices'], ['Our works', '#works'], ['Contact', '#visit']];
+const FOOT = [['Blinds', 'blinds.html'], ['Curtains', 'curtains.html'], ['Motorisation', 'motorisation.html'], ['Skylights', 'skylights.html'], ['Prices', './#prices']];
 
 function Pic({ id, alt, sizes = '(min-width: 1024px) 50vw, 100vw', eager, className = '', full = 1200 }) {
   return (

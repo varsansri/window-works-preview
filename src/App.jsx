@@ -177,8 +177,8 @@ function Prices({ rates }) {
             <ul>{rates.curtains.map((p) => <Row key={p.id} name={p.name} value={p.motor ? `₹${inr(p.rate)} + motor` : `₹${inr(p.rate)}`} href={`estimate.html?cat=curtains&p=${p.id}`} />)}</ul>
           </div>
           <div className="lg:col-span-3">
-            <h3 className="rail pt-3 font-serif text-2xl font-medium mb-2">Priced after a visit</h3>
-            <ul><Row name="Skylights" value="Ask us" href="#contact" /><Row name="Insect screens" value="Ask us" href="#contact" /></ul>
+            <h3 className="rail pt-3 font-serif text-2xl font-medium mb-2">Skylights and screens</h3>
+            <ul><Row name="Skylights" value="from ₹1,200" href="skylights.html" /><Row name="Insect screens" value="Ask us" href="#contact" /></ul>
             <p className="rise text-[.9375rem] text-muted mt-4 leading-relaxed">All prices are before GST. Motors for curtains start from ₹{inr(rates.settings.motorFrom)} plus GST.</p>
           </div>
         </div>
@@ -332,18 +332,18 @@ function Why() {
 
 function Also() {
   const items = [
-    ['Skylights', 'Indoor and outdoor skylights, pergolas and louvers.', 'skylight-indoor', 'Honeycomb blinds on a sloped skylight'],
-    ['Insect screens', 'Magnetic, sliding and pleated screens for windows and doors.', 'screen', 'A black framed insect screen door'],
+    ['Skylights', 'Indoor and outdoor skylights, pergolas and louvers.', 'skylight-indoor', 'Honeycomb blinds on a sloped skylight', 'skylights.html', 'From ₹1,200 per sq ft. See all six →'],
+    ['Insect screens', 'Magnetic, sliding and pleated screens for windows and doors.', 'screen', 'A black framed insect screen door', '#contact', 'Priced after a visit. Ask us →'],
   ];
   return (
     <section className="grid md:grid-cols-2 gap-[3px] bg-navy border-y-[3px] border-navy">
-      {items.map(([t, d, img, alt]) => (
-        <a key={t} href="#contact" className="bg-linen grid grid-cols-[42%_1fr] no-underline group">
+      {items.map(([t, d, img, alt, href, more]) => (
+        <a key={t} href={href} className="bg-linen grid grid-cols-[42%_1fr] no-underline group">
           <div className="pane-photo blind min-h-[220px] relative"><img src={`img/${img}.webp`} alt={alt} width="600" height="600" loading="lazy" className="absolute inset-0" /></div>
           <div className="p-6 lg:p-9 flex flex-col justify-center">
             <h2 className="rise font-serif text-[1.75rem] lg:text-[2.25rem] font-medium leading-tight mb-2">{t}</h2>
             <p className="rise text-[.9375rem] leading-relaxed text-muted mb-3">{d}</p>
-            <p className="rise font-semibold text-[.9375rem] group-hover:text-brand transition-colors">Priced after a visit. Ask us →</p>
+            <p className="rise font-semibold text-[.9375rem] group-hover:text-brand transition-colors">{more}</p>
           </div>
         </a>
       ))}
