@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Window Works | Design C: Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #0F0F0F; --muted: #707070; --rule: #0F0F0F; --soft: #EDEDED; --blue: #134AA2; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: var(--ink); font: 16px/1.55 "IBM Plex Sans", Arial, sans-serif; }
+  img { display: block; max-width: 100%; height: auto; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 0 24px; }
+  .mono { font-family: "IBM Plex Mono", monospace; font-size: .8125rem; letter-spacing: .02em; }
+  h1, h2, h3 { margin: 0; font-weight: 500; }
+
+  /* Header: one thin line, text logo mark + logo, plain text links */
+  header { border-bottom: 1px solid var(--rule); }
+  header .wrap { display: grid; grid-template-columns: auto 1fr auto; gap: 32px; align-items: center; min-height: 64px; }
+  header .logo { background: var(--blue); padding: 4px 8px; }
+  header .logo img { height: 40px; width: auto; }
+  header nav { display: flex; gap: 26px; }
+  header nav a, header .right a { color: var(--ink); text-decoration: none; }
+  header nav a:hover { text-decoration: underline; }
+
+  /* Hero: very large type across the page, photo strip below */
+  .hero { padding: 56px 0 0; }
+  .hero .top { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+  .hero h1 { grid-column: 1 / 11; font-size: 5.5rem; line-height: .98; letter-spacing: -.035em; }
+  .hero h1 em { font-style: normal; color: var(--blue); }
+  .hero .side { grid-column: 1 / 6; margin-top: 36px; }
+  .hero .side p { margin: 0 0 18px; font-size: 1.125rem; }
+  .hero .meta { grid-column: 8 / 13; margin-top: 36px; border-top: 1px solid var(--rule); }
+  .hero .meta div { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  .act { display: inline-block; padding: 12px 18px; background: var(--ink); color: #fff; text-decoration: none; margin-right: 10px; }
+  .act.line { background: #fff; color: var(--ink); outline: 1px solid var(--ink); outline-offset: -1px; }
+  .strip { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; margin-top: 48px; }
+  .strip img { width: 100%; height: 360px; object-fit: cover; }
+
+  /* Numbered sections */
+  section { padding: 72px 0; border-top: 1px solid var(--rule); }
+  .sec { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+  .sec > .label { grid-column: 1 / 4; }
+  .sec > .label .mono { color: var(--muted); display: block; margin-bottom: 8px; }
+  .sec > .label h2 { font-size: 2rem; letter-spacing: -.02em; line-height: 1.1; }
+  .sec > .body { grid-column: 4 / 13; }
+
+  /* Product index */
+  .index { border-top: 1px solid var(--rule); }
+  .index a { display: grid; grid-template-columns: 56px 1.2fr 1.6fr 160px 120px; gap: 20px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--rule); color: inherit; text-decoration: none; }
+  .index a:hover h3 { color: var(--blue); }
+  .index h3 { font-size: 1.5rem; letter-spacing: -.01em; }
+  .index p { margin: 0; color: var(--muted); }
+  .index .price { text-align: right; }
+  .index img { width: 120px; aspect-ratio: 4 / 3; object-fit: cover; }
+
+  /* Prices: typographic, mono figures */
+  .pcols { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .pcols h3 { font-size: 1.125rem; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+  .plist div { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--soft); }
+  .plist div span:last-child { font-family: "IBM Plex Mono", monospace; }
+
+  /* Process */
+  .process { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--rule); }
+  .process div { padding: 18px 20px 4px 0; border-right: 1px solid var(--soft); margin-right: 20px; }
+  .process div:last-child { border-right: 0; }
+  .process h3 { font-size: 1.125rem; margin: 10px 0 4px; }
+  .process p { margin: 0; color: var(--muted); }
+
+  .why { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; }
+  .why div { padding: 14px 0; border-bottom: 1px solid var(--soft); }
+  .why h3 { font-size: 1.125rem; }
+  .why p { margin: 2px 0 0; color: var(--muted); }
+
+  .contact h2.big { font-size: 3.5rem; letter-spacing: -.03em; line-height: 1; }
+  .contact a.tel { color: var(--blue); text-decoration: none; }
+  .contact .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; border-top: 1px solid var(--rule); padding-top: 16px; }
+  footer { border-top: 1px solid var(--rule); }
+  footer .wrap { display: flex; justify-content: space-between; padding-top: 18px; padding-bottom: 18px; }
+
+  @media (max-width: 860px) {
+    header nav { display: none; }
+    header .wrap { grid-template-columns: auto 1fr; }
+    header .right { justify-self: end; }
+    .hero h1 { font-size: 3rem; grid-column: 1 / -1; }
+    .hero .side, .hero .meta { grid-column: 1 / -1; margin-top: 20px; }
+    .strip { grid-template-columns: 1fr 1fr; }
+    .strip img { height: 180px; }
+    .strip img:first-child { grid-column: 1 / -1; height: 230px; }
+    .sec > .label, .sec > .body { grid-column: 1 / -1; }
+    .index a { grid-template-columns: 34px 1fr 84px; gap: 12px; }
+    .index p { display: none; }
+    .index img { width: 84px; grid-column: 3; grid-row: 1; }
+    .index .price { grid-column: 2; text-align: left; margin-top: -10px; }
+    .index h3 { font-size: 1.25rem; }
+    .pcols, .why { grid-template-columns: 1fr; gap: 28px; }
+    .process { grid-template-columns: 1fr 1fr; }
+    .process div { border-right: 0; }
+    .contact h2.big { font-size: 2.25rem; }
+    .contact .cols { grid-template-columns: 1fr; }
+    section { padding: 48px 0; }
+  }
+</style>
+</head>
+<body>
+  <header><div class="wrap">
+    <span class="logo"><img src="../public/img/logo-white.png" alt="Window Works"></span>
+    <nav><a href="#">Curtains</a><a href="#">Blinds</a><a href="#">Motorisation</a><a href="#">Skylights</a><a href="#">Prices</a><a href="#">Contact</a></nav>
+    <span class="right mono"><a href="#">+91 91590 30465</a></span>
+  </div></header>
+
+  <div class="hero"><div class="wrap">
+    <div class="top">
+      <h1>Curtains and blinds, <em>measured</em> for your windows.</h1>
+      <div class="side"><p>Window Works, RS Puram, Coimbatore. We bring the catalogues home, measure every window, stitch in our own workshop and fit.</p>
+        <a class="act" href="#">Get a rough price</a><a class="act line" href="#">Call us</a></div>
+      <div class="meta mono"><div><span>Since</span><span>2015</span></div><div><span>Curtains from</span><span>₹250 / m</span></div><div><span>Blinds from</span><span>₹55 / sq ft</span></div><div><span>Home visit</span><span>Coimbatore</span></div></div>
+    </div>
+    <div class="strip"><img src="../public/img/simple/hero.webp" alt=""><img src="../public/img/simple/curtains.webp" alt=""><img src="../public/img/simple/blinds.webp" alt=""></div>
+  </div></div>
+
+  <section style="margin-top:72px"><div class="wrap sec">
+    <div class="label"><span class="mono">01</span><h2>Products</h2></div>
+    <div class="body index">
+      <a href="#"><span class="mono">1.1</span><h3>Curtains</h3><p>Eyelet, pleated, sheer, recess, LED</p><span class="price mono">from ₹250 / m</span><img src="../public/img/simple/curtains.webp" alt=""></a>
+      <a href="#"><span class="mono">1.2</span><h3>Blinds</h3><p>Roller, zebra, Roman, venetian, wooden</p><span class="price mono">from ₹55 / sq ft</span><img src="../public/img/simple/blinds.webp" alt=""></a>
+      <a href="#"><span class="mono">1.3</span><h3>Motorisation</h3><p>Curtains and blinds by remote</p><span class="price mono">motor ₹15,000</span><img src="../public/img/simple/motor.webp" alt=""></a>
+      <a href="#"><span class="mono">1.4</span><h3>Skylights</h3><p>Glass roofs, terraces, pergolas</p><span class="price mono">from ₹1,200 / sq ft</span><img src="../public/img/simple/skylight.webp" alt=""></a>
+      <a href="#"><span class="mono">1.5</span><h3>Insect screens</h3><p>Magnetic, sliding, pleated</p><span class="price mono">after a visit</span><img src="../public/img/simple/screen.webp" alt=""></a>
+    </div>
+  </div></section>
+
+  <section><div class="wrap sec">
+    <div class="label"><span class="mono">02</span><h2>Price list</h2><p class="mono" style="color:var(--muted);margin-top:10px">Starting rates, before GST</p></div>
+    <div class="body pcols">
+      <div class="plist"><h3>Blinds, per sq ft</h3><div><span>Vertical</span><span>₹55</span></div><div><span>Roller</span><span>₹80</span></div><div><span>Zebra</span><span>₹120</span></div><div><span>Venetian</span><span>₹150</span></div><div><span>Roman</span><span>₹225</span></div><div><span>Wooden</span><span>₹280</span></div><div><span>Monsoon</span><span>₹280</span></div><div><span>Honeycomb</span><span>₹300</span></div><div><span>Panel</span><span>₹420</span></div><div><span>External zipper</span><span>₹780</span></div><div><span>Insulated glass</span><span>₹1,200</span></div></div>
+      <div class="plist"><h3>Curtains, per metre</h3><div><span>Sheers</span><span>₹300</span></div><div><span>Eyelet</span><span>₹250</span></div><div><span>Pleated</span><span>₹250</span></div><div><span>Recess</span><span>₹250</span></div><div><span>LED</span><span>₹250</span></div><div><span>Motorised</span><span>₹250 + motor</span></div><p class="mono" style="color:var(--muted);margin-top:16px">Motors from ₹15,000 + GST</p></div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap sec">
+    <div class="label"><span class="mono">03</span><h2>Process</h2></div>
+    <div class="body process">
+      <div><span class="mono">Step 1</span><h3>Rough price</h3><p>Online or by phone.</p></div>
+      <div><span class="mono">Step 2</span><h3>Home visit</h3><p>Catalogues brought to you.</p></div>
+      <div><span class="mono">Step 3</span><h3>Final price</h3><p>For the fabric you choose.</p></div>
+      <div><span class="mono">Step 4</span><h3>Stitch and fit</h3><p>Our tailors, our fitters.</p></div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap sec">
+    <div class="label"><span class="mono">04</span><h2>Why us</h2></div>
+    <div class="body why">
+      <div><h3>No outlet costs</h3><p>No showroom, so the saving goes to you.</p></div>
+      <div><h3>Catalogues at your door</h3><p>See fabrics against your own walls.</p></div>
+      <div><h3>Measured in front of you</h3><p>Every window, during the visit.</p></div>
+      <div><h3>Our own tailors</h3><p>Stitched in-house, checked before fitting.</p></div>
+    </div>
+  </div></section>
+
+  <section class="contact"><div class="wrap">
+    <span class="mono" style="color:var(--muted)">05 · Contact</span>
+    <h2 class="big" style="margin-top:12px">Call <a class="tel" href="#">+91 91590 30465</a><br>for a home visit.</h2>
+    <div class="cols mono"><div>19, G.R.D Layout<br>A.A. Scheme Road<br>RS Puram, Coimbatore 641002</div><div>admin@windowworks.in</div><div>Homes, offices,<br>architects and builders</div></div>
+  </div></section>
+  <footer><div class="wrap mono"><span>© Window Works</span><span>Coimbatore, since 2015</span></div></footer>
+</body>
+</html>
