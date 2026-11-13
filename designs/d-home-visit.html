@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Window Works | Design D: Home visit first</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --blue: #134AA2; --blue-d: #0D3576; --tint: #EEF4FB; --ink: #1B2433; --muted: #5D6778; --line: #D6DFEB; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: var(--ink); font: 17px/1.6 "Figtree", Arial, sans-serif; }
+  img { display: block; max-width: 100%; height: auto; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3 { margin: 0; line-height: 1.15; }
+  .btn { display: inline-block; background: var(--blue); color: #fff; font-weight: 700; padding: 13px 22px; text-decoration: none; }
+  .btn.full { display: block; text-align: center; }
+
+  header { border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; align-items: center; gap: 28px; min-height: 72px; }
+  .logo { background: var(--blue); padding: 6px 10px; }
+  .logo img { height: 46px; width: auto; }
+  header nav { display: flex; gap: 22px; font-weight: 600; }
+  header nav a { color: var(--ink); text-decoration: none; }
+  header .btn { margin-left: auto; }
+
+  /* Hero: the visit booking is the lead */
+  .hero { background: var(--tint); padding: 48px 0 0; }
+  .hero .grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start; }
+  .tag { display: inline-block; background: #fff; border: 1px solid var(--line); padding: 4px 10px; font-weight: 700; font-size: .875rem; color: var(--blue); margin-bottom: 16px; }
+  .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: 14px; }
+  .hero .lead { color: var(--muted); font-size: 1.125rem; margin: 0 0 22px; max-width: 34rem; }
+  .ticks { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .ticks li { padding-left: 30px; position: relative; font-weight: 600; }
+  .ticks li::before { content: ""; position: absolute; left: 0; top: 5px; width: 18px; height: 18px; background: var(--blue); clip-path: polygon(14% 44%, 0 59%, 40% 100%, 100% 22%, 86% 8%, 40% 70%); }
+  .book { background: #fff; border: 1px solid var(--line); border-top: 5px solid var(--blue); padding: 26px; }
+  .book h2 { font-size: 1.375rem; margin-bottom: 4px; }
+  .book p { color: var(--muted); margin: 0 0 16px; font-size: .9375rem; }
+  .book label { display: block; font-weight: 700; font-size: .875rem; margin-bottom: 12px; }
+  .field { margin-top: 4px; border: 1px solid #B7C3D4; padding: 10px 12px; color: #98A2B3; font-weight: 400; }
+  .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 6px; }
+  .days span { border: 1px solid #B7C3D4; text-align: center; padding: 8px 0; font-size: .8125rem; font-weight: 600; }
+  .days span.on { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 44px; transform: translateY(40px); }
+  .strip figure { margin: 0; background: #fff; border: 1px solid var(--line); }
+  .strip img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .strip figcaption { padding: 10px 14px; font-weight: 600; font-size: .9375rem; }
+
+  section { padding: 72px 0; }
+  .first { padding-top: 110px; }
+  .stitle { max-width: 40rem; margin-bottom: 30px; }
+  .stitle h2 { font-size: 2.125rem; font-weight: 800; letter-spacing: -.01em; margin-bottom: 8px; }
+  .stitle p { color: var(--muted); margin: 0; }
+
+  /* Visit timeline */
+  .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); }
+  .timeline div { padding: 22px 22px 24px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .timeline div:nth-child(3n) { border-right: 0; }
+  .timeline div:nth-child(n+4) { border-bottom: 0; }
+  .timeline b { display: block; color: var(--blue); font-size: .875rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 8px; }
+  .timeline h3 { font-size: 1.1875rem; margin-bottom: 4px; }
+  .timeline p { margin: 0; color: var(--muted); font-size: .9375rem; }
+
+  .bring { background: var(--tint); }
+  .bring .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .bring img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--line); }
+  .bring ul { margin: 18px 0 0; padding: 0; list-style: none; }
+  .bring li { padding: 12px 0; border-top: 1px solid var(--line); font-weight: 600; }
+  .bring li span { display: block; font-weight: 400; color: var(--muted); font-size: .9375rem; }
+
+  .tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  .tile { border: 1px solid var(--line); }
+  .tile img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+  .tile div { padding: 12px 14px 14px; }
+  .tile h3 { font-size: 1rem; margin-bottom: 2px; }
+  .tile p { margin: 0; color: var(--muted); font-size: .875rem; }
+
+  .cta { background: var(--blue); color: #fff; }
+  .cta .wrap { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-top: 44px; padding-bottom: 44px; }
+  .cta h2 { font-size: 2rem; font-weight: 800; }
+  .cta p { margin: 6px 0 0; color: #CFDDF5; }
+  .cta .btn { background: #fff; color: var(--blue); }
+  footer { background: var(--ink); color: #AEB6C4; font-size: .875rem; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding-top: 22px; padding-bottom: 22px; }
+
+  @media (max-width: 880px) {
+    header nav { display: none; }
+    .hero .grid, .bring .grid { grid-template-columns: 1fr; gap: 28px; }
+    .hero h1 { font-size: 2.125rem; }
+    .strip { grid-template-columns: 1fr 1fr; transform: none; margin-top: 28px; padding-bottom: 28px; }
+    .strip figure:first-child { grid-column: 1 / -1; }
+    .first { padding-top: 56px; }
+    .timeline { grid-template-columns: 1fr; }
+    .timeline div { border-right: 0 !important; border-bottom: 1px solid var(--line) !important; }
+    .timeline div:last-child { border-bottom: 0 !important; }
+    .tiles { grid-template-columns: 1fr 1fr; }
+    .cta .wrap { flex-direction: column; align-items: start; }
+    section { padding: 52px 0; }
+  }
+</style>
+</head>
+<body>
+  <header><div class="wrap">
+    <span class="logo"><img src="../public/img/logo-white.png" alt="Window Works"></span>
+    <nav><a href="#">Curtains</a><a href="#">Blinds</a><a href="#">Motorisation</a><a href="#">Skylights</a><a href="#">Prices</a></nav>
+    <a class="btn" href="#">Book a home visit</a>
+  </div></header>
+
+  <div class="hero"><div class="wrap">
+    <div class="grid">
+      <div>
+        <span class="tag">No showroom. We come to you.</span>
+        <h1>We come to your home, measure every window, and fit.</h1>
+        <p class="lead">Window Works brings the fabric and blind catalogues to your home in Coimbatore. See them against your own walls, get every window measured in front of you, and we stitch and fit.</p>
+        <ul class="ticks"><li>Catalogues brought to your door</li><li>Every window measured with you</li><li>Stitched by our own tailors</li><li>Fitted by our team since 2015</li></ul>
+      </div>
+      <div class="book">
+        <h2>Book a home visit</h2>
+        <p>Leave your number and we will call to fix a time.</p>
+        <label>Your name<div class="field">Name</div></label>
+        <label>Mobile number<div class="field">10-digit mobile</div></label>
+        <label>Area or PIN code<div class="field">e.g. RS Puram</div></label>
+        <label>Day that suits you<div class="days"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span class="on">Sat</span><span>Sun</span></div></label>
+        <a class="btn full" href="#">Book my visit</a>
+      </div>
+    </div>
+    <div class="strip">
+      <figure><img src="../public/img/simple/visit.webp" alt=""><figcaption>1 · We bring the catalogues</figcaption></figure>
+      <figure><img src="../public/img/simple/measure.webp" alt=""><figcaption>2 · We measure every window</figcaption></figure>
+      <figure><img src="../public/img/simple/curtains.webp" alt=""><figcaption>3 · We stitch and fit</figcaption></figure>
+    </div>
+  </div></div>
+
+  <section class="first"><div class="wrap">
+    <div class="stitle"><h2>What happens after you book</h2><p>Simple, and you see everything before you decide.</p></div>
+    <div class="timeline">
+      <div><b>Step 1</b><h3>You book</h3><p>Online or by phone, with the day that suits you.</p></div>
+      <div><b>Step 2</b><h3>We call you</h3><p>To fix the time and ask what rooms you need done.</p></div>
+      <div><b>Step 3</b><h3>We visit</h3><p>With fabric and blind catalogues to see in your light.</p></div>
+      <div><b>Step 4</b><h3>We measure</h3><p>Every window, with you there.</p></div>
+      <div><b>Step 5</b><h3>Final price</h3><p>For the fabric and fittings you choose.</p></div>
+      <div><b>Step 6</b><h3>Stitch and fit</h3><p>Made by our tailors, fitted by our team.</p></div>
+    </div>
+  </div></section>
+
+  <section class="bring"><div class="wrap grid">
+    <img src="../public/img/simple/visit.webp" alt="">
+    <div>
+      <div class="stitle" style="margin-bottom:0"><h2>What we bring to your home</h2><p>So you can choose in your own room, not in a shop.</p></div>
+      <ul>
+        <li>Curtain fabric catalogues<span>Plain, printed and sheer fabrics to hold up against your walls.</span></li>
+        <li>Blind samples<span>Roller, zebra, Roman, wooden and more.</span></li>
+        <li>Our starting price list<span>Curtains from ₹250 per metre, blinds from ₹55 per sq ft, before GST.</span></li>
+      </ul>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="stitle"><h2>What we can fit on the visit</h2><p>Starting prices before GST.</p></div>
+    <div class="tiles">
+      <div class="tile"><img src="../public/img/simple/curtains.webp" alt=""><div><h3>Curtains</h3><p>From ₹250 / m</p></div></div>
+      <div class="tile"><img src="../public/img/simple/blinds.webp" alt=""><div><h3>Blinds</h3><p>From ₹55 / sq ft</p></div></div>
+      <div class="tile"><img src="../public/img/simple/motor.webp" alt=""><div><h3>Motorised</h3><p>Motor from ₹15,000</p></div></div>
+      <div class="tile"><img src="../public/img/simple/skylight.webp" alt=""><div><h3>Skylights</h3><p>From ₹1,200 / sq ft</p></div></div>
+      <div class="tile"><img src="../public/img/simple/screen.webp" alt=""><div><h3>Insect screens</h3><p>Priced on the visit</p></div></div>
+    </div>
+  </div></section>
+
+  <div class="cta"><div class="wrap">
+    <div><h2>Book your home visit</h2><p>Call +91 91590 30465 · 19, G.R.D Layout, A.A. Scheme Road, RS Puram, Coimbatore 641002</p></div>
+    <a class="btn" href="#">Book my visit</a>
+  </div></div>
+  <footer><div class="wrap"><span>© Window Works, Coimbatore</span><span>admin@windowworks.in</span></div></footer>
+</body>
+</html>

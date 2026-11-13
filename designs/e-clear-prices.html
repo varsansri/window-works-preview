@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Window Works | Design E: Clear prices first</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --green: #1E7A4C; --green-l: #E8F3EC; --ink: #1F2328; --muted: #646B73; --line: #DFE2E5; --bg: #F7F8F8; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: var(--ink); font: 16px/1.6 "Work Sans", Arial, sans-serif; font-variant-numeric: tabular-nums; }
+  img { display: block; max-width: 100%; height: auto; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3 { margin: 0; line-height: 1.15; font-weight: 700; }
+  .btn { display: inline-block; background: var(--green); color: #fff; font-weight: 600; padding: 12px 20px; text-decoration: none; }
+  .btn.line { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+
+  header { background: var(--ink); }
+  header .wrap { display: flex; align-items: center; gap: 26px; min-height: 66px; }
+  .logo img { height: 44px; width: auto; }
+  header nav { display: flex; gap: 22px; }
+  header nav a { color: #D5D9DE; text-decoration: none; font-weight: 500; }
+  header .tel { margin-left: auto; color: #fff; font-weight: 600; text-decoration: none; }
+
+  /* Hero: the price board is the lead */
+  .hero { padding: 44px 0 56px; border-bottom: 1px solid var(--line); }
+  .hero .top { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 26px; }
+  .hero h1 { font-size: 3.25rem; letter-spacing: -.02em; }
+  .hero h1 span { color: var(--green); }
+  .hero .top p { margin: 0; color: var(--muted); max-width: 26rem; }
+  .board { display: grid; grid-template-columns: 1.2fr 1fr .9fr; border: 2px solid var(--ink); }
+  .board > div { padding: 18px 22px; border-right: 1px solid var(--line); }
+  .board > div:last-child { border-right: 0; background: var(--green-l); }
+  .board h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: .08em; padding-bottom: 10px; border-bottom: 2px solid var(--ink); margin-bottom: 4px; }
+  .board .row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  .board .row b { font-weight: 700; }
+  .board .row:last-child { border-bottom: 0; }
+  .board .note { font-size: .875rem; color: var(--muted); margin: 10px 0 0; }
+  .hero .actions { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; align-items: center; }
+  .hero .actions small { color: var(--muted); }
+
+  section { padding: 64px 0; }
+  .stitle { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 26px; }
+  .stitle h2 { font-size: 2rem; letter-spacing: -.01em; }
+  .stitle p { margin: 0; color: var(--muted); max-width: 30rem; }
+
+  /* Worked examples */
+  .examples { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ex { border: 1px solid var(--line); background: #fff; }
+  .ex img { width: 100%; aspect-ratio: 16 / 7; object-fit: cover; }
+  .ex .body { padding: 20px 22px 22px; }
+  .ex h3 { font-size: 1.25rem; margin-bottom: 12px; }
+  .calc { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+  .calc td { padding: 7px 0; border-bottom: 1px dashed var(--line); }
+  .calc td:last-child { text-align: right; }
+  .range { margin-top: 14px; padding: 14px 16px; background: var(--green-l); display: flex; justify-content: space-between; align-items: baseline; }
+  .range strong { font-size: 1.5rem; color: var(--green); white-space: nowrap; }
+
+  .decides { background: var(--bg); }
+  .four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .four div { background: #fff; border: 1px solid var(--line); padding: 20px; border-top: 4px solid var(--green); }
+  .four h3 { font-size: 1.0625rem; margin-bottom: 6px; }
+  .four p { margin: 0; color: var(--muted); font-size: .9375rem; }
+
+  .prods { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  .prod img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .prod h3 { font-size: 1rem; margin: 10px 0 2px; }
+  .prod p { margin: 0; font-weight: 700; color: var(--green); }
+
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; counter-reset: s; }
+  .steps div { counter-increment: s; border-top: 2px solid var(--ink); padding-top: 14px; }
+  .steps div::before { content: counter(s, decimal-leading-zero); font-weight: 700; color: var(--green); }
+  .steps h3 { font-size: 1.125rem; margin: 6px 0 4px; }
+  .steps p { margin: 0; color: var(--muted); }
+
+  footer { background: var(--ink); color: #BFC5CC; font-size: .9375rem; }
+  footer .wrap { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; padding-top: 36px; padding-bottom: 36px; }
+  footer h2 { color: #fff; font-size: 1.5rem; margin-bottom: 8px; }
+  footer a { color: #fff; }
+
+  @media (max-width: 880px) {
+    header nav { display: none; }
+    .hero h1 { font-size: 2.25rem; }
+    .hero .top, .stitle { flex-direction: column; align-items: start; }
+    .board { grid-template-columns: 1fr; }
+    .board > div { border-right: 0; border-bottom: 1px solid var(--line); }
+    .examples, footer .wrap { grid-template-columns: 1fr; }
+    .four, .prods { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    section { padding: 48px 0; }
+    .range { flex-direction: column; gap: 2px; }
+    .range strong { font-size: 1.375rem; }
+  }
+</style>
+</head>
+<body>
+  <header><div class="wrap">
+    <span class="logo"><img src="../public/img/logo-white.png" alt="Window Works"></span>
+    <nav><a href="#">Prices</a><a href="#">Curtains</a><a href="#">Blinds</a><a href="#">Motorisation</a><a href="#">Skylights</a></nav>
+    <a class="tel" href="#">+91 91590 30465</a>
+  </div></header>
+
+  <div class="hero"><div class="wrap">
+    <div class="top">
+      <h1>Every price, <span>upfront.</span></h1>
+      <p>Curtains and blinds made to measure in Coimbatore since 2015. Here are all our starting rates, so you know where you stand before we visit.</p>
+    </div>
+    <div class="board">
+      <div><h2>Blinds · per sq ft</h2>
+        <div class="row"><span>Vertical</span><b>₹55</b></div><div class="row"><span>Roller</span><b>₹80</b></div><div class="row"><span>Zebra</span><b>₹120</b></div><div class="row"><span>Venetian</span><b>₹150</b></div><div class="row"><span>Roman</span><b>₹225</b></div><div class="row"><span>Wooden</span><b>₹280</b></div><div class="row"><span>Monsoon</span><b>₹280</b></div><div class="row"><span>Honeycomb</span><b>₹300</b></div><div class="row"><span>Panel</span><b>₹420</b></div><div class="row"><span>External zipper</span><b>₹780</b></div><div class="row"><span>Insulated glass</span><b>₹1,200</b></div></div>
+      <div><h2>Curtains · per metre</h2>
+        <div class="row"><span>Sheers</span><b>₹300</b></div><div class="row"><span>Eyelet</span><b>₹250</b></div><div class="row"><span>Pleated</span><b>₹250</b></div><div class="row"><span>Recess</span><b>₹250</b></div><div class="row"><span>LED</span><b>₹250</b></div><div class="row"><span>Motorised</span><b>₹250 + motor</b></div>
+        <p class="note">Curtain motors from ₹15,000.</p></div>
+      <div><h2>Other work</h2>
+        <div class="row"><span>Skylights, from</span><b>₹1,200 / sq ft</b></div><div class="row"><span>Pergola shades</span><b>Ask us</b></div><div class="row"><span>Insect screens</span><b>After a visit</b></div>
+        <p class="note">All prices are starting rates, before GST. The final price is fixed after we measure.</p></div>
+    </div>
+    <div class="actions"><a class="btn" href="#">Work out my rough price</a><a class="btn line" href="#">Call +91 91590 30465</a><small>No charge for the estimate.</small></div>
+  </div></div>
+
+  <section><div class="wrap">
+    <div class="stitle"><h2>What a room costs, worked out</h2><p>A bedroom with two windows, each 5 ft wide and 6 ft high. Rough ranges from our starting rates, before GST.</p></div>
+    <div class="examples">
+      <div class="ex"><img src="../public/img/simple/blinds.webp" alt=""><div class="body"><h3>Zebra blinds</h3>
+        <table class="calc"><tr><td>2 windows × 5 × 6 ft</td><td>60 sq ft</td></tr><tr><td>Zebra, from</td><td>₹120 per sq ft</td></tr><tr><td>60 × ₹120</td><td>₹7,200</td></tr></table>
+        <div class="range"><span>Rough range</span><strong>₹7,200 – ₹9,400</strong></div></div></div>
+      <div class="ex"><img src="../public/img/simple/curtains.webp" alt=""><div class="body"><h3>Eyelet curtains</h3>
+        <table class="calc"><tr><td>Fabric for 2 windows (double fullness)</td><td>about 12.8 m</td></tr><tr><td>Eyelet, from</td><td>₹250 per metre</td></tr><tr><td>12.8 × ₹250</td><td>₹3,200</td></tr></table>
+        <div class="range"><span>Rough range</span><strong>₹3,250 – ₹4,200</strong></div></div></div>
+    </div>
+  </div></section>
+
+  <section class="decides"><div class="wrap">
+    <div class="stitle"><h2>What decides your final price</h2><p>The starting rate is the floor. These move it up.</p></div>
+    <div class="four">
+      <div><h3>Fabric you choose</h3><p>Plain, printed or sheer.</p></div>
+      <div><h3>Size of each window</h3><p>Measured at your home, not guessed.</p></div>
+      <div><h3>Fittings</h3><p>Rods, tracks and brackets for your walls.</p></div>
+      <div><h3>Motor and GST</h3><p>Motors from ₹15,000; GST added on all prices.</p></div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="stitle"><h2>What we make</h2><p>Each from the starting rate shown.</p></div>
+    <div class="prods">
+      <div class="prod"><img src="../public/img/simple/curtains.webp" alt=""><h3>Curtains</h3><p>₹250 / m</p></div>
+      <div class="prod"><img src="../public/img/simple/blinds.webp" alt=""><h3>Blinds</h3><p>₹55 / sq ft</p></div>
+      <div class="prod"><img src="../public/img/simple/motor.webp" alt=""><h3>Motorised</h3><p>Motor ₹15,000</p></div>
+      <div class="prod"><img src="../public/img/simple/skylight.webp" alt=""><h3>Skylights</h3><p>₹1,200 / sq ft</p></div>
+      <div class="prod"><img src="../public/img/simple/screen.webp" alt=""><h3>Insect screens</h3><p>After a visit</p></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="stitle"><h2>From rough price to exact price</h2></div>
+    <div class="steps">
+      <div><h3>Rough price online</h3><p>Enter your window sizes and see a range at once.</p></div>
+      <div><h3>Home visit</h3><p>We bring catalogues and measure every window.</p></div>
+      <div><h3>Exact price, then fitting</h3><p>You approve the price; our tailors make it and our team fits it.</p></div>
+    </div>
+  </div></section>
+
+  <footer><div class="wrap">
+    <div><h2>Want your exact price?</h2><p>Call <a href="#">+91 91590 30465</a> or email <a href="#">admin@windowworks.in</a></p></div>
+    <div>19, G.R.D Layout, A.A. Scheme Road<br>RS Puram, Coimbatore 641002<br>© Window Works</div>
+  </div></footer>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Window Works | Design F: Our work first</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --clay: #B5522E; --ink: #24201D; --muted: #6E6660; --line: #E5DFD8; --paper: #FBFAF8; --sand: #F3EFE9; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.6 "Manrope", Arial, sans-serif; }
+  img { display: block; max-width: 100%; height: auto; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3 { margin: 0; line-height: 1.15; font-weight: 800; letter-spacing: -.015em; }
+  .btn { display: inline-block; background: var(--ink); color: #fff; font-weight: 700; padding: 12px 20px; text-decoration: none; }
+  .btn.clay { background: var(--clay); }
+
+  header .wrap { display: flex; align-items: center; gap: 26px; min-height: 72px; border-bottom: 1px solid var(--line); }
+  .logo { background: #134AA2; padding: 5px 9px; }
+  .logo img { height: 44px; width: auto; }
+  header nav { display: flex; gap: 22px; font-weight: 600; }
+  header nav a { color: var(--ink); text-decoration: none; }
+  header .btn { margin-left: auto; }
+
+  /* Hero: real jobs from their YouTube channel are the lead */
+  .hero { padding: 40px 0 64px; }
+  .hero .top { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; margin-bottom: 26px; }
+  .hero h1 { font-size: 3.25rem; max-width: 48rem; }
+  .hero .count { text-align: right; }
+  .hero .count b { display: block; font-size: 3rem; line-height: 1; color: var(--clay); }
+  .hero .count span { display: block; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+  .mosaic { display: grid; grid-template-columns: 2.2fr 1fr; grid-template-rows: repeat(3, 1fr); gap: 10px; }
+  .vid { position: relative; overflow: hidden; background: #000; text-decoration: none; color: #fff; }
+  .vid img { width: 100%; height: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .vid:first-child { grid-row: 1 / 4; }
+  .mosaic .vid:not(:first-child) img { aspect-ratio: auto; position: absolute; inset: 0; }
+  .mosaic .vid:first-child img { aspect-ratio: 16 / 9; height: auto; }
+  .vid .play { position: absolute; left: 16px; bottom: 14px; display: flex; align-items: center; gap: 10px; font-weight: 700; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+  .vid .play i { width: 34px; height: 34px; background: var(--clay); display: grid; place-items: center; font-style: normal; font-size: .75rem; }
+  .vid:first-child .play { font-size: 1.25rem; }
+  .vid:first-child .play i { width: 46px; height: 46px; font-size: 1rem; }
+  .hero .under { display: flex; gap: 14px; align-items: center; margin-top: 22px; flex-wrap: wrap; }
+  .hero .under p { margin: 0 0 0 auto; color: var(--muted); }
+
+  section { padding: 68px 0; }
+  .stitle { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 26px; }
+  .stitle h2 { font-size: 2.125rem; }
+  .stitle p { margin: 0; color: var(--muted); max-width: 30rem; }
+
+  .factory { background: var(--sand); }
+  .factory .grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; }
+  .factory .vid img { aspect-ratio: 16 / 9; }
+  .factory ul { list-style: none; margin: 18px 0 22px; padding: 0; }
+  .factory li { padding: 12px 0; border-top: 1px solid var(--line); }
+  .factory li b { display: block; }
+  .factory li span { color: var(--muted); font-size: .9375rem; }
+
+  .types { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .types a { background: var(--paper); padding: 18px; text-decoration: none; color: inherit; }
+  .types img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: 12px; }
+  .types h3 { font-size: 1.0625rem; }
+  .types p { margin: 2px 0 0; color: var(--clay); font-weight: 700; font-size: .9375rem; }
+  .small { color: var(--muted); font-size: .8125rem; margin-top: 10px; }
+
+  .who { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .who div { border-top: 3px solid var(--ink); padding-top: 14px; }
+  .who h3 { font-size: 1.125rem; margin-bottom: 4px; }
+  .who p { margin: 0; color: var(--muted); }
+
+  .end { background: var(--ink); color: #fff; }
+  .end .wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; padding-top: 56px; padding-bottom: 56px; align-items: center; }
+  .end h2 { font-size: 2.25rem; margin-bottom: 10px; }
+  .end p { color: #CFC7BF; margin: 0 0 6px; }
+  footer { background: var(--ink); color: #9E958D; font-size: .875rem; border-top: 1px solid #3A342F; }
+  footer .wrap { display: flex; justify-content: space-between; padding-top: 18px; padding-bottom: 18px; }
+
+  @media (max-width: 880px) {
+    header nav { display: none; }
+    .hero .top { grid-template-columns: 1fr; }
+    .hero .count { text-align: left; }
+    .hero h1 { font-size: 2.125rem; }
+    .mosaic { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto; }
+    .mosaic .vid:not(:first-child) img { aspect-ratio: 16 / 9; position: static; }
+    .mosaic .vid:not(:first-child) .play { left: 8px; bottom: 8px; font-size: 0; gap: 0; }
+    .mosaic .vid:not(:first-child) .play i { width: 26px; height: 26px; font-size: .625rem; }
+    .vid:first-child { grid-column: 1 / -1; grid-row: auto; }
+    .hero .under p { margin: 0; }
+    .stitle { flex-direction: column; align-items: start; }
+    .factory .grid, .end .wrap { grid-template-columns: 1fr; gap: 24px; }
+    .types { grid-template-columns: 1fr 1fr; }
+    .who { grid-template-columns: 1fr 1fr; }
+    section { padding: 48px 0; }
+  }
+</style>
+</head>
+<body>
+  <header><div class="wrap">
+    <span class="logo"><img src="../public/img/logo-white.png" alt="Window Works"></span>
+    <nav><a href="#">Our work</a><a href="#">Curtains</a><a href="#">Blinds</a><a href="#">Skylights</a><a href="#">Prices</a></nav>
+    <a class="btn" href="#">+91 91590 30465</a>
+  </div></header>
+
+  <div class="hero"><div class="wrap">
+    <div class="top">
+      <h1>See the work before you call us.</h1>
+      <div class="count"><span>Fitting in Coimbatore since</span><b>2015</b></div>
+    </div>
+    <div class="mosaic">
+      <a class="vid" href="#"><img src="../public/img/yt169/L4cqZRJlWSI.jpg" alt=""><span class="play"><i>▶</i>Motorised patio blinds</span></a>
+      <a class="vid" href="#"><img src="../public/img/yt169/AIU1LYDOvPY.jpg" alt=""><span class="play"><i>▶</i>Jumbo Roman blinds</span></a>
+      <a class="vid" href="#"><img src="../public/img/yt169/N9EtkCqD3KQ.jpg" alt=""><span class="play"><i>▶</i>Zipper blinds</span></a>
+      <a class="vid" href="#"><img src="../public/img/yt169/n2h3RbdLkhE.jpg" alt=""><span class="play"><i>▶</i>Terrace skylight</span></a>
+    </div>
+    <div class="under"><a class="btn clay" href="#">Get a rough price</a><a class="btn" href="#">Watch all on YouTube</a><p>Real jobs and our factory, filmed by our team.</p></div>
+  </div></div>
+
+  <section class="factory"><div class="wrap grid">
+    <a class="vid" href="#"><img src="../public/img/yt169/F3_9vdSg7_s.jpg" alt=""><span class="play"><i>▶</i>Quality check at our factory</span></a>
+    <div>
+      <div class="stitle" style="margin-bottom:0"><h2>Made in our own workshop</h2></div>
+      <ul>
+        <li><b>Our own tailors</b><span>Every curtain stitched in-house.</span></li>
+        <li><b>Checked at the factory</b><span>Each piece is checked before it leaves.</span></li>
+        <li><b>Inspected after fitting</b><span>Our team checks the job at your home.</span></li>
+      </ul>
+      <a class="btn" href="#">Book a home visit</a>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="stitle"><h2>What we fit</h2><p>Starting prices before GST. Pictures show the style of each product.</p></div>
+    <div class="types">
+      <a href="#"><img src="../public/img/simple/curtains.webp" alt=""><h3>Curtains</h3><p>From ₹250 / m</p></a>
+      <a href="#"><img src="../public/img/simple/blinds.webp" alt=""><h3>Blinds</h3><p>From ₹55 / sq ft</p></a>
+      <a href="#"><img src="../public/img/simple/motor.webp" alt=""><h3>Motorised</h3><p>Motor from ₹15,000</p></a>
+      <a href="#"><img src="../public/img/simple/skylight.webp" alt=""><h3>Skylights</h3><p>From ₹1,200 / sq ft</p></a>
+      <a href="#"><img src="../public/img/simple/screen.webp" alt=""><h3>Insect screens</h3><p>After a visit</p></a>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="stitle"><h2>Who we work for</h2></div>
+    <div class="who">
+      <div><h3>Homes</h3><p>Bedrooms, living rooms, balconies and terraces.</p></div>
+      <div><h3>Offices</h3><p>Blinds for workspaces and cabins.</p></div>
+      <div><h3>Architects</h3><p>Measured and made to the drawing.</p></div>
+      <div><h3>Builders</h3><p>Whole projects, from visit to fitting.</p></div>
+    </div>
+  </div></section>
+
+  <div class="end"><div class="wrap">
+    <div><h2>Like what you see?</h2><p>We bring the catalogues to your home and measure every window.</p><p>19, G.R.D Layout, A.A. Scheme Road, RS Puram, Coimbatore 641002</p></div>
+    <div><a class="btn clay" href="#">Call +91 91590 30465</a></div>
+  </div></div>
+  <footer><div class="wrap"><span>© Window Works</span><span>admin@windowworks.in</span></div></footer>
+</body>
+</html>
