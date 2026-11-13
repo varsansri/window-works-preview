@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Window Works | Curtains and blinds in Coimbatore (test page)</title>
+<meta name="description" content="Made-to-measure curtains, blinds, motorised curtains, skylight blinds and insect screens in RS Puram, Coimbatore. We measure at your home, stitch and fit.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --blue: #134AA2;
+    --blue-dark: #0E3878;
+    --ink: #1D2430;
+    --muted: #5A6372;
+    --line: #DCE1E8;
+    --soft: #F3F5F8;
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: auto; }
+  body { margin: 0; background: var(--white); color: var(--ink); font: 16px/1.6 "Segoe UI", Roboto, Arial, sans-serif; }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--blue); }
+  h1, h2, h3 { line-height: 1.25; margin: 0 0 .5em; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.125rem; }
+  p { margin: 0 0 1em; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 16px; }
+  .section { padding: 56px 0; }
+  .soft { background: var(--soft); }
+  .lead { color: var(--muted); max-width: 40rem; }
+  .center { text-align: center; }
+  .center .lead { margin-left: auto; margin-right: auto; }
+
+  /* Buttons: plain rectangles */
+  .btn { display: inline-block; padding: 11px 22px; border: 2px solid var(--blue); background: var(--blue); color: var(--white); font-weight: 600; text-decoration: none; border-radius: 0; cursor: pointer; font-size: 1rem; }
+  .btn:hover { background: var(--blue-dark); border-color: var(--blue-dark); }
+  .btn-line { background: transparent; color: var(--blue); }
+  .btn-line:hover { background: var(--blue); color: var(--white); }
+
+  /* Top bar and header */
+  .topbar { background: var(--blue-dark); color: #DCE6F7; font-size: .875rem; }
+  .topbar .wrap { display: flex; flex-wrap: wrap; gap: 4px 24px; padding-top: 6px; padding-bottom: 6px; }
+  .topbar a { color: var(--white); text-decoration: none; }
+  header { border-bottom: 1px solid var(--line); background: var(--white); }
+  header .wrap { display: flex; align-items: center; gap: 24px; min-height: 72px; }
+  .logo { background: var(--blue); padding: 6px 10px; flex-shrink: 0; }
+  .logo img { height: 48px; width: auto; }
+  nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 22px; }
+  nav a { color: var(--ink); text-decoration: none; font-weight: 500; }
+  nav a:hover { color: var(--blue); text-decoration: underline; }
+  .head-cta { margin-left: auto; }
+  .menu { display: none; margin-left: auto; }
+  .menu summary { list-style: none; cursor: pointer; border: 1px solid var(--line); padding: 8px 14px; font-weight: 600; }
+  .menu summary::-webkit-details-marker { display: none; }
+  .menu ul { list-style: none; margin: 0; padding: 8px 0; position: absolute; left: 0; right: 0; top: 100%; background: var(--white); border-bottom: 1px solid var(--line); z-index: 10; }
+  .menu li a { display: block; padding: 12px 16px; color: var(--ink); text-decoration: none; border-top: 1px solid var(--soft); }
+  header { position: relative; }
+
+  /* Hero */
+  .hero { background: var(--soft); }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px; align-items: center; padding-top: 48px; padding-bottom: 48px; }
+  .hero h1 { font-size: 2.5rem; }
+  .hero .lead { font-size: 1.0625rem; }
+  .hero .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  .hero img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border: 1px solid var(--line); }
+
+  /* Facts strip */
+  .facts { border-bottom: 1px solid var(--line); }
+  .facts ul { list-style: none; margin: 0; padding: 20px 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .facts li { padding-left: 14px; border-left: 3px solid var(--blue); }
+  .facts strong { display: block; }
+  .facts span { color: var(--muted); font-size: .9375rem; }
+
+  /* Products */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; }
+  .card { border: 1px solid var(--line); background: var(--white); display: flex; flex-direction: column; }
+  .card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .card .body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
+  .card p { color: var(--muted); font-size: .9375rem; flex: 1; }
+  .card .price { color: var(--ink); font-weight: 700; margin-bottom: 10px; }
+  .card a.more { font-weight: 600; text-decoration: none; }
+  .card a.more:hover { text-decoration: underline; }
+
+  /* Prices */
+  .tables { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 28px; align-items: start; }
+  table { width: 100%; border-collapse: collapse; background: var(--white); }
+  caption { text-align: left; font-weight: 700; font-size: 1.125rem; padding-bottom: 8px; }
+  th, td { text-align: left; padding: 10px 14px; border: 1px solid var(--line); }
+  th { background: var(--blue); color: var(--white); font-weight: 600; }
+  td:last-child, th:last-child { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  tr:nth-child(even) td { background: #FAFBFC; }
+  .note { color: var(--muted); font-size: .9375rem; margin-top: 16px; }
+
+  /* Steps and reasons */
+  .steps { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; counter-reset: s; }
+  .steps li { counter-increment: s; }
+  .steps li::before { content: counter(s); display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; background: var(--blue); color: var(--white); font-weight: 700; margin-bottom: 12px; }
+  .steps p, .reasons p { color: var(--muted); font-size: .9375rem; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .reasons { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; }
+  .reasons h3::before { content: "\2713"; color: var(--blue); margin-right: 8px; }
+
+  /* Contact */
+  .contact-box { border: 1px solid var(--line); background: var(--white); padding: 24px; }
+  address { font-style: normal; margin-bottom: 16px; }
+  dl { margin: 0; }
+  dt { font-weight: 700; }
+  dd { margin: 0 0 12px; }
+  form { display: grid; gap: 14px; }
+  label { font-weight: 600; font-size: .9375rem; }
+  input, textarea { display: block; width: 100%; margin-top: 4px; padding: 10px 12px; border: 1px solid #B9C1CC; border-radius: 0; font: inherit; background: var(--white); }
+  input:focus, textarea:focus, .btn:focus-visible, a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .sent { color: #1E6B35; font-weight: 600; }
+
+  footer { background: var(--ink); color: #C9CFD8; font-size: .9375rem; }
+  footer .wrap { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; padding-top: 40px; padding-bottom: 24px; }
+  footer a { color: var(--white); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  footer ul { list-style: none; margin: 0; padding: 0; }
+  footer h3 { color: var(--white); font-size: 1rem; }
+  .copy { border-top: 1px solid #3A4352; padding: 14px 0; font-size: .875rem; }
+  .copy .wrap { display: block; padding: 0 16px; }
+  .preview { background: #FFF6D6; color: #5A4500; font-size: .875rem; padding: 6px 16px; text-align: center; }
+
+  @media (max-width: 960px) {
+    nav.main, .head-cta { display: none; }
+    .menu { display: block; }
+    .hero .wrap, .two, .tables { grid-template-columns: 1fr; }
+    .hero .wrap { gap: 24px; padding-top: 28px; padding-bottom: 32px; }
+    .hero h1 { font-size: 2rem; }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .facts ul, .steps { grid-template-columns: 1fr 1fr; }
+    footer .wrap { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .grid, .reasons, .facts ul, .steps { grid-template-columns: 1fr; }
+    .section { padding: 40px 0; }
+    h2 { font-size: 1.5rem; }
+    .hero h1 { font-size: 1.75rem; }
+    .btn { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<p class="preview">Test page for the simpler design. Prices are real starting rates; forms here send nothing yet.</p>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>Call: <a href="tel:+919159030465">+91 91590 30465</a></span>
+    <span>Email: <a href="mailto:admin@windowworks.in">admin@windowworks.in</a></span>
+    <span>RS Puram, Coimbatore</span>
+  </div>
+</div>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="test-home.html"><img src="img/logo-white.png" width="520" height="324" alt="Window Works"></a>
+    <nav class="main" aria-label="Main">
+      <ul>
+        <li><a href="curtains.html">Curtains</a></li>
+        <li><a href="blinds.html">Blinds</a></li>
+        <li><a href="motorisation.html">Motorisation</a></li>
+        <li><a href="skylights.html">Skylights</a></li>
+        <li><a href="#prices">Prices</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn head-cta" href="estimate.html">Get a price</a>
+    <details class="menu">
+      <summary>Menu</summary>
+      <ul>
+        <li><a href="curtains.html">Curtains</a></li>
+        <li><a href="blinds.html">Blinds</a></li>
+        <li><a href="motorisation.html">Motorisation</a></li>
+        <li><a href="skylights.html">Skylights</a></li>
+        <li><a href="#prices">Prices</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="estimate.html">Get a price</a></li>
+      </ul>
+    </details>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Curtains and blinds, made to measure for your home</h1>
+        <p class="lead">Window Works has fitted curtains and blinds in Coimbatore since 2015. We bring the catalogues to your home, measure every window, stitch in our own workshop and fit them for you.</p>
+        <div class="actions">
+          <a class="btn" href="estimate.html">Get a rough price</a>
+          <a class="btn btn-line" href="tel:+919159030465">Call +91 91590 30465</a>
+        </div>
+      </div>
+      <img src="img/simple/hero.webp" width="1376" height="768" alt="A living room window with light grey curtains and a white roller blind" fetchpriority="high">
+    </div>
+  </section>
+
+  <div class="facts">
+    <div class="wrap">
+      <ul>
+        <li><strong>Since 2015</strong><span>Homes, offices and builders</span></li>
+        <li><strong>Measured at home</strong><span>Catalogues brought to you</span></li>
+        <li><strong>Our own tailors</strong><span>Stitched and checked in-house</span></li>
+        <li><strong>Fitted by our team</strong><span>Inspected after fitting</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="section" id="products">
+    <div class="wrap">
+      <h2>Our products</h2>
+      <p class="lead">Every piece is made to the size of your window. Prices shown are starting rates before GST; the final price is fixed after we measure.</p>
+      <div class="grid">
+        <article class="card">
+          <img src="img/simple/curtains.webp" width="1200" height="900" loading="lazy" alt="Beige eyelet curtains beside a bedroom window">
+          <div class="body"><h3>Curtains</h3><p>Eyelet, pleated, sheer and recess curtains in a wide range of fabrics.</p><p class="price" data-from="curtains">From ₹250 per metre</p><a class="more" href="curtains.html">View curtains →</a></div>
+        </article>
+        <article class="card">
+          <img src="img/simple/blinds.webp" width="1200" height="900" loading="lazy" alt="A white zebra blind on a dining room window">
+          <div class="body"><h3>Blinds</h3><p>Roller, zebra, Roman, venetian, wooden, vertical and more.</p><p class="price" data-from="blinds">From ₹55 per sq ft</p><a class="more" href="blinds.html">View blinds →</a></div>
+        </article>
+        <article class="card">
+          <img src="img/simple/motor.webp" width="1200" height="900" loading="lazy" alt="Sheer curtains on a ceiling track with a remote control on a side table">
+          <div class="body"><h3>Motorised curtains</h3><p>Open and close your curtains and blinds with a remote.</p><p class="price" data-motor>Motor from ₹15,000</p><a class="more" href="motorisation.html">View motorisation →</a></div>
+        </article>
+        <article class="card">
+          <img src="img/simple/skylight.webp" width="1200" height="900" loading="lazy" alt="A fabric shade under a glass roof on a terrace sit-out">
+          <div class="body"><h3>Skylights and pergola shades</h3><p>Shades for skylights, terraces and pergolas, indoors and outdoors.</p><p class="price">From ₹1,200 per sq ft</p><a class="more" href="skylights.html">View skylights →</a></div>
+        </article>
+        <article class="card">
+          <img src="img/simple/screen.webp" width="1200" height="900" loading="lazy" alt="A grey insect mesh screen in a white frame on an open window">
+          <div class="body"><h3>Insect screens</h3><p>Magnetic, sliding and pleated screens for windows and doors.</p><p class="price">Priced after a visit</p><a class="more" href="#contact">Ask us →</a></div>
+        </article>
+        <article class="card">
+          <img src="img/blinds/monsoon-640.webp" width="640" height="480" loading="lazy" alt="An outdoor monsoon blind on a veranda">
+          <div class="body"><h3>Outdoor and monsoon blinds</h3><p>For balconies and verandas that catch the sun and rain.</p><p class="price">From ₹280 per sq ft</p><a class="more" href="blinds.html">View outdoor blinds →</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft" id="prices">
+    <div class="wrap">
+      <h2>Price list</h2>
+      <p class="lead">Starting rates before GST. Click any item to work out a rough price for your own window.</p>
+      <div class="tables">
+        <table>
+          <caption>Blinds</caption>
+          <thead><tr><th>Type</th><th>From, per sq ft</th></tr></thead>
+          <tbody id="t-blinds"></tbody>
+        </table>
+        <table>
+          <caption>Curtains</caption>
+          <thead><tr><th>Type</th><th>From, per metre</th></tr></thead>
+          <tbody id="t-curtains"></tbody>
+        </table>
+      </div>
+      <p class="note">All prices are before GST. Curtain motors start from <span data-motor-plain>₹15,000</span> plus GST. Skylights from ₹1,200 per sq ft. Insect screens are priced after a visit.</p>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><h3>Get a rough price</h3><p>Enter your window sizes online, or call us.</p></li>
+        <li><h3>We visit your home</h3><p>We bring the catalogues and measure every window with you.</p></li>
+        <li><h3>Final price</h3><p>You get the exact price for the fabric and fittings you choose.</p></li>
+        <li><h3>Stitching and fitting</h3><p>Our tailors make it and our team fits it.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section soft" id="about">
+    <div class="wrap two">
+      <div>
+        <h2>Why Window Works</h2>
+        <p class="lead">Since 2015 we have handled the site visit, measuring, stitching and fitting for homes, offices, architects and builders.</p>
+        <ul class="reasons">
+          <li><h3>No outlet costs</h3><p>We don’t run a showroom, and that saving goes to you.</p></li>
+          <li><h3>Catalogues at your door</h3><p>See the fabrics against your own walls.</p></li>
+          <li><h3>Measured in front of you</h3><p>Every window measured during the visit.</p></li>
+          <li><h3>Our own tailors</h3><p>Stitched in-house and checked before fitting.</p></li>
+        </ul>
+      </div>
+      <img src="img/simple/curtains.webp" width="1200" height="900" loading="lazy" alt="Curtains fitted on a bedroom window" style="border:1px solid var(--line)">
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="wrap two">
+      <div>
+        <h2>Contact us</h2>
+        <p class="lead">Call us or leave your number and we will call you back to fix a visit.</p>
+        <dl>
+          <dt>Address</dt>
+          <dd>19, G.R.D Layout, A.A. Scheme Road<br>RS Puram, Coimbatore 641002<br><a href="https://www.google.com/maps/search/?api=1&amp;query=Window+Works+RS+Puram+Coimbatore" target="_blank" rel="noopener">Open in Google Maps</a></dd>
+          <dt>Phone</dt>
+          <dd><a href="tel:+919159030465">+91 91590 30465</a></dd>
+          <dt>Email</dt>
+          <dd><a href="mailto:admin@windowworks.in">admin@windowworks.in</a></dd>
+        </dl>
+      </div>
+      <div class="contact-box">
+        <h3>Ask us to call you</h3>
+        <form id="callback">
+          <label>Your name<input name="name" required autocomplete="name"></label>
+          <label>Mobile number<input name="phone" type="tel" inputmode="numeric" pattern="[0-9 +]{10,15}" required autocomplete="tel"></label>
+          <label>Area or PIN code<input name="area"></label>
+          <label>What do you need?<textarea name="need" rows="3"></textarea></label>
+          <button class="btn" type="submit">Request a call</button>
+          <p class="sent" role="status" hidden>Thank you. On the live site this goes straight to our team. On this test page nothing was sent.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="logo" href="test-home.html" style="display:inline-block;margin-bottom:12px"><img src="img/logo-white.png" width="520" height="324" alt="Window Works" loading="lazy"></a>
+      <p>Made-to-measure curtains, blinds, skylight shades and insect screens in Coimbatore since 2015.</p>
+    </div>
+    <div>
+      <h3>Products</h3>
+      <ul>
+        <li><a href="curtains.html">Curtains</a></li>
+        <li><a href="blinds.html">Blinds</a></li>
+        <li><a href="motorisation.html">Motorisation</a></li>
+        <li><a href="skylights.html">Skylights</a></li>
+        <li><a href="#prices">Price list</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p>19, G.R.D Layout, A.A. Scheme Road<br>RS Puram, Coimbatore 641002<br><a href="tel:+919159030465">+91 91590 30465</a><br><a href="mailto:admin@windowworks.in">admin@windowworks.in</a></p>
+    </div>
+  </div>
+  <div class="copy"><div class="wrap">© Window Works, Coimbatore</div></div>
+</footer>
+
+<script src="js/data.js"></script>
+<script>
+  (function () {
+    var WW = window.WW; if (!WW) return;
+    var r = WW.rates();
+    var inr = function (n) { return '₹' + Number(n).toLocaleString('en-IN'); };
+    var rows = function (list, cat) {
+      return list.map(function (p) {
+        var v = inr(p.rate) + (p.motor ? ' + motor' : '');
+        return '<tr><td><a href="estimate.html?cat=' + cat + '&p=' + p.id + '">' + p.name + '</a></td><td>' + v + '</td></tr>';
+      }).join('');
+    };
+    document.getElementById('t-blinds').innerHTML = rows(r.blinds, 'blinds');
+    document.getElementById('t-curtains').innerHTML = rows(r.curtains, 'curtains');
+    var min = function (list) { return Math.min.apply(null, list.map(function (p) { return p.rate; })); };
+    document.querySelector('[data-from="blinds"]').textContent = 'From ' + inr(min(r.blinds)) + ' per sq ft';
+    document.querySelector('[data-from="curtains"]').textContent = 'From ' + inr(min(r.curtains)) + ' per metre';
+    document.querySelector('[data-motor]').textContent = 'Motor from ' + inr(r.settings.motorFrom);
+    document.querySelector('[data-motor-plain]').textContent = inr(r.settings.motorFrom);
+  })();
+  document.getElementById('callback').addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.querySelector('.sent').hidden = false;
+  });
+</script>
+</body>
+</html>
