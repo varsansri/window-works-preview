@@ -6,6 +6,12 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Window Works | Curtains and blinds in Coimbatore (test page)</title>
 <meta name="description" content="Made-to-measure curtains, blinds, motorised curtains, skylight blinds and insect screens in RS Puram, Coimbatore. We measure at your home, stitch and fit.">
+<script>
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('motion-wait');
+    setTimeout(function () { document.documentElement.classList.remove('motion-wait'); }, 2500);
+  }
+</script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <style>
   :root {
@@ -122,6 +128,24 @@
   footer h3 { color: var(--white); font-size: 1rem; }
   .copy { border-top: 1px solid #3A4352; padding: 14px 0; font-size: .875rem; }
   .copy .wrap { display: block; padding: 0 16px; }
+  /* Motion helpers: no visual change at rest */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: clip; }
+  .motion-wait .hero-rise, .motion-wait .hero-photo, .motion-wait .hero h1 { opacity: 0; }
+  .blind, .hero-photo { overflow: hidden; }
+  .hero-photo { border: 1px solid var(--line); }
+  .hero .hero-photo img { border: 0; }
+  .btn { transition: background-color .15s ease, color .15s ease, border-color .15s ease, transform .12s ease; }
+  .btn:active { transform: scale(.98); }
+  @media (hover: hover) and (pointer: fine) {
+    .card .blind img { transition: transform .5s cubic-bezier(.2, .8, .2, 1); }
+    .card:hover .blind img { transform: scale(1.04); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .card .blind img { transition: none; }
+    .btn:active, .card:hover .blind img { transform: none; }
+  }
   .preview { background: #FFF6D6; color: #5A4500; font-size: .875rem; padding: 6px 16px; text-align: center; }
 
   @media (max-width: 960px) {
@@ -188,23 +212,23 @@
     <div class="wrap">
       <div>
         <h1>Curtains and blinds, made to measure for your home</h1>
-        <p class="lead">Window Works has fitted curtains and blinds in Coimbatore since 2015. We bring the catalogues to your home, measure every window, stitch in our own workshop and fit them for you.</p>
-        <div class="actions">
+        <p class="lead hero-rise">Window Works has fitted curtains and blinds in Coimbatore since 2015. We bring the catalogues to your home, measure every window, stitch in our own workshop and fit them for you.</p>
+        <div class="actions hero-rise">
           <a class="btn" href="estimate.html">Get a rough price</a>
           <a class="btn btn-line" href="tel:+919159030465">Call +91 91590 30465</a>
         </div>
       </div>
-      <img src="img/simple/hero.webp" width="1376" height="768" alt="A living room window with light grey curtains and a white roller blind" fetchpriority="high">
+      <div class="hero-photo"><img src="img/simple/hero.webp" width="1376" height="768" alt="A living room window with light grey curtains and a white roller blind" fetchpriority="high"></div>
     </div>
   </section>
 
   <div class="facts">
     <div class="wrap">
       <ul>
-        <li><strong>Since 2015</strong><span>Homes, offices and builders</span></li>
-        <li><strong>Measured at home</strong><span>Catalogues brought to you</span></li>
-        <li><strong>Our own tailors</strong><span>Stitched and checked in-house</span></li>
-        <li><strong>Fitted by our team</strong><span>Inspected after fitting</span></li>
+        <li class="rise"><strong>Since 2015</strong><span>Homes, offices and builders</span></li>
+        <li class="rise"><strong>Measured at home</strong><span>Catalogues brought to you</span></li>
+        <li class="rise"><strong>Our own tailors</strong><span>Stitched and checked in-house</span></li>
+        <li class="rise"><strong>Fitted by our team</strong><span>Inspected after fitting</span></li>
       </ul>
     </div>
   </div>
@@ -212,31 +236,31 @@
   <section class="section" id="products">
     <div class="wrap">
       <h2>Our products</h2>
-      <p class="lead">Every piece is made to the size of your window. Prices shown are starting rates before GST; the final price is fixed after we measure.</p>
+      <p class="lead rise">Every piece is made to the size of your window. Prices shown are starting rates before GST; the final price is fixed after we measure.</p>
       <div class="grid">
-        <article class="card">
-          <img src="img/simple/curtains.webp" width="1200" height="900" loading="lazy" alt="Beige eyelet curtains beside a bedroom window">
+        <article class="card rise">
+          <div class="blind"><img src="img/simple/curtains.webp" width="1200" height="900" loading="lazy" alt="Beige eyelet curtains beside a bedroom window"></div>
           <div class="body"><h3>Curtains</h3><p>Eyelet, pleated, sheer and recess curtains in a wide range of fabrics.</p><p class="price" data-from="curtains">From ₹250 per metre</p><a class="more" href="curtains.html">View curtains →</a></div>
         </article>
-        <article class="card">
-          <img src="img/simple/blinds.webp" width="1200" height="900" loading="lazy" alt="A white zebra blind on a dining room window">
+        <article class="card rise">
+          <div class="blind"><img src="img/simple/blinds.webp" width="1200" height="900" loading="lazy" alt="A white zebra blind on a dining room window"></div>
           <div class="body"><h3>Blinds</h3><p>Roller, zebra, Roman, venetian, wooden, vertical and more.</p><p class="price" data-from="blinds">From ₹55 per sq ft</p><a class="more" href="blinds.html">View blinds →</a></div>
         </article>
-        <article class="card">
-          <img src="img/simple/motor.webp" width="1200" height="900" loading="lazy" alt="Sheer curtains on a ceiling track with a remote control on a side table">
+        <article class="card rise">
+          <div class="blind"><img src="img/simple/motor.webp" width="1200" height="900" loading="lazy" alt="Sheer curtains on a ceiling track with a remote control on a side table"></div>
           <div class="body"><h3>Motorised curtains</h3><p>Open and close your curtains and blinds with a remote.</p><p class="price" data-motor>Motor from ₹15,000</p><a class="more" href="motorisation.html">View motorisation →</a></div>
         </article>
-        <article class="card">
-          <img src="img/simple/skylight.webp" width="1200" height="900" loading="lazy" alt="A fabric shade under a glass roof on a terrace sit-out">
-          <div class="body"><h3>Skylights and pergola shades</h3><p>Shades for skylights, terraces and pergolas, indoors and outdoors.</p><p class="price">From ₹1,200 per sq ft</p><a class="more" href="skylights.html">View skylights →</a></div>
+        <article class="card rise">
+          <div class="blind"><img src="img/simple/skylight.webp" width="1200" height="900" loading="lazy" alt="A fabric shade under a glass roof on a terrace sit-out"></div>
+          <div class="body"><h3>Skylights and pergola shades</h3><p>Shades for skylights, terraces and pergolas, indoors and outdoors.</p><p class="price">From <span data-count="1200">₹1,200</span> per sq ft</p><a class="more" href="skylights.html">View skylights →</a></div>
         </article>
-        <article class="card">
-          <img src="img/simple/screen.webp" width="1200" height="900" loading="lazy" alt="A grey insect mesh screen in a white frame on an open window">
+        <article class="card rise">
+          <div class="blind"><img src="img/simple/screen.webp" width="1200" height="900" loading="lazy" alt="A grey insect mesh screen in a white frame on an open window"></div>
           <div class="body"><h3>Insect screens</h3><p>Magnetic, sliding and pleated screens for windows and doors.</p><p class="price">Priced after a visit</p><a class="more" href="#contact">Ask us →</a></div>
         </article>
-        <article class="card">
-          <img src="img/blinds/monsoon-640.webp" width="640" height="480" loading="lazy" alt="An outdoor monsoon blind on a veranda">
-          <div class="body"><h3>Outdoor and monsoon blinds</h3><p>For balconies and verandas that catch the sun and rain.</p><p class="price">From ₹280 per sq ft</p><a class="more" href="blinds.html">View outdoor blinds →</a></div>
+        <article class="card rise">
+          <div class="blind"><img src="img/blinds/monsoon-640.webp" width="640" height="480" loading="lazy" alt="An outdoor monsoon blind on a veranda"></div>
+          <div class="body"><h3>Outdoor and monsoon blinds</h3><p>For balconies and verandas that catch the sun and rain.</p><p class="price">From <span data-count="280">₹280</span> per sq ft</p><a class="more" href="blinds.html">View outdoor blinds →</a></div>
         </article>
       </div>
     </div>
@@ -245,7 +269,7 @@
   <section class="section soft" id="prices">
     <div class="wrap">
       <h2>Price list</h2>
-      <p class="lead">Starting rates before GST. Click any item to work out a rough price for your own window.</p>
+      <p class="lead rise">Starting rates before GST. Click any item to work out a rough price for your own window.</p>
       <div class="tables">
         <table>
           <caption>Blinds</caption>
@@ -258,7 +282,7 @@
           <tbody id="t-curtains"></tbody>
         </table>
       </div>
-      <p class="note">All prices are before GST. Curtain motors start from <span data-motor-plain>₹15,000</span> plus GST. Skylights from ₹1,200 per sq ft. Insect screens are priced after a visit.</p>
+      <p class="note rise">All prices are before GST. Curtain motors start from <span data-motor-plain>₹15,000</span> plus GST. Skylights from ₹1,200 per sq ft. Insect screens are priced after a visit.</p>
     </div>
   </section>
 
@@ -266,10 +290,10 @@
     <div class="wrap">
       <h2>How it works</h2>
       <ol class="steps">
-        <li><h3>Get a rough price</h3><p>Enter your window sizes online, or call us.</p></li>
-        <li><h3>We visit your home</h3><p>We bring the catalogues and measure every window with you.</p></li>
-        <li><h3>Final price</h3><p>You get the exact price for the fabric and fittings you choose.</p></li>
-        <li><h3>Stitching and fitting</h3><p>Our tailors make it and our team fits it.</p></li>
+        <li class="rise"><h3>Get a rough price</h3><p>Enter your window sizes online, or call us.</p></li>
+        <li class="rise"><h3>We visit your home</h3><p>We bring the catalogues and measure every window with you.</p></li>
+        <li class="rise"><h3>Final price</h3><p>You get the exact price for the fabric and fittings you choose.</p></li>
+        <li class="rise"><h3>Stitching and fitting</h3><p>Our tailors make it and our team fits it.</p></li>
       </ol>
     </div>
   </section>
@@ -278,15 +302,15 @@
     <div class="wrap two">
       <div>
         <h2>Why Window Works</h2>
-        <p class="lead">Since 2015 we have handled the site visit, measuring, stitching and fitting for homes, offices, architects and builders.</p>
+        <p class="lead rise">Since 2015 we have handled the site visit, measuring, stitching and fitting for homes, offices, architects and builders.</p>
         <ul class="reasons">
-          <li><h3>No outlet costs</h3><p>We don’t run a showroom, and that saving goes to you.</p></li>
-          <li><h3>Catalogues at your door</h3><p>See the fabrics against your own walls.</p></li>
-          <li><h3>Measured in front of you</h3><p>Every window measured during the visit.</p></li>
-          <li><h3>Our own tailors</h3><p>Stitched in-house and checked before fitting.</p></li>
+          <li class="rise"><h3>No outlet costs</h3><p>We don’t run a showroom, and that saving goes to you.</p></li>
+          <li class="rise"><h3>Catalogues at your door</h3><p>See the fabrics against your own walls.</p></li>
+          <li class="rise"><h3>Measured in front of you</h3><p>Every window measured during the visit.</p></li>
+          <li class="rise"><h3>Our own tailors</h3><p>Stitched in-house and checked before fitting.</p></li>
         </ul>
       </div>
-      <img src="img/simple/curtains.webp" width="1200" height="900" loading="lazy" alt="Curtains fitted on a bedroom window" style="border:1px solid var(--line)">
+      <div class="blind" style="border:1px solid var(--line)"><img src="img/simple/curtains.webp" width="1200" height="900" loading="lazy" alt="Curtains fitted on a bedroom window" ></div>
     </div>
   </section>
 
@@ -294,8 +318,8 @@
     <div class="wrap two">
       <div>
         <h2>Contact us</h2>
-        <p class="lead">Call us or leave your number and we will call you back to fix a visit.</p>
-        <dl>
+        <p class="lead rise">Call us or leave your number and we will call you back to fix a visit.</p>
+        <dl class="rise">
           <dt>Address</dt>
           <dd>19, G.R.D Layout, A.A. Scheme Road<br>RS Puram, Coimbatore 641002<br><a href="https://www.google.com/maps/search/?api=1&amp;query=Window+Works+RS+Puram+Coimbatore" target="_blank" rel="noopener">Open in Google Maps</a></dd>
           <dt>Phone</dt>
@@ -304,7 +328,7 @@
           <dd><a href="mailto:admin@windowworks.in">admin@windowworks.in</a></dd>
         </dl>
       </div>
-      <div class="contact-box">
+      <div class="contact-box rise">
         <h3>Ask us to call you</h3>
         <form id="callback">
           <label>Your name<input name="name" required autocomplete="name"></label>
@@ -358,9 +382,10 @@
     document.getElementById('t-blinds').innerHTML = rows(r.blinds, 'blinds');
     document.getElementById('t-curtains').innerHTML = rows(r.curtains, 'curtains');
     var min = function (list) { return Math.min.apply(null, list.map(function (p) { return p.rate; })); };
-    document.querySelector('[data-from="blinds"]').textContent = 'From ' + inr(min(r.blinds)) + ' per sq ft';
-    document.querySelector('[data-from="curtains"]').textContent = 'From ' + inr(min(r.curtains)) + ' per metre';
-    document.querySelector('[data-motor]').textContent = 'Motor from ' + inr(r.settings.motorFrom);
+    var cnt = function (n) { return '<span data-count="' + n + '">' + inr(n) + '</span>'; };
+    document.querySelector('[data-from="blinds"]').innerHTML = 'From ' + cnt(min(r.blinds)) + ' per sq ft';
+    document.querySelector('[data-from="curtains"]').innerHTML = 'From ' + cnt(min(r.curtains)) + ' per metre';
+    document.querySelector('[data-motor]').innerHTML = 'Motor from ' + cnt(r.settings.motorFrom);
     document.querySelector('[data-motor-plain]').textContent = inr(r.settings.motorFrom);
   })();
   document.getElementById('callback').addEventListener('submit', function (e) {
@@ -368,5 +393,6 @@
     this.querySelector('.sent').hidden = false;
   });
 </script>
+<script type="module" src="/src/test-home-motion.js"></script>
 </body>
 </html>
