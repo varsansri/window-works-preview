@@ -165,7 +165,7 @@
     else if ('add' in t.dataset) { st.windows.push({ room: '', w: '', h: '', unit: st.windows[st.windows.length - 1].unit, qty: 1 }); st.active = st.windows.length - 1; render(); const r = $$('.win-row')[st.active]; $('input', r).focus(); }
     else if (t.dataset.remove !== undefined) { st.windows.splice(+t.dataset.remove, 1); st.active = 0; render(); }
     else if ('next' in t.dataset) { if (checkWindows()) go(3); else { render(); const bad = $('[aria-invalid=true]'); if (bad) bad.focus(); } }
-    else if ('print' in t.dataset) window.print();
+    else if ('print' in t.dataset) WW.printEstimate(st.lead);
     else if ('wa' in t.dataset) {
       window.open('https://wa.me/?text=' + encodeURIComponent(WW.waText(st.lead)), '_blank', 'noopener');
     }

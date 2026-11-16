@@ -1,0 +1,51 @@
+/* The printed estimate (see js/estimate-doc.js). Hidden on screen; when printing, it is the only thing on the page. */
+#est-doc { display: none; }
+@media print {
+  @page { size: A4; margin: 0; }
+  html.printing-doc body > *:not(#est-doc) { display: none !important; }
+  html.printing-doc body { margin: 0; background: #fff; }
+  html.printing-doc #est-doc { display: block; }
+}
+#est-doc { --b: #134AA2; --navy: #0B2A5B; --ink: #1D2430; --muted: #5A6372; --line: #DCE1E8; --soft: #F3F5F8;
+  color: var(--ink); font: 10pt/1.45 "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+#est-doc * { box-sizing: border-box; }
+#est-doc h1, #est-doc h2, #est-doc p { margin: 0; }
+.ed-page { width: 210mm; min-height: 296mm; padding: 14mm 15mm 12mm; display: flex; flex-direction: column; }
+.ed-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10mm; padding-bottom: 6mm; border-bottom: 2px solid var(--navy); }
+.ed-brand { display: flex; align-items: center; gap: 4mm; }
+.ed-logo { background: var(--b); padding: 2mm 3mm; display: block; }
+.ed-logo img { height: 14mm; width: auto; display: block; }
+.ed-biz { font-size: 16pt; font-weight: 700; color: var(--navy); line-height: 1.1; }
+.ed-tag { color: var(--muted); font-size: 9pt; margin-top: 1mm; }
+.ed-from { text-align: right; font-size: 8.5pt; color: var(--muted); line-height: 1.55; }
+.ed-titlebar { display: flex; justify-content: space-between; align-items: flex-end; margin: 7mm 0 6mm; }
+.ed-titlebar h1 { font-size: 24pt; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--navy); line-height: 1; }
+.ed-titlebar dl { display: flex; gap: 8mm; margin: 0; }
+.ed-titlebar dt { font-size: 7.5pt; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.ed-titlebar dd { margin: .5mm 0 0; font-weight: 700; font-size: 10.5pt; }
+.ed-parties { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-bottom: 7mm; }
+.ed-parties > div { background: var(--soft); padding: 4mm 5mm; border-left: 3px solid var(--b); }
+#est-doc h2 { font-family: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 700; margin-bottom: 1.5mm; }
+.ed-items { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+.ed-items th { background: var(--navy); color: #fff; font-weight: 600; text-align: left; padding: 2.4mm 3mm; font-size: 8.5pt; }
+.ed-items td { padding: 2.6mm 3mm; border-bottom: 1px solid var(--line); vertical-align: top; }
+.ed-items td span { display: block; color: var(--muted); font-size: 8.5pt; }
+.ed-items tbody tr:nth-child(even) td { background: #FAFBFC; }
+.ed-items .c { text-align: center; }
+.ed-items .r { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ed-sum { display: grid; grid-template-columns: 1fr 78mm; gap: 8mm; margin-top: 6mm; align-items: start; }
+.ed-terms ol { margin: 0; padding-left: 4.5mm; font-size: 8.5pt; color: var(--muted); }
+.ed-terms li { margin-bottom: 1.2mm; }
+.ed-totals { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+.ed-totals th { text-align: left; font-weight: 500; color: var(--muted); padding: 2mm 0; border-bottom: 1px solid var(--line); }
+.ed-totals td { text-align: right; padding: 2mm 0; border-bottom: 1px solid var(--line); font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ed-grand th, .ed-grand td { background: var(--navy); color: #fff; padding: 3mm 4mm; border: 0; font-size: 11pt; }
+.ed-grand th { font-weight: 600; color: #fff; }
+.ed-grand td { font-size: 14pt; font-weight: 700; }
+.ed-grand td span { font-size: 8.5pt; font-weight: 500; margin-left: 1.5mm; color: #D9E3F5; }
+.ed-next { margin-top: 9mm; }
+.ed-next ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; font-size: 8.5pt; }
+.ed-next li { border-top: 2px solid var(--b); padding-top: 2mm; }
+.ed-next b { display: block; color: var(--b); font-size: 12pt; line-height: 1.1; margin-bottom: 1mm; }
+.ed-foot { margin-top: auto; padding-top: 4mm; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 8pt; color: var(--muted); }

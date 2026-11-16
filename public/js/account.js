@@ -104,13 +104,8 @@
     } else if ('wa' in b.dataset) {
       window.open('https://wa.me/?text=' + encodeURIComponent(WW.waText(l)), '_blank', 'noopener');
     } else if ('print' in b.dataset) {
-      c.classList.add('is-printing'); document.body.classList.add('printing-one');
-      window.print();
+      WW.printEstimate(l);
     }
-  });
-  window.addEventListener('afterprint', () => {
-    document.body.classList.remove('printing-one');
-    const p = $('.is-printing'); if (p) p.classList.remove('is-printing');
   });
 
   main.addEventListener('submit', (e) => {
