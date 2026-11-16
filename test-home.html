@@ -22,6 +22,8 @@
     --line: #DCE1E8;
     --soft: #F3F5F8;
     --white: #FFFFFF;
+    --navy: #0B2A5B;
+    --amber: #F2B33D;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: auto; }
@@ -64,13 +66,25 @@
   .menu li a { display: block; padding: 12px 16px; color: var(--ink); text-decoration: none; border-top: 1px solid var(--soft); }
   header { position: relative; }
 
-  /* Hero */
-  .hero { background: var(--soft); }
-  .hero .wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px; align-items: center; padding-top: 48px; padding-bottom: 48px; }
-  .hero h1 { font-size: 2.5rem; }
-  .hero .lead { font-size: 1.0625rem; }
-  .hero .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
-  .hero img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border: 1px solid var(--line); }
+  /* Hero (from design B): navy band, the price form is the hero, photo sits on the bottom edge */
+  .hero { background: var(--navy); color: var(--white); padding-top: 36px; }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: end; }
+  .hero-text { padding-bottom: 36px; }
+  .hero h1 { font-size: 2.75rem; font-weight: 800; line-height: 1.15; margin-bottom: 12px; }
+  .hero .lead { color: #D9E3F5; font-size: 1.0625rem; margin-bottom: 22px; }
+  .quote { background: var(--white); color: var(--ink); padding: 24px; border-top: 5px solid var(--amber); }
+  .quote h2 { font-size: 1.25rem; margin-bottom: 14px; }
+  .quote form { gap: 12px; }
+  .quote .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .quote label { font-size: .875rem; font-weight: 700; }
+  .quote input, .quote select { border-color: #B8C1CF; }
+  select { display: block; width: 100%; margin-top: 4px; padding: 10px 12px; border: 1px solid #B9C1CC; border-radius: 0; font: inherit; background: var(--white); color: var(--ink); }
+  select:focus { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .btn-amber { background: var(--amber); border-color: var(--amber); color: var(--ink); font-weight: 800; width: 100%; text-align: center; padding: 13px 22px; }
+  .btn-amber:hover { background: #E3A42E; border-color: #E3A42E; }
+  .quote .fine { font-size: .8125rem; color: var(--muted); margin: 0; }
+  .hero .hero-photo { align-self: stretch; border: 0; }
+  .hero .hero-photo img { width: 100%; height: 100%; min-height: 380px; object-fit: cover; }
 
   /* Facts strip */
   .facts { border-bottom: 1px solid var(--line); }
@@ -134,8 +148,6 @@
   .lenis.lenis-stopped { overflow: clip; }
   .motion-wait .hero-rise, .motion-wait .hero-photo, .motion-wait .hero h1 { opacity: 0; }
   .blind, .hero-photo { overflow: hidden; }
-  .hero-photo { border: 1px solid var(--line); }
-  .hero .hero-photo img { border: 0; }
   .btn { transition: background-color .15s ease, color .15s ease, border-color .15s ease, transform .12s ease; }
   .btn:active { transform: scale(.98); }
   @media (hover: hover) and (pointer: fine) {
@@ -152,8 +164,10 @@
     nav.main, .head-cta { display: none; }
     .menu { display: block; }
     .hero .wrap, .two, .tables { grid-template-columns: 1fr; }
-    .hero .wrap { gap: 24px; padding-top: 28px; padding-bottom: 32px; }
+    .hero { padding-top: 28px; }
+    .hero-text { padding-bottom: 28px; }
     .hero h1 { font-size: 2rem; }
+    .hero .hero-photo { display: none; }
     .grid { grid-template-columns: 1fr 1fr; }
     .facts ul, .steps { grid-template-columns: 1fr 1fr; }
     footer .wrap { grid-template-columns: 1fr; }
@@ -163,6 +177,8 @@
     .section { padding: 40px 0; }
     h2 { font-size: 1.5rem; }
     .hero h1 { font-size: 1.75rem; }
+    .quote { padding: 20px 16px; }
+    .quote .row.pick { grid-template-columns: 1fr; }
     .btn { width: 100%; text-align: center; }
   }
 </style>
@@ -210,12 +226,29 @@
 <main>
   <section class="hero">
     <div class="wrap">
-      <div>
-        <h1>Curtains and blinds, made to measure for your home</h1>
-        <p class="lead hero-rise">Window Works has fitted curtains and blinds in Coimbatore since 2015. We bring the catalogues to your home, measure every window, stitch in our own workshop and fit them for you.</p>
-        <div class="actions hero-rise">
-          <a class="btn" href="estimate.html">Get a rough price</a>
-          <a class="btn btn-line" href="tel:+919159030465">Call +91 91590 30465</a>
+      <div class="hero-text">
+        <h1>Know your price before we visit</h1>
+        <p class="lead hero-rise">Curtains and blinds made to measure in Coimbatore since 2015. Enter your window size for a rough price, then we measure at your home.</p>
+        <div class="quote hero-rise">
+          <h2>Rough price for your window</h2>
+          <form id="hero-quote" action="estimate.html" method="get">
+            <div class="row pick">
+              <label>Product
+                <select name="cat" id="hq-cat"><option value="blinds" selected>Blinds</option><option value="curtains">Curtains</option></select>
+              </label>
+              <label>Style
+                <select name="p" id="hq-p">
+                  <option value="vertical">Vertical, from ₹55 / sq ft</option><option value="roller">Roller, from ₹80 / sq ft</option><option value="zebra" selected>Zebra, from ₹120 / sq ft</option><option value="venetian">Venetian, from ₹150 / sq ft</option><option value="roman">Roman, from ₹225 / sq ft</option><option value="wooden">Wooden, from ₹280 / sq ft</option><option value="monsoon">Monsoon, from ₹280 / sq ft</option><option value="honeycomb">Honeycomb, from ₹300 / sq ft</option><option value="panel">Panel, from ₹420 / sq ft</option><option value="zipper">External zipper, from ₹780 / sq ft</option><option value="insulated">Insulated glass, from ₹1,200 / sq ft</option>
+                </select>
+              </label>
+            </div>
+            <div class="row">
+              <label>Width (feet)<input name="w" type="number" inputmode="decimal" min="0.5" max="99" step="0.1" value="5" required></label>
+              <label>Height (feet)<input name="h" type="number" inputmode="decimal" min="0.5" max="99" step="0.1" value="6" required></label>
+            </div>
+            <button class="btn btn-amber" type="submit">See my rough price →</button>
+            <p class="fine">Starting rates before GST. No charge for the estimate.</p>
+          </form>
         </div>
       </div>
       <div class="hero-photo"><img src="img/simple/hero.webp" width="1376" height="768" alt="A living room window with light grey curtains and a white roller blind" fetchpriority="high"></div>
@@ -387,6 +420,18 @@
     document.querySelector('[data-from="curtains"]').innerHTML = 'From ' + cnt(min(r.curtains)) + ' per metre';
     document.querySelector('[data-motor]').innerHTML = 'Motor from ' + cnt(r.settings.motorFrom);
     document.querySelector('[data-motor-plain]').textContent = inr(r.settings.motorFrom);
+    /* Hero form: the Style list follows the Product choice; sending opens the quote tool with the sizes filled in. */
+    var cat = document.getElementById('hq-cat'), sty = document.getElementById('hq-p');
+    var short = function (n) { return n.replace(/ (blinds|curtains)$/i, ''); };
+    var fill = function (keep) {
+      var c = cat.value, unit = c === 'blinds' ? 'sq ft' : 'metre';
+      sty.innerHTML = r[c].map(function (p) {
+        return '<option value="' + p.id + '">' + short(p.name) + ', from ' + inr(p.rate) + ' / ' + unit + (p.motor ? ' + motor' : '') + '</option>';
+      }).join('');
+      sty.value = keep && r[c].some(function (p) { return p.id === keep; }) ? keep : (c === 'blinds' ? 'zebra' : 'eyelet');
+    };
+    fill(sty.value);
+    cat.addEventListener('change', function () { fill(); });
   })();
   document.getElementById('callback').addEventListener('submit', function (e) {
     e.preventDefault();
