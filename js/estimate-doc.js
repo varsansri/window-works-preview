@@ -37,7 +37,7 @@
     const who = [lead.name && `<strong>${esc(String(lead.name).replace(/^Sample:\s*/, ''))}</strong>`, lead.mobile && esc(WW.showMobile(lead.mobile)), lead.area && esc(lead.area), lead.email && esc(lead.email)].filter(Boolean).join('<br>');
     return `<div class="ed-page">
   <header class="ed-head">
-    <div class="ed-brand"><span class="ed-logo"><img src="/img/logo-white.png" alt="Window Works"></span>
+    <div class="ed-brand"><span class="ed-logo"><img src="img/logo-white.png" alt="Window Works"></span>
       <div><p class="ed-biz">${BIZ.name}</p><p class="ed-tag">${BIZ.tag}</p></div></div>
     <div class="ed-from">${BIZ.address.join('<br>')}<br>${BIZ.phone}<br>${BIZ.email} · ${BIZ.web}</div>
   </header>
