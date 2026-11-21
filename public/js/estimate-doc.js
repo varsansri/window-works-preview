@@ -26,7 +26,7 @@
     const rate = product ? `${money(product.rate)} / ${unit}` : '';
     const rows = res.lines.map((l, i) => `<tr>
         <td class="c">${i + 1}</td>
-        <td><strong>${esc(l.room) || 'Window'}</strong><span>${esc(mixed ? l.product || '' : lead.product)}</span></td>
+        <td><strong>${esc(l.room) || 'Window'}</strong><span>${esc(mixed ? l.pname || l.product || '' : lead.product)}</span></td>
         <td>${esc(l.w)} × ${esc(l.h)} ${esc(l.unit)}</td>
         <td>${l.measure ? esc(l.measure) : ''}</td>
         <td class="c">${esc(l.qty)}</td>
