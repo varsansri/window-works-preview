@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Get your estimate | Window Works</title>
+<meta name="description" content="Pick your curtains and blinds, enter each window's size and get a rough estimate for every room in one go. Window Works, RS Puram, Coimbatore.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estimate-doc.css">
+<style>
+  :root { --blue: #134AA2; --blue-dark: #0E3878; --ink: #1D2430; --muted: #5A6372; --line: #DCE1E8; --soft: #F3F5F8; --white: #FFFFFF; --navy: #0B2A5B; --amber: #F2B33D; --red: #B3261E; }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--white); color: var(--ink); font: 16px/1.6 "Segoe UI", Roboto, Arial, sans-serif; }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--blue); }
+  h1, h2, h3 { line-height: 1.25; margin: 0 0 .5em; }
+  p { margin: 0 0 1em; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+  .preview { margin: 0; background: #FFF6D6; color: #5A4500; font-size: .875rem; padding: 6px 16px; text-align: center; }
+  .btn { display: inline-block; padding: 11px 22px; border: 2px solid var(--blue); background: var(--blue); color: var(--white); font: inherit; font-weight: 600; text-decoration: none; border-radius: 0; cursor: pointer; }
+  .btn:hover { background: var(--blue-dark); border-color: var(--blue-dark); }
+  .btn-line { background: transparent; color: var(--blue); }
+  .btn-line:hover { background: var(--blue); color: var(--white); }
+  .btn-amber { background: var(--amber); border-color: var(--amber); color: var(--ink); font-weight: 800; }
+  .btn-amber:hover { background: #E3A42E; border-color: #E3A42E; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  body > header { background: var(--navy); font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif; position: relative; }
+  body > header .wrap { display: flex; align-items: center; gap: 28px; min-height: 76px; }
+  body > header .logo img { height: 50px; width: auto; }
+  body > header nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 24px; }
+  body > header nav a { color: #D9E3F5; font-weight: 600; font-size: 1.0625rem; text-decoration: none; }
+  body > header nav a:hover, body > header nav a[aria-current] { color: var(--white); text-decoration: underline; }
+  .call { margin-left: auto; text-align: right; line-height: 1.2; }
+  .call small { display: block; color: #AFC0DD; font-size: .8125rem; }
+  .call a { color: var(--amber); font-weight: 800; font-size: 1.375rem; text-decoration: none; }
+
+  .intro { background: var(--navy); color: var(--white); padding: 8px 0 28px; font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif; }
+  .intro h1 { font-size: 2.25rem; margin-bottom: 6px; }
+  .intro p { color: #D9E3F5; margin: 0; max-width: 46rem; }
+  .intro ol { list-style: none; display: flex; gap: 28px; padding: 0; margin: 16px 0 0; color: #AFC0DD; font-weight: 600; }
+  .intro ol b { color: var(--amber); margin-right: 6px; }
+
+  .shop { display: grid; grid-template-columns: 1fr 420px; gap: 32px; padding: 28px 16px 56px; align-items: start; }
+  .tabs { display: flex; border-bottom: 2px solid var(--line); margin-bottom: 18px; }
+  .tabs button { font: inherit; font-weight: 700; background: none; border: 0; padding: 10px 20px; margin-bottom: -2px; border-bottom: 3px solid transparent; color: var(--muted); cursor: pointer; }
+  .tabs button[aria-selected="true"] { color: var(--blue); border-bottom-color: var(--blue); }
+  .cat-note { color: var(--muted); font-size: .9375rem; margin: -6px 0 16px; }
+  .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .prod { border: 1px solid var(--line); display: flex; flex-direction: column; background: var(--white); }
+  .prod img { aspect-ratio: 4 / 3; -o-object-fit: cover; object-fit: cover; width: 100%; }
+  .prod .body { padding: 12px 14px 14px; display: flex; flex-direction: column; flex: 1; }
+  .prod h3 { font-size: 1.0625rem; margin-bottom: 2px; }
+  .prod p { color: var(--muted); font-size: .875rem; flex: 1; margin-bottom: 10px; }
+  .prod .rate { color: var(--ink); font-weight: 700; font-size: .9375rem; flex: 0; margin-bottom: 10px; }
+  .prod .btn { padding: 8px 14px; font-size: .9375rem; text-align: center; }
+  .prod .count { font-size: .8125rem; color: var(--blue); font-weight: 700; min-height: 1.3em; margin: 6px 0 0; flex: 0; }
+
+  .cart { position: sticky; top: 16px; border: 1px solid var(--line); background: var(--soft); }
+  .cart-head { background: var(--navy); color: var(--white); padding: 12px 16px; display: flex; justify-content: space-between; align-items: baseline; }
+  .cart-head h2 { font-size: 1.125rem; margin: 0; }
+  .cart-head span { color: #AFC0DD; font-size: .875rem; }
+  .cart-empty { padding: 24px 16px; color: var(--muted); margin: 0; }
+  .items { max-height: 58vh; overflow: auto; }
+  .item { background: var(--white); border-bottom: 1px solid var(--line); padding: 12px 16px; }
+  .item-top { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .item-top strong { font-size: .9375rem; }
+  .item-top .line-price { font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .item .rm { background: none; border: 0; color: var(--muted); font: inherit; font-size: .8125rem; text-decoration: underline; cursor: pointer; padding: 0; }
+  .item .rm:hover { color: var(--red); }
+  .fields { display: grid; grid-template-columns: 1.4fr 1fr 1fr .9fr .7fr; gap: 6px; margin-top: 8px; }
+  .fields label { font-size: .75rem; color: var(--muted); font-weight: 600; display: flex; flex-direction: column; gap: 2px; }
+  .fields input, .fields select, .who input { font: inherit; font-size: .9375rem; padding: 6px 7px; border: 1px solid var(--line); border-radius: 0; background: var(--white); color: var(--ink); width: 100%; min-width: 0; }
+  .fields input:focus, .fields select:focus, .who input:focus { outline: 2px solid var(--blue); outline-offset: -1px; }
+  [aria-invalid="true"] { border-color: var(--red) !important; }
+  .err { color: var(--red); font-size: .8125rem; margin: 6px 0 0; }
+  .item-foot { display: flex; justify-content: space-between; margin-top: 6px; font-size: .8125rem; color: var(--muted); }
+  .totals { padding: 14px 16px; border-top: 2px solid var(--navy); background: var(--white); }
+  .totals .row { display: flex; justify-content: space-between; font-size: .9375rem; color: var(--muted); }
+  .totals .big { color: var(--ink); font-size: 1.375rem; font-weight: 800; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .totals .fine { font-size: .8125rem; color: var(--muted); margin: 6px 0 12px; }
+  .totals .btn { width: 100%; }
+
+  .who { padding: 14px 16px 16px; background: var(--white); border-top: 1px solid var(--line); }
+  .who h3 { font-size: 1rem; margin-bottom: 8px; }
+  .who label { display: block; font-size: .8125rem; font-weight: 600; color: var(--muted); margin-bottom: 8px; }
+  .who .check { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; color: var(--ink); }
+  .who .check input { width: auto; margin-top: 4px; }
+  .who .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .who .btns .btn { flex: 1; }
+
+  /* The finished estimate, shown on screen as the same A4 sheet that prints */
+  .done { padding: 28px 16px 56px; }
+  .done-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
+  .done-bar h2 { margin: 0 auto 0 0; font-size: 1.5rem; }
+  .sheet-wrap { background: #E9ECF1; padding: 24px; overflow: hidden; }
+  .sheet { background: #fff; box-shadow: 0 2px 12px rgba(11,42,91,.15); margin: 0 auto; transform-origin: top left; width: 210mm; }
+  .done-note { color: var(--muted); margin-top: 14px; }
+
+  body > footer { background: var(--ink); color: #C9CFD8; font-size: .9375rem; }
+  body > footer .wrap { padding-top: 24px; padding-bottom: 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  body > footer a { color: var(--white); }
+
+  @media (max-width: 1100px) { .pgrid { grid-template-columns: 1fr 1fr; } .shop { grid-template-columns: 1fr 380px; } }
+  @media (max-width: 860px) {
+    body > header nav, .call small { display: none; }
+    body > footer { padding-bottom: 70px; }
+    .call a { font-size: 1rem; }
+    body > header .logo img { height: 44px; }
+    .intro h1 { font-size: 1.75rem; }
+    .intro ol { flex-direction: column; gap: 2px; }
+    .shop { grid-template-columns: 1fr; padding-bottom: 120px; }
+    .cart { position: static; }
+    .items { max-height: none; }
+    .sheet-wrap { padding: 10px; }
+  }
+  @media (max-width: 520px) {
+    .pgrid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .prod p.desc { display: none; }
+    .fields { grid-template-columns: 1fr 1fr 1fr; }
+    .fields .f-room { grid-column: 1 / -1; }
+  }
+  /* Phone: a bar at the bottom keeps the total in view */
+  .mbar { display: none; }
+  @media (max-width: 860px) {
+    .mbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--navy); color: var(--white); padding: 10px 16px; align-items: center; gap: 12px; }
+    .mbar[hidden] { display: none; }
+    .mbar p { margin: 0; flex: 1; line-height: 1.2; font-size: .875rem; color: #D9E3F5; }
+    .mbar strong { display: block; color: var(--white); font-size: 1.0625rem; }
+    .mbar .btn { padding: 9px 14px; }
+  }
+  @media print { body > header, body > footer, .preview, .mbar { display: none !important; } }
+</style>
+</head>
+<body>
+<p class="preview">Preview site. Prices are real starting rates; nothing is sent to Window Works yet.</p>
+<header>
+  <div class="wrap">
+    <a class="logo" href="./"><img src="img/logo-white.png" width="520" height="324" alt="Window Works"></a>
+    <nav aria-label="Main"><ul>
+      <li><a href="curtains.html">Curtains</a></li>
+      <li><a href="blinds.html">Blinds</a></li>
+      <li><a href="motorisation.html">Motorisation</a></li>
+      <li><a href="skylights.html">Skylights</a></li>
+      <li><a href="products.html" aria-current="page">Get estimate</a></li>
+    </ul></nav>
+    <div class="call"><small>Call us</small><a href="tel:+919159030465">+91 91590 30465</a></div>
+  </div>
+</header>
+
+<main id="app">
+  <section class="intro"><div class="wrap">
+    <h1>Get your estimate</h1>
+    <p>Pick the curtains and blinds you need, type each window's size, and get one estimate for your whole home.</p>
+    <ol><li><b>1</b>Pick products</li><li><b>2</b>Enter sizes</li><li><b>3</b>Get your estimate</li></ol>
+  </div></section>
+  <div class="wrap shop" id="shop">
+    <section aria-label="Products">
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" id="tab-blinds" aria-selected="true" data-tab="blinds">Blinds</button>
+        <button type="button" role="tab" id="tab-curtains" aria-selected="false" data-tab="curtains">Curtains</button>
+      </div>
+      <p class="cat-note" id="cat-note"></p>
+      <div class="pgrid" id="pgrid" role="tabpanel"></div>
+    </section>
+    <aside class="cart" id="cart" aria-label="Your estimate list"></aside>
+  </div>
+  <section class="wrap done" id="done" hidden></section>
+  <noscript><p class="wrap">This page needs JavaScript. Please call us on +91 91590 30465.</p></noscript>
+</main>
+<div class="mbar" id="mbar" hidden><p><span id="mbar-n"></span><strong id="mbar-t"></strong></p><a class="btn btn-amber" href="#cart">View list</a></div>
+
+<footer><div class="wrap"><span>© Window Works, 19, G.R.D Layout, A.A. Scheme Road, RS Puram, Coimbatore 641002</span><a href="tel:+919159030465">+91 91590 30465</a></div></footer>
+
+<script src="js/data.js"></script>
+<script src="js/estimate-doc.js"></script>
+<script src="js/products.js"></script>
+</body>
+</html>

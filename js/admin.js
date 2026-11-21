@@ -33,7 +33,7 @@
     if (!l) return `<aside class="detail"><p class="empty">Choose an enquiry to see its windows.</p></aside>`;
     const wins = l.windows.map((w) => {
       const f = WW.toFeet(w.w, w.unit), h = WW.toFeet(w.h, w.unit);
-      return `<div class="win">${WW.drawWindow(f, h, l.cat, { frame: '#081C45', glass: '#D9D2C2', cloth: '#081C45', w: 140, h: 120 })}<p>${esc(w.room)}<small>${esc(w.w)} × ${esc(w.h)} ${esc(w.unit)}${w.qty > 1 ? ', ' + esc(w.qty) + ' of these' : ''}</small></p></div>`;
+      return `<div class="win">${WW.drawWindow(f, h, w.cat || l.cat, { frame: '#081C45', glass: '#D9D2C2', cloth: '#081C45', w: 140, h: 120 })}<p>${esc(w.room)}<small>${w.pname ? esc(w.pname) + ' · ' : ''}${esc(w.w)} × ${esc(w.h)} ${esc(w.unit)}${w.qty > 1 ? ', ' + esc(w.qty) + ' of these' : ''}</small></p></div>`;
     }).join('');
     const acc = WW.findUser(l.mobile);
     const others = leads.filter((x) => x.id !== l.id && WW.digits(x.mobile) === WW.digits(l.mobile)).length;
