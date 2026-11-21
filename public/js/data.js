@@ -46,6 +46,18 @@
     return { lines, raw, low: up50(raw), high: up50(raw * (1 + s.rangeTopPct / 100)) };
   }
 
+  /* Many products in one estimate: each window line carries its own cat + pid. */
+  function calcMixed(windows, r) {
+    const lines = windows.map((win) => {
+      const product = (r[win.cat] || []).find((p) => p.id === win.pid);
+      if (!product) return { ...win, qty: Number(win.qty) || 1, cost: 0, measure: '' };
+      const l = calc(win.cat, product, [win], r.settings).lines[0];
+      return { ...l, product: product.name, rate: product.rate, unitName: win.cat === 'blinds' ? 'sq ft' : 'metre', motor: !!product.motor };
+    });
+    const raw = lines.reduce((t, l) => t + l.cost, 0);
+    return { lines, raw, low: up50(raw), high: up50(raw * (1 + r.settings.rangeTopPct / 100)), motor: lines.some((l) => l.motor) };
+  }
+
   const store = {
     get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* preview only */ } },
@@ -115,14 +127,14 @@
   }
   /* The estimate as a WhatsApp message. */
   function waText(lead) {
-    const r = rates(), product = findProduct(lead, r);
-    const lines = product ? calc(lead.cat, product, lead.windows, r.settings).lines : lead.windows;
+    const r = rates(), mixed = lead.cat === 'mixed', product = mixed ? null : findProduct(lead, r);
+    const lines = mixed ? calcMixed(lead.windows, r).lines : product ? calc(lead.cat, product, lead.windows, r.settings).lines : lead.windows;
     return [
       'Window Works rough estimate',
-      lead.product,
-      ...lines.map((l) => `${l.room || 'Window'}: ${l.w} × ${l.h} ${l.unit}${l.measure ? `, about ${l.measure}` : ''}${l.qty > 1 ? `, ${l.qty} of these` : ''}`),
+      ...(mixed ? [] : [lead.product]),
+      ...lines.map((l) => `${l.room || 'Window'}${mixed && l.product ? ` (${l.product})` : ''}: ${l.w} × ${l.h} ${l.unit}${l.measure ? `, about ${l.measure}` : ''}${l.qty > 1 ? `, ${l.qty} of these` : ''}`),
       `Rough price: ${rupees(lead.low)} to ${rupees(lead.high)} plus GST`,
-      ...(product && product.motor ? [`The motor is extra, starting from ${rupees(r.settings.motorFrom)} plus GST`] : []),
+      ...((product && product.motor) || (mixed && lines.some((l) => l.motor)) ? [`The motor is extra, starting from ${rupees(r.settings.motorFrom)} plus GST`] : []),
       'The final price is confirmed after measuring at home.'
     ].join('\n');
   }
@@ -156,7 +168,7 @@
   }
 
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const api = { DEFAULTS, toFeet, calc, rates, rupees, leads, addLead, store, drawWindow, esc,
+  const api = { DEFAULTS, toFeet, calc, calcMixed, rates, rupees, leads, addLead, store, drawWindow, esc,
     digits, validMobile, showMobile, findUser, saveUser, me, signIn, signOut, myLeads, CUSTOMER_STATUS, safeNext, findProduct, waText, clearErrorOnInput };
   if (typeof module !== 'undefined') module.exports = api; else root.WW = api;
 })(typeof window !== 'undefined' ? window : globalThis);

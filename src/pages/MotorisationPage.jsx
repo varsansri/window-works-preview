@@ -28,7 +28,7 @@ function PriceBoard({ settings, motorised, size, setSize }) {
   const r = ok ? W.calc('curtains', motorised, [{ room: '', w: size.w, h: size.h, unit: size.unit, qty }], settings) : null;
   const motors = settings.motorFrom * (ok ? qty : 1);
   const round = (n) => Math.round(n * 100) / 100;
-  const href = `estimate.html?cat=curtains&p=motorised${ok ? `&w=${round(wFt)}&h=${round(hFt)}&qty=${qty}` : ''}`;
+  const href = `products.html?cat=curtains&p=motorised${ok ? `&w=${round(wFt)}&h=${round(hFt)}&qty=${qty}` : ''}`;
   const wa = ok ? `https://wa.me/?text=${encodeURIComponent(`Window Works rough price\nMotorised curtains, ${size.w} × ${size.h} ${unitWord}${qty > 1 ? `, ${qty} windows` : ''}\nFabric ${W.rupees(r.low)} to ${W.rupees(r.high)} plus GST\nMotor from ${W.rupees(motors)} plus GST\nThe final price is confirmed after measuring at home.`)}` : null;
   return (
     <section id="price" className="bg-linen pt-20 lg:pt-28">
@@ -155,7 +155,7 @@ export default function MotorisationPage() {
           ['Blinds', 'Eleven kinds of blind, from ₹55 per sq ft.', 'blinds.html', 'img/blinds/zebra-640.webp', 'Cream zebra blinds in a dining room'],
           ['Skylights', 'Skylight shades, pergolas and louvers for terraces and sit-outs.', 'skylights.html', 'img/skylight-indoor.webp', 'Honeycomb blinds on a sloped skylight'],
         ]} />
-        <Visit title="See the motors at your home" pic="motor-hero" cta={['Start my estimate', 'estimate.html?cat=curtains&p=motorised']}
+        <Visit title="See the motors at your home" pic="motor-hero" cta={['Start my estimate', 'products.html?cat=curtains&p=motorised']}
           text="Get your rough price, then our team will call to book a visit at your home in Coimbatore. We bring the fabrics and talk you through the motors, and there’s no charge for the estimate." />
       </main>
       <Footer links={FOOT} />

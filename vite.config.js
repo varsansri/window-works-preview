@@ -5,6 +5,6 @@ export default defineConfig({
   base: './',
   plugins: [react()],
   build: {
-    rollupOptions: { input: { main: 'index.html', oldhome: 'old-home.html', estimate: 'estimate.html', admin: 'admin.html', blinds: 'blinds.html', login: 'login.html', account: 'account.html', curtains: 'curtains.html', motorisation: 'motorisation.html', skylights: 'skylights.html' } },
+    rollupOptions: { input: { main: 'index.html', oldhome: 'old-home.html', estimate: 'estimate.html', admin: 'admin.html', blinds: 'blinds.html', login: 'login.html', account: 'account.html', curtains: 'curtains.html', motorisation: 'motorisation.html', skylights: 'skylights.html', products: 'products.html' } },
   },
 });

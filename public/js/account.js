@@ -19,11 +19,11 @@
   }
 
   function windowsTable(l) {
-    const r = WW.rates(), product = WW.findProduct(l, r);
-    const lines = product ? WW.calc(l.cat, product, l.windows, r.settings).lines : l.windows;
+    const r = WW.rates(), mixed = l.cat === 'mixed', product = mixed ? null : WW.findProduct(l, r);
+    const lines = mixed ? WW.calcMixed(l.windows, r).lines : product ? WW.calc(l.cat, product, l.windows, r.settings).lines : l.windows;
     return `<table class="result-table"><thead><tr><th>Window</th><th class="hide-phone">Size</th><th>Billed</th><th class="n">How many</th></tr></thead><tbody>
-      ${lines.map((x) => `<tr><td>${esc(x.room) || 'Window'}</td><td class="hide-phone">${esc(x.w)} × ${esc(x.h)} ${esc(x.unit)}</td><td>${x.measure ? 'about ' + esc(x.measure) : ''}</td><td class="n">${esc(x.qty)}</td></tr>`).join('')}</tbody></table>
-      ${product && product.motor ? `<p class="motor-note">The motor is extra, starting from ${rupees(r.settings.motorFrom)} plus GST.</p>` : ''}`;
+      ${lines.map((x) => `<tr><td>${esc(x.room) || 'Window'}${mixed && x.product ? `<br><small>${esc(x.product)}</small>` : ''}</td><td class="hide-phone">${esc(x.w)} × ${esc(x.h)} ${esc(x.unit)}</td><td>${x.measure ? 'about ' + esc(x.measure) : ''}</td><td class="n">${esc(x.qty)}</td></tr>`).join('')}</tbody></table>
+      ${(product && product.motor) || (mixed && lines.some((x) => x.motor)) ? `<p class="motor-note">The motor is extra, starting from ${rupees(r.settings.motorFrom)} plus GST.</p>` : ''}`;
   }
 
   function card(l) {

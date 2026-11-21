@@ -215,6 +215,7 @@
         <li><a href="skylights.html">Skylights</a></li>
         <li><a href="#prices">Prices</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="products.html">Get estimate</a></li>
       </ul>
     </nav>
     <div class="call"><small>Call us</small><a href="tel:+919159030465">+91 91590 30465</a></div>
@@ -227,7 +228,7 @@
         <li><a href="skylights.html">Skylights</a></li>
         <li><a href="#prices">Prices</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="estimate.html">Get a price</a></li>
+        <li><a href="products.html">Get estimate</a></li>
       </ul>
     </details>
   </div>
@@ -241,7 +242,7 @@
         <p class="lead hero-rise">Curtains and blinds made to measure in Coimbatore since 2015. Enter your window size for a rough price, then we measure at your home.</p>
         <div class="quote hero-rise">
           <h2>Rough price for your window</h2>
-          <form id="hero-quote" action="estimate.html" method="get">
+          <form id="hero-quote" action="products.html" method="get">
             <div class="row pick">
               <label>Product
                 <select name="cat" id="hq-cat"><option value="blinds" selected>Blinds</option><option value="curtains">Curtains</option></select>
@@ -419,7 +420,7 @@
     var rows = function (list, cat) {
       return list.map(function (p) {
         var v = inr(p.rate) + (p.motor ? ' + motor' : '');
-        return '<tr><td><a href="estimate.html?cat=' + cat + '&p=' + p.id + '">' + p.name + '</a></td><td>' + v + '</td></tr>';
+        return '<tr><td><a href="products.html?cat=' + cat + '&p=' + p.id + '">' + p.name + '</a></td><td>' + v + '</td></tr>';
       }).join('');
     };
     document.getElementById('t-blinds').innerHTML = rows(r.blinds, 'blinds');

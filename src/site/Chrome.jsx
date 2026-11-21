@@ -29,7 +29,7 @@ export function Header({ links = HOME_LINKS, current }) {
           <a href={TEL} className="hidden md:inline-block line-link font-semibold text-[.9375rem] tabular-nums">{PHONE}</a>
           <a href={TEL} className="md:hidden font-semibold px-1 py-3">Call</a>
           <a href={acc.href} className="hidden sm:inline-block line-link font-semibold text-[.9375rem] max-w-[10rem] truncate" aria-label={acc.mine ? `My account, ${acc.label}` : undefined}>{acc.label}</a>
-          <a href="estimate.html" className="slat-btn !py-3 hidden sm:inline-flex"><span>Get a rough price</span></a>
+          <a href="products.html" className="slat-btn !py-3 hidden sm:inline-flex"><span>Get a rough price</span></a>
           <button type="button" className="xl:hidden font-semibold px-1 py-3 underline underline-offset-4 decoration-2 decoration-gold" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? 'Close' : 'Menu'}</button>
         </div>
       </div>
@@ -38,7 +38,7 @@ export function Header({ links = HOME_LINKS, current }) {
           {links.map(([t, h]) => <a key={h} href={h} className="py-2.5" onClick={() => setOpen(false)}>{t}</a>)}
           <a href={acc.href} className="py-2.5">{acc.mine ? `My account (${acc.label})` : 'Log in'}</a>
           <a href={TEL} className="py-2.5 font-semibold">Call {PHONE}</a>
-          <a href="estimate.html" className="slat-btn mt-2 w-full">Get a rough price</a>
+          <a href="products.html" className="slat-btn mt-2 w-full">Get a rough price</a>
         </nav>
       )}
     </header>
@@ -55,7 +55,7 @@ export function Footer({ links = FOOTER_LINKS }) {
             <p className="max-w-sm leading-relaxed">Curtains, sheers, blinds, skylights and insect screens, made to measure in Coimbatore since 2015.</p>
           </div>
           <nav aria-label="Footer" className="lg:col-span-2 grid gap-1 content-start">{links.map(([t, h]) => <a key={h} href={h} className="line-link w-fit">{t}</a>)}</nav>
-          <div className="lg:col-span-2 grid gap-1 content-start"><a href="estimate.html" className="line-link w-fit">Rough price</a><a href="account.html" className="line-link w-fit">My account</a><a href="https://www.instagram.com/windowworksindia/" target="_blank" rel="noopener" className="line-link w-fit">Instagram</a><a href="https://www.facebook.com/Window-Works-109946690354712/" target="_blank" rel="noopener" className="line-link w-fit">Facebook</a><a href="admin.html" className="line-link w-fit">Team view (demo)</a></div>
+          <div className="lg:col-span-2 grid gap-1 content-start"><a href="products.html" className="line-link w-fit">Rough price</a><a href="account.html" className="line-link w-fit">My account</a><a href="https://www.instagram.com/windowworksindia/" target="_blank" rel="noopener" className="line-link w-fit">Instagram</a><a href="https://www.facebook.com/Window-Works-109946690354712/" target="_blank" rel="noopener" className="line-link w-fit">Facebook</a><a href="admin.html" className="line-link w-fit">Team view (demo)</a></div>
           <address className="lg:col-span-3 not-italic leading-relaxed">19, G.R.D Layout, A.A. Scheme Road<br />RS Puram, Coimbatore 641002<br /><a href={TEL} className="line-link">{PHONE}</a><br /><a href="mailto:admin@windowworks.in" className="line-link">admin@windowworks.in</a></address>
         </div>
         <p className="mt-12 text-sm">Copyright 2026 Window Works. Preview by Mi Media Labs. Nothing entered on this preview reaches Window Works.</p>

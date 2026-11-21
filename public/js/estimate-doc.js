@@ -20,19 +20,20 @@
   }
 
   function build(lead) {
-    const r = WW.rates(), product = WW.findProduct(lead, r);
-    const res = product ? WW.calc(lead.cat, product, lead.windows, r.settings) : { lines: lead.windows, raw: 0, low: lead.low, high: lead.high };
+    const r = WW.rates(), mixed = lead.cat === 'mixed', product = mixed ? null : WW.findProduct(lead, r);
+    const res = mixed ? WW.calcMixed(lead.windows, r) : product ? WW.calc(lead.cat, product, lead.windows, r.settings) : { lines: lead.windows, raw: 0, low: lead.low, high: lead.high };
     const unit = lead.cat === 'blinds' ? 'sq ft' : 'metre';
     const rate = product ? `${money(product.rate)} / ${unit}` : '';
     const rows = res.lines.map((l, i) => `<tr>
         <td class="c">${i + 1}</td>
-        <td><strong>${esc(l.room) || 'Window'}</strong><span>${esc(lead.product)}</span></td>
+        <td><strong>${esc(l.room) || 'Window'}</strong><span>${esc(mixed ? l.product || '' : lead.product)}</span></td>
         <td>${esc(l.w)} × ${esc(l.h)} ${esc(l.unit)}</td>
         <td>${l.measure ? esc(l.measure) : ''}</td>
         <td class="c">${esc(l.qty)}</td>
-        <td class="r">${rate}</td>
+        <td class="r">${mixed ? (l.rate ? `${money(l.rate)} / ${l.unitName}` : '') : rate}</td>
         <td class="r">${l.cost ? money(l.cost) : ''}</td></tr>`).join('');
-    const motor = product && product.motor;
+    const motor = mixed ? res.motor : product && product.motor;
+    const kinds = mixed ? [...new Set(res.lines.map((l) => l.product).filter(Boolean))] : [];
     const who = [lead.name && `<strong>${esc(String(lead.name).replace(/^Sample:\s*/, ''))}</strong>`, lead.mobile && esc(WW.showMobile(lead.mobile)), lead.area && esc(lead.area), lead.email && esc(lead.email)].filter(Boolean).join('<br>');
     return `<div class="ed-page">
   <header class="ed-head">
@@ -44,7 +45,7 @@
     <dl><div><dt>Estimate no.</dt><dd>${number(lead)}</dd></div><div><dt>Date</dt><dd>${day(lead.at || Date.now())}</dd></div></dl></div>
   <section class="ed-parties">
     <div><h2>Prepared for</h2><p>${who || 'Customer'}</p></div>
-    <div><h2>Product</h2><p><strong>${esc(lead.product)}</strong><br>Starting rate ${rate || 'on request'}${lead.visit ? `<br>Visit asked for: ${esc(visitDay(lead.visit))}` : ''}</p></div>
+    <div><h2>${mixed ? 'Products' : 'Product'}</h2><p>${mixed ? `<strong>${kinds.length} product${kinds.length > 1 ? 's' : ''}</strong><br>${kinds.map(esc).join(', ')}` : `<strong>${esc(lead.product)}</strong><br>Starting rate ${rate || 'on request'}`}${lead.visit ? `<br>Visit asked for: ${esc(visitDay(lead.visit))}` : ''}</p></div>
   </section>
   <table class="ed-items">
     <thead><tr><th class="c">#</th><th>Window</th><th>Size</th><th>Billed as</th><th class="c">Qty</th><th class="r">Rate</th><th class="r">Amount</th></tr></thead>

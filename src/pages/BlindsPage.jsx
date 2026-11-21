@@ -65,7 +65,7 @@ function PriceBoard({ blinds, settings, size, setSize, sel, setSel }) {
   const priced = useMemo(() => blinds.map((b) => ({ b, r: ok ? W.calc('blinds', b, [{ room: '', w: size.w, h: size.h, unit: size.unit, qty }], settings) : null })), [blinds, settings, size, ok]);
   const cur = priced.find((x) => x.b.id === sel) || priced[0];
   const round = (n) => Math.round(n * 100) / 100;
-  const href = `estimate.html?cat=blinds&p=${cur.b.id}${ok ? `&w=${round(wFt)}&h=${round(hFt)}&qty=${qty}` : ''}`;
+  const href = `products.html?cat=blinds&p=${cur.b.id}${ok ? `&w=${round(wFt)}&h=${round(hFt)}&qty=${qty}` : ''}`;
   const wa = ok ? `https://wa.me/?text=${encodeURIComponent(`Window Works rough price\n${cur.b.name}, ${size.w} × ${size.h} ${unitWord}${qty > 1 ? `, ${qty} windows` : ''}\n${W.rupees(cur.r.low)} to ${W.rupees(cur.r.high)} plus GST\nThe final price is confirmed after measuring at home.`)}` : null;
   const set = (k) => (e) => setSize({ ...size, [k]: e.target.value });
   const fieldErr = !(wFt > 0 && hFt > 0) ? 'Enter both the width and the height to see prices.' : tooBig ? `That looks very large. Is the unit set to ${unitWord}?` : !okQty ? 'How many should be a whole number, 1 or more.' : null;
@@ -348,7 +348,7 @@ function Visit() {
           <h2 className="rise font-serif font-medium tracking-tight leading-[1.08] text-[2.25rem] sm:text-[2.75rem] lg:text-[3.5rem] mb-5">We bring the blinds to you</h2>
           <p className="rise text-[1.0625rem] leading-relaxed text-[#F4F1E9] max-w-xl mb-8">Get your rough price, then our team will call to book a visit at your home in Coimbatore. There’s no charge for the estimate.</p>
           <div className="rise flex flex-wrap items-center gap-x-6 gap-y-4">
-            <a href="estimate.html?cat=blinds" className="slat-btn slat-btn-gold"><span>Start my estimate</span><span aria-hidden="true">→</span></a>
+            <a href="products.html?cat=blinds" className="slat-btn slat-btn-gold"><span>Start my estimate</span><span aria-hidden="true">→</span></a>
             <a href={TEL} className="slat-btn slat-btn-light"><span>Call {PHONE}</span></a>
           </div>
           <address className="rise not-italic text-[.9375rem] leading-relaxed text-[#F4F1E9] mt-8">19, G.R.D Layout, A.A. Scheme Road, RS Puram, Coimbatore 641002</address>

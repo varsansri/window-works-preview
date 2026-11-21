@@ -12,7 +12,7 @@ function PriceBoard({ curtains, settings, size, setSize, sel, setSel }) {
   const priced = useMemo(() => curtains.map((c) => ({ c, r: ok ? W.calc('curtains', c, [{ room: '', w: size.w, h: size.h, unit: size.unit, qty }], settings) : null })), [curtains, settings, size, ok]);
   const cur = priced.find((x) => x.c.id === sel) || priced[0];
   const round = (n) => Math.round(n * 100) / 100;
-  const href = `estimate.html?cat=curtains&p=${cur.c.id}${ok ? `&w=${round(wFt)}&h=${round(hFt)}&qty=${qty}` : ''}`;
+  const href = `products.html?cat=curtains&p=${cur.c.id}${ok ? `&w=${round(wFt)}&h=${round(hFt)}&qty=${qty}` : ''}`;
   const wa = ok ? `https://wa.me/?text=${encodeURIComponent(`Window Works rough price\n${cur.c.name}, ${size.w} × ${size.h} ${unitWord}${qty > 1 ? `, ${qty} windows` : ''}\n${W.rupees(cur.r.low)} to ${W.rupees(cur.r.high)} plus GST${cur.c.motor ? `, ${motorText(settings)} plus GST` : ''}\nThe final price is confirmed after measuring at home.`)}` : null;
   const metres = ok ? cur.r.lines[0].measure : null;
   return (
@@ -260,7 +260,7 @@ export default function CurtainsPage() {
           ['Motorisation', 'Curtains and blinds that open by remote or from your phone.', 'motorisation.html', 'img/motorised.webp', 'A remote beside a motorised curtain track'],
           ['Skylights', 'Skylight shades, pergolas and louvers for terraces and sit-outs.', 'skylights.html', 'img/skylight-indoor.webp', 'Honeycomb blinds on a sloped skylight'],
         ]} />
-        <Visit title="We bring the curtains to you" pic="curtains-evening" cta={['Start my estimate', 'estimate.html?cat=curtains']}
+        <Visit title="We bring the curtains to you" pic="curtains-evening" cta={['Start my estimate', 'products.html?cat=curtains']}
           text="Get your rough price, then our team will call to book a visit at your home in Coimbatore. We bring the fabric catalogues with us, and there’s no charge for the estimate." />
       </main>
       <Footer links={FOOT} />

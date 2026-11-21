@@ -6,11 +6,11 @@
   html.printing-doc body { margin: 0; background: #fff; }
   html.printing-doc #est-doc { display: block; }
 }
-#est-doc { --b: #134AA2; --navy: #0B2A5B; --ink: #1D2430; --muted: #5A6372; --line: #DCE1E8; --soft: #F3F5F8;
+:is(#est-doc, .ed-screen) { --b: #134AA2; --navy: #0B2A5B; --ink: #1D2430; --muted: #5A6372; --line: #DCE1E8; --soft: #F3F5F8;
   color: var(--ink); font: 10pt/1.45 "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
   -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-#est-doc * { box-sizing: border-box; }
-#est-doc h1, #est-doc h2, #est-doc p { margin: 0; }
+:is(#est-doc, .ed-screen) * { box-sizing: border-box; }
+:is(#est-doc, .ed-screen) :is(h1, h2, p) { margin: 0; }
 .ed-page { width: 210mm; min-height: 296mm; padding: 14mm 15mm 12mm; display: flex; flex-direction: column; }
 .ed-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10mm; padding-bottom: 6mm; border-bottom: 2px solid var(--navy); }
 .ed-brand { display: flex; align-items: center; gap: 4mm; }
@@ -26,7 +26,7 @@
 .ed-titlebar dd { margin: .5mm 0 0; font-weight: 700; font-size: 10.5pt; }
 .ed-parties { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-bottom: 7mm; }
 .ed-parties > div { background: var(--soft); padding: 4mm 5mm; border-left: 3px solid var(--b); }
-#est-doc h2 { font-family: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 700; margin-bottom: 1.5mm; }
+:is(#est-doc, .ed-screen) h2 { font-family: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 700; margin-bottom: 1.5mm; }
 .ed-items { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
 .ed-items th { background: var(--navy); color: #fff; font-weight: 600; text-align: left; padding: 2.4mm 3mm; font-size: 8.5pt; }
 .ed-items td { padding: 2.6mm 3mm; border-bottom: 1px solid var(--line); vertical-align: top; }
