@@ -132,7 +132,7 @@
     return [
       'Window Works rough estimate',
       ...(mixed ? [] : [lead.product]),
-      ...lines.map((l) => `${l.room || 'Window'}${mixed && l.product ? ` (${l.product})` : ''}: ${l.w} × ${l.h} ${l.unit}${l.measure ? `, about ${l.measure}` : ''}${l.qty > 1 ? `, ${l.qty} of these` : ''}`),
+      ...lines.map((l) => `${l.room || 'Window'}${mixed && (l.pname || l.product) ? ` (${l.pname || l.product})` : ''}: ${l.w} × ${l.h} ${l.unit}${l.measure ? `, about ${l.measure}` : ''}${l.qty > 1 ? `, ${l.qty} of these` : ''}`),
       `Rough price: ${rupees(lead.low)} to ${rupees(lead.high)} plus GST`,
       ...((product && product.motor) || (mixed && lines.some((l) => l.motor)) ? [`The motor is extra, starting from ${rupees(r.settings.motorFrom)} plus GST`] : []),
       'The final price is confirmed after measuring at home.'

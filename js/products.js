@@ -9,6 +9,39 @@
     blinds: 'Blinds are priced per square foot of window (10 sq ft at least per blind).',
     curtains: 'Curtains are priced per metre of fabric, worked out from your window width and height.'
   };
+  /* Styles we commonly make for each product. Every style starts at the same rate; the real samples come to the home visit. */
+  const STYLES = {
+    vertical: [['Fabric slats', 'Soft, light-filtering'], ['PVC slats', 'Wipe-clean'], ['Blackout fabric', 'Dark rooms']],
+    roller: [['Blackout', 'Shuts out light'], ['Sunscreen', 'See out, cut glare'], ['Dim-out', 'Softens light'], ['Printed', 'Your own design']],
+    zebra: [['Standard', 'Sheer + solid bands'], ['Blackout bands', 'Darker when closed'], ['Wood-look', 'Textured bands'], ['Printed', 'Your own design']],
+    venetian: [['25 mm aluminium', 'Slim slats'], ['50 mm aluminium', 'Wide slats'], ['Faux wood', 'Wood look']],
+    roman: [['Flat fold', 'Neat, even pleats'], ['Relaxed fold', 'Soft curve at the base'], ['Lined blackout', 'For bedrooms']],
+    wooden: [['35 mm slats', 'Classic'], ['50 mm slats', 'Wide, bold'], ['With tapes', 'Cloth tapes over cords']],
+    monsoon: [['Clear PVC', 'Keep the view'], ['Tinted PVC', 'Less glare'], ['Outdoor fabric', 'More shade']],
+    honeycomb: [['Light filtering', 'Soft daylight'], ['Blackout', 'Shuts out light'], ['Day-night', 'Two fabrics in one']],
+    panel: [['Sheer panels', 'Light through'], ['Solid panels', 'Privacy'], ['Mixed', 'Sheer and solid']],
+    zipper: [['Sunscreen mesh', 'See out, cut heat'], ['Blackout', 'Full shade'], ['Clear PVC', 'Rain cover, keep the view']],
+    insulated: [['Venetian slats', 'Tilt for light'], ['Pleated', 'Folds up']],
+    sheers: [['Plain', 'Classic voile'], ['Textured', 'Linen look'], ['Printed', 'Your own design']],
+    eyelet: [['Plain', 'Solid colour'], ['Textured', 'Woven look'], ['Blackout lined', 'For bedrooms'], ['Printed', 'Your own design']],
+    pleated: [['Pinch pleat', 'Classic'], ['Box pleat', 'Flat, tailored'], ['Pencil pleat', 'Gathered']],
+    recess: [['Sheer', 'Light through'], ['Blackout', 'Shuts out light'], ['Sheer + blackout', 'Two layers']],
+    led: [['Warm light', 'Yellow glow'], ['Cool light', 'White glow']],
+    motorised: [['Single panel', 'Opens to one side'], ['Pair', 'Opens from the middle']]
+  };
+  const COLOURS = [['White', '#FFFFFF'], ['Ivory', '#F4EEDC'], ['Beige', '#D9C7A7'], ['Grey', '#9AA1A9'], ['Charcoal', '#3E434A'], ['Blue', '#3C5F95'], ['Brown', '#7A5638'], ['Choose at visit', '']];
+  const CAP = 'Colour and fabric shown may differ from what you choose.';
+  const GALLERY = (cat, id) => {
+    const own = [['img/' + id + '.webp', '']];
+    if (cat === 'blinds') return own.concat([['img/blinds/' + id + '.webp', ''], ['img/blinds/measure.webp', 'We measure every window at your home'], ['img/blinds/evening.webp', 'A finished room']]);
+    const extra = id === 'motorised' ? [['img/pages/motor-hero.webp', ''], ['img/pages/motor-remote.webp', 'Opened by remote']] : [['img/pages/curtains-hero.webp', 'A finished room']];
+    return own.concat(extra, [['img/pages/curtains-measure.webp', 'We measure every window at your home']]);
+  };
+  const ABOUT = {
+    blinds: ['Made to the exact size of your window by our own team in Coimbatore.', 'We measure at your home and bring real samples of every style and colour.', 'Fitted and checked by our team.', 'Priced per square foot of window, 10 sq ft at least per blind. GST is extra.'],
+    curtains: ['Stitched to your window by our own tailors.', 'We bring the fabric catalogues to your home and measure every window.', 'Curtains need about twice the window width in fabric so they hang in folds; the price includes this.', 'Priced per metre of fabric. GST is extra.']
+  };
+  const label = (i) => [i.style, i.colour && i.colour !== 'Choose at visit' ? i.colour : ''].filter(Boolean).join(', ');
   const per = (cat) => (cat === 'blinds' ? 'sq ft' : 'metre');
   const find = (cat, pid) => (R[cat] || []).find((p) => p.id === pid);
 
@@ -17,8 +50,8 @@
   const save = () => WW.store.set('ww-cart', st.items);
 
   function add(cat, pid, size) {
-    const last = st.items[st.items.length - 1];
-    st.items.push({ key: ++seq, cat, pid, room: '', w: size && size.w || '', h: size && size.h || '', unit: last ? last.unit : 'ft', qty: size && size.qty || 1 });
+    const last = st.items[st.items.length - 1], o = size || {};
+    st.items.push({ key: ++seq, cat, pid, room: o.room || '', w: o.w || '', h: o.h || '', unit: o.unit || (last ? last.unit : 'ft'), qty: o.qty || 1, style: o.style || (STYLES[pid] ? STYLES[pid][0][0] : ''), colour: o.colour || '' });
     save();
   }
 
@@ -51,10 +84,12 @@
     $('#pgrid').setAttribute('aria-labelledby', 'tab-' + st.tab);
     $('#pgrid').innerHTML = R[st.tab].map((p) => {
       const n = st.items.filter((i) => i.cat === st.tab && i.pid === p.id).length;
-      return `<article class="prod"><img src="img/${p.id}.webp" width="600" height="600" loading="lazy" alt="">
-        <div class="body"><h3>${esc(p.name)}</h3><p class="desc">${esc(p.desc)}</p>
+      const ns = (STYLES[p.id] || []).length;
+      return `<article class="prod"><a class="open" href="#/${st.tab}/${p.id}"><img src="img/${p.id}.webp" width="600" height="600" loading="lazy" alt=""></a>
+        <div class="body"><a class="open" href="#/${st.tab}/${p.id}"><h3>${esc(p.name)}</h3></a><p class="desc">${esc(p.desc)}</p>
         <p class="rate">From ₹${p.rate.toLocaleString('en-IN')} / ${per(st.tab)}</p>
         <button type="button" class="btn" data-add="${p.id}">Add window</button>
+        <a class="see" href="#/${st.tab}/${p.id}">See ${ns} styles and colours →</a>
         <p class="count" aria-live="polite">${n ? `${n} in your list` : ''}</p></div></article>`;
     }).join('');
   }
@@ -62,7 +97,7 @@
   function itemHTML(i, n) {
     const p = find(i.cat, i.pid), err = st.errors[i.key], c = lineCost(i);
     return `<div class="item" data-key="${i.key}">
-      <div class="item-top"><strong>${n}. ${esc(p.name)}</strong><span class="line-price">${c ? rupees(c.cost) : '–'}</span></div>
+      <div class="item-top"><strong>${n}. ${esc(p.name)}${label(i) ? `<small class="item-style">${esc(label(i))}</small>` : ''}</strong><span class="line-price">${c ? rupees(c.cost) : '–'}</span></div>
       <div class="fields">
         <label class="f-room">Room<input data-f="room" value="${esc(i.room)}" placeholder="Bedroom" autocomplete="off"></label>
         <label>Width<input data-f="w" type="number" inputmode="decimal" min="0" step="any" value="${esc(i.w)}" ${err ? 'aria-invalid="true"' : ''}></label>
@@ -211,14 +246,136 @@
     if (Object.keys(err).length) { cart(); const bad = $('#who [aria-invalid=true]') || $('#who input[name=consent]'); if (bad) bad.focus(); return; }
     if (!check()) { st.asking = false; cart(); return; }
     const digits = WW.digits(v.mobile);
-    const windows = st.items.map((i) => ({ room: i.room.trim() || 'Window', w: +i.w, h: +i.h, unit: i.unit, qty: +i.qty, cat: i.cat, pid: i.pid, pname: find(i.cat, i.pid).name }));
+    const windows = st.items.map((i) => ({ room: i.room.trim() || 'Window', w: +i.w, h: +i.h, unit: i.unit, qty: +i.qty, cat: i.cat, pid: i.pid, pname: find(i.cat, i.pid).name + (label(i) ? ' (' + label(i) + ')' : ''), style: i.style || '', colour: i.colour || '' }));
     const res = WW.calcMixed(windows, R);
-    const names = [...new Set(windows.map((w) => w.pname))];
+    const names = [...new Set(windows.map((w) => find(w.cat, w.pid).name))];
     st.lead = { id: 'L' + Date.now(), name: v.name, mobile: digits, area: v.area, email: v.email, visit: '', cat: 'mixed',
       product: names.length === 1 ? names[0] : names.length + ' products: ' + names.join(', '), windows, low: res.low, high: res.high, status: 'New', at: new Date().toISOString(), note: '' };
     WW.addLead(st.lead);
     showDone();
   });
 
-  grid(); cart();
+  /* ---------- Product page: opens at #/blinds/zebra ---------- */
+  const pd = { pic: 0, style: '', colour: '', w: '', h: '', unit: 'ft', qty: 1, room: '', added: false, err: '' };
+  function openProduct(cat, pid) {
+    if (!find(cat, pid)) return false;
+    if (pd.cat === cat && pd.pid === pid) return true;
+    const last = st.items[st.items.length - 1];
+    Object.assign(pd, { cat, pid, pic: 0, style: STYLES[pid] ? STYLES[pid][0][0] : '', colour: 'Choose at visit', w: '', h: '', unit: last ? last.unit : 'ft', qty: 1, room: '', added: false, err: '' });
+    return true;
+  }
+  const pdpPrice = () => lineCost({ cat: pd.cat, pid: pd.pid, w: pd.w, h: pd.h, unit: pd.unit, qty: pd.qty });
+  function buyHTML() {
+    const p = find(pd.cat, pd.pid), c = pdpPrice(), t = totals();
+    return `${pd.added ? `<div class="added" role="status">✓ Added to your list: ${st.items.length} line${st.items.length > 1 ? 's' : ''}${t ? `, ${rupees(t.low)} to ${rupees(t.high)}` : ''}.</div>` : ''}
+      <p class="bb-price" id="bb-price">${c ? rupees(c.cost) : `₹${p.rate.toLocaleString('en-IN')} / ${per(pd.cat)}`}</p>
+      <p class="bb-sub" id="bb-sub">${c ? `About ${c.measure} × ${c.qty}, before GST` : 'Type your window size to see your price'}</p>
+      <div class="bb-fields">
+        <label>Width<input data-b="w" type="number" inputmode="decimal" min="0" step="any" value="${esc(pd.w)}" ${pd.err ? 'aria-invalid="true"' : ''}></label>
+        <label>Height<input data-b="h" type="number" inputmode="decimal" min="0" step="any" value="${esc(pd.h)}" ${pd.err ? 'aria-invalid="true"' : ''}></label>
+        <label>Unit<select data-b="unit">${UNITS.map((u) => `<option value="${u[0]}" ${pd.unit === u[0] ? 'selected' : ''}>${u[1]}</option>`).join('')}</select></label>
+        <label>Qty<select data-b="qty">${Array.from({ length: 20 }, (_, k) => `<option ${+pd.qty === k + 1 ? 'selected' : ''}>${k + 1}</option>`).join('')}</select></label>
+        <label class="wide">Room (optional)<input data-b="room" value="${esc(pd.room)}" placeholder="Bedroom"></label>
+      </div>
+      ${pd.err ? `<p class="err" role="alert">${pd.err}</p>` : ''}
+      <button type="button" class="btn btn-amber" data-addpd>Add to estimate</button>
+      <button type="button" class="btn btn-orange" data-buynow>Get estimate now</button>
+      ${st.items.length ? `<a class="btn btn-line" href="#" data-golist>View your list (${st.items.length})</a>` : ''}
+      <dl class="bb-meta"><dt>Made by</dt><dd>Window Works, Coimbatore</dd><dt>Fitting</dt><dd>By our own team</dd><dt>Estimate</dt><dd>Free, no obligation</dd></dl>`;
+  }
+  function pdpHTML() {
+    const p = find(pd.cat, pd.pid), pics = GALLERY(pd.cat, pd.pid), styles = STYLES[pd.pid] || [];
+    const others = R[pd.cat].filter((x) => x.id !== pd.pid);
+    const catName = pd.cat === 'blinds' ? 'Blinds' : 'Curtains';
+    return `<p class="crumbs"><a href="#">All products</a> › <a href="#" data-cat="${pd.cat}">${catName}</a> › ${esc(p.name)}</p>
+      ${st.items.length ? `<div class="listbar"><strong>Your list: ${st.items.length} line${st.items.length > 1 ? 's' : ''}</strong><a href="#" data-golist>View list and get estimate →</a></div>` : ''}
+      <div class="pdp-grid">
+        <div class="gallery">
+          <div class="thumbs" role="group" aria-label="Pictures">${pics.map((g, k) => `<button type="button" data-pic="${k}" aria-pressed="${k === pd.pic}" aria-label="Picture ${k + 1}"><img src="${g[0]}" alt="" loading="lazy"></button>`).join('')}</div>
+          <div class="main-pic"><img id="main-pic" src="${pics[pd.pic][0]}" alt="${esc(p.name)}"></div>
+          <p class="pic-cap" id="pic-cap">${esc(pics[pd.pic][1] || CAP)}</p>
+        </div>
+        <div class="info">
+          <h1>${esc(p.name)}</h1>
+          <p class="by"><a href="./">Made by Window Works, Coimbatore</a></p>
+          <hr>
+          <div class="pricebox"><span class="from">Starting rate</span>
+            <p class="amt"><sup>₹</sup>${p.rate.toLocaleString('en-IN')} <small>/ ${per(pd.cat)}</small></p>
+            <p class="tax">Plus GST. The same starting rate for every style below.${p.motor ? ` The motor is extra, from ${rupees(R.settings.motorFrom)}.` : ''}</p></div>
+          <hr>
+          ${styles.length ? `<div class="opt"><p class="opt-label">Style: <b id="style-name">${esc(pd.style)}</b></p>
+            <div class="tiles">${styles.map((x) => `<button type="button" data-style="${esc(x[0])}" aria-pressed="${pd.style === x[0]}">${esc(x[0])}<small>${esc(x[1])}</small></button>`).join('')}</div></div>` : ''}
+          <div class="opt"><p class="opt-label">Colour: <b id="colour-name">${esc(pd.colour)}</b></p>
+            <div class="swatches">${COLOURS.map((c) => `<button type="button" data-colour="${c[0]}" aria-pressed="${pd.colour === c[0]}" aria-label="${c[0]}" title="${c[0]}" class="${c[1] ? '' : 'any'}"><span ${c[1] ? `style="background:${c[1]}"` : ''}></span></button>`).join('')}</div></div>
+          <hr>
+          <div class="about"><h2>About this item</h2><ul><li>${esc(p.desc)}</li>${ABOUT[pd.cat].map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>
+        </div>
+        <aside class="buybox" id="buybox" aria-label="Your size and price">${buyHTML()}</aside>
+      </div>
+      <section class="more"><h2>More ${catName.toLowerCase()}</h2>
+        <div class="strip">${others.map((x) => `<a href="#/${pd.cat}/${x.id}"><img src="img/${x.id}.webp" alt="" loading="lazy" width="180" height="180"><strong>${esc(x.name)}</strong><span>From ₹${x.rate.toLocaleString('en-IN')} / ${per(pd.cat)}</span></a>`).join('')}</div></section>`;
+  }
+  const paintPdp = () => { $('#pdp').innerHTML = pdpHTML(); };
+
+  function showList() {
+    if (location.hash) history.pushState(null, '', location.pathname);
+    route();
+  }
+  function route() {
+    const m = location.hash.match(/^#\/(blinds|curtains)\/([a-z]+)$/);
+    const isPdp = !!(m && openProduct(m[1], m[2]));
+    $('#done').hidden = true;
+    $('#pdp').hidden = !isPdp; $('#shop').hidden = isPdp; $('.intro').hidden = isPdp;
+    if (isPdp) { paintPdp(); document.title = find(pd.cat, pd.pid).name + ' | Window Works'; }
+    else { document.title = 'Get your estimate | Window Works'; grid(); cart(); }
+    mbar(); window.scrollTo({ top: 0 });
+  }
+  addEventListener('hashchange', route);
+
+  const pdp = $('#pdp');
+  pdp.addEventListener('click', (e) => {
+    const t = e.target.closest('button, a'); if (!t) return;
+    if (t.dataset.pic) {
+      pd.pic = +t.dataset.pic; const g = GALLERY(pd.cat, pd.pid)[pd.pic];
+      $('#main-pic').src = g[0]; $('#pic-cap').textContent = g[1] || CAP;
+      pdp.querySelectorAll('[data-pic]').forEach((b) => b.setAttribute('aria-pressed', String(b === t)));
+    } else if (t.dataset.style) {
+      pd.style = t.dataset.style; $('#style-name').textContent = pd.style;
+      pdp.querySelectorAll('[data-style]').forEach((b) => b.setAttribute('aria-pressed', String(b === t)));
+    } else if (t.dataset.colour) {
+      pd.colour = t.dataset.colour; $('#colour-name').textContent = pd.colour;
+      pdp.querySelectorAll('[data-colour]').forEach((b) => b.setAttribute('aria-pressed', String(b === t)));
+    } else if (t.dataset.cat) { e.preventDefault(); st.tab = t.dataset.cat; showList(); }
+    else if (t.getAttribute('href') === '#' && !('golist' in t.dataset)) { e.preventDefault(); showList(); }
+    else if ('golist' in t.dataset) { e.preventDefault(); showList(); $('#cart').scrollIntoView(); }
+    else if ('addpd' in t.dataset || 'buynow' in t.dataset) {
+      if (!sizeOK({ w: pd.w, h: pd.h, unit: pd.unit })) {
+        const w = WW.toFeet(pd.w, pd.unit), h = WW.toFeet(pd.h, pd.unit);
+        pd.err = w > 0 && h > 0 ? `That looks very large. Is the unit set to ${UNITS.find((u) => u[0] === pd.unit)[1]}?` : 'Please enter the width and the height.';
+        $('#buybox').innerHTML = buyHTML(); const bad = $('#buybox [aria-invalid=true]'); if (bad) bad.focus(); return;
+      }
+      add(pd.cat, pd.pid, { w: pd.w, h: pd.h, unit: pd.unit, qty: +pd.qty, room: pd.room.trim(), style: pd.style, colour: pd.colour === 'Choose at visit' ? '' : pd.colour });
+      if ('buynow' in t.dataset) {
+        st.asking = !!check();
+        showList(); $('#cart').scrollIntoView();
+        const n = $('#who input[name=name]'); if (n) n.focus({ preventScroll: true });
+        return;
+      }
+      Object.assign(pd, { added: true, w: '', h: '', room: '', qty: 1, err: '' });
+      paintPdp(); $('#buybox').scrollIntoView({ block: 'nearest' });
+    }
+  });
+  pdp.addEventListener('input', (e) => {
+    const f = e.target.dataset.b; if (!f) return;
+    pd[f] = e.target.value;
+    if (pd.err) { pd.err = ''; pdp.querySelectorAll('#buybox [aria-invalid]').forEach((x) => x.removeAttribute('aria-invalid')); const m = $('#buybox .err'); if (m) m.remove(); }
+    if (pd.added) { pd.added = false; const a = $('#buybox .added'); if (a) a.remove(); }
+    const c = pdpPrice(), p = find(pd.cat, pd.pid);
+    $('#bb-price').textContent = c ? rupees(c.cost) : `₹${p.rate.toLocaleString('en-IN')} / ${per(pd.cat)}`;
+    $('#bb-sub').textContent = c ? `About ${c.measure} × ${c.qty}, before GST` : 'Type your window size to see your price';
+  });
+  pdp.addEventListener('change', (e) => { if (e.target.matches('select[data-b]')) e.target.dispatchEvent(new Event('input', { bubbles: true })); });
+
+  route();
 })();
+
